@@ -1,0 +1,15 @@
+@import '../../../styles/globals.scss';
+
+.my-button {
+  background-color: $bgc-button;
+  border: none;
+  height: 32px;
+  border-width: 1px;
+  border-radius: 8px;
+  padding: 7px 11px;
+
+  color: #fff;
+  font-weight: 700;
+
+  transition-duration: .4s;
+}
