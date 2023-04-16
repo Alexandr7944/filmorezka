@@ -1,7 +1,4 @@
-$bgc-button: #ea003d;
-$bg-color: rgba(47, 55, 61, 095);
-$colorText: rgba(255,255,255,.48);
-$colorTextAccent: rgba(255,255,255,.56);
+@import './options.scss';
 
 * {
   box-sizing: border-box;
@@ -23,6 +20,10 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+li {
+  list-style: none;
 }
 
 .container {

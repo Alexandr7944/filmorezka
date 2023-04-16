@@ -6,12 +6,12 @@ const Home = () => {
   const navbar = [{title: 'Home'}]
 
   return (
-    <>
-      <MyContainer>
-        <Navbar link={navbar} />
-        Главная
-      </MyContainer>
-    </>
+    <MyContainer>
+      <Navbar link={navbar} />
+      <div className="container">
+        <h1>Главная</h1>
+      </div>
+    </MyContainer>
   )
 }
 

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import style from './navbar-style.module.sass';
+import style from './navbar-style.module.scss';
 
 type LinkType = {
   title: string,
