@@ -1,5 +1,10 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Components
+
+MyContainer - "контейнер" с тегом head имитирует html разметку, можно указывать ключевые словая для SEO;
+Navbar - принимает массив объектов со свойствами title, href?.
+
 ## Getting Started
 
 First, run the development server:
