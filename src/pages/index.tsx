@@ -3,7 +3,7 @@ import styles from '@/styles/Home.module.scss'
 import { MyContainer, Navbar } from '@/components';
 
 const Home = () => {
-  const navbar = [{title: 'Home'}]
+  const navbar = [{title: 'Home'}];
 
   return (
     <MyContainer>
