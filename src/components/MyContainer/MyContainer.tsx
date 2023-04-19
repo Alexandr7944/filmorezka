@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import React from 'react'
+import {Header} from "@/components/UI/Header";
 
 type MyContainerProps = {
   children: React.ReactNode,
@@ -13,6 +14,7 @@ const MyContainer: React.FC<MyContainerProps> = ({ children, keywords }) => {
         <meta name='keywords' content={'кино, сериалы, ' + keywords }/>
         <title>Фильморезка</title>
       </Head>
+      <Header></Header>
       {children}
     </>
   )

@@ -1,0 +1,15 @@
+@import '../../../../styles/options';
+
+.wrapper {
+  display: flex;
+  border-top: 1px solid $colorText;
+  padding: 35px 25px;
+  font-size: 15px;
+  line-height: 20px;
+  position: absolute;
+  z-index: 1;
+  background: $colorHeaderActive;
+  width: 100%;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
