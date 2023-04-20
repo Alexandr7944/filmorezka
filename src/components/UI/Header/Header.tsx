@@ -31,12 +31,12 @@ const Header: React.FC = () => {
     resetContent();
   }
 
-  const setContentHeaderHoverHandler = (e: React.MouseEvent<HTMLDivElement | SVGElement>, content: HeaderContent, type: TypeContent) => {
+  const setContentHeaderMouseEnterHandler = (e: React.MouseEvent<HTMLDivElement | SVGElement>, content: HeaderContent, type: TypeContent) => {
     setContentHeader(content);
     setTypeContentHeader(type);
   }
 
-  const resetContentHeaderHoverHandler = (e: React.MouseEvent<HTMLDivElement | SVGElement>) => {
+  const resetContentHeaderMouseEnterHandler = (e: React.MouseEvent<HTMLDivElement | SVGElement>) => {
     resetContent();
   }
 
@@ -76,8 +76,8 @@ const Header: React.FC = () => {
               key={uuidv4()}
               onMouseEnter={
                 item.content
-                  ? (e) => setContentHeaderHoverHandler(e, item.content!, item.typeContent!)
-                  : resetContentHeaderHoverHandler
+                  ? (e) => setContentHeaderMouseEnterHandler(e, item.content!, item.typeContent!)
+                  : resetContentHeaderMouseEnterHandler
               }
             >
               {item.title}
@@ -98,7 +98,7 @@ const Header: React.FC = () => {
               size='25px'
               className={styles['notification-icon']}
               onMouseEnter={(e) =>
-                setContentHeaderHoverHandler(e, notifications, TypeContent.Notification)
+                setContentHeaderMouseEnterHandler(e, notifications, TypeContent.Notification)
               }
             />
           </div>
@@ -106,7 +106,7 @@ const Header: React.FC = () => {
           <div
             className={styles['avatar']}
             onMouseEnter={(e) =>
-              setContentHeaderHoverHandler(e, user, TypeContent.User)
+              setContentHeaderMouseEnterHandler(e, user, TypeContent.User)
             }
           >
             <BiUser size='25px'/>

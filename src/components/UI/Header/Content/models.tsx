@@ -4,6 +4,7 @@ import {RiHistoryFill, RiSlideshow3Line} from "react-icons/ri";
 import {AiOutlineSafetyCertificate} from "react-icons/ai";
 
 interface IFormat  {
+  nameFormat: string,
   genres: string[],
   countries: string[],
   years: number[],
@@ -11,6 +12,7 @@ interface IFormat  {
 }
 
 const films: IFormat = {
+  nameFormat: 'Фильмы',
   genres: [
     'Артхаус', 'Биография', 'Боевики', 'Вестерн', 'Военные',
     'Детективы', 'Для всей семьи', 'Для детей', 'Документальные', 'Драмы',
@@ -27,6 +29,7 @@ const films: IFormat = {
 }
 
 const shows: IFormat = {
+  nameFormat: 'Сериалы',
   genres: [
     'Биография', 'Боевики', 'Военные', 'Детективы', 'Для всей семьи',
     'Документальные', 'Дорамы', 'Драмы', 'Исторические', 'Комедийные',
@@ -41,6 +44,7 @@ const shows: IFormat = {
 
 
 const cartoons: IFormat = {
+  nameFormat: 'Мультики',
   genres: [
     'Аниме', 'Боевик', 'Детектив', 'Для взрослых', 'Для всей семье',
     'Для детей', 'Драма', 'История', 'Комедия', 'Криминал',

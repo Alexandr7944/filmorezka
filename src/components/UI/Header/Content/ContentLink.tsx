@@ -58,7 +58,7 @@ const ContentLink: React.FC<ContentLinkProps> = ({content}) => {
           </div>
 
           <div className={styles['content']}>
-            {renderContentItems(content.years.map(year => `Фильмы ${year} года`))}
+            {renderContentItems(content.years.map(year => `${content.nameFormat} ${year} года`))}
           </div>
         </div>
       </div>
@@ -70,7 +70,9 @@ const ContentLink: React.FC<ContentLinkProps> = ({content}) => {
       </div>
 
       <div className={styles['activities']}>
-        <Teaser/>
+        <div className={styles['teaser']}>
+          <Teaser/>
+        </div>
 
         <div className={styles['button-watch']}>
           <SlScreenDesktop size={"18px"} className={styles['button-watch__icon']}/>
