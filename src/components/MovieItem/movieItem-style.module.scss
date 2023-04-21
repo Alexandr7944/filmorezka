@@ -1,0 +1,116 @@
+.movie {
+  width: 200px;
+
+  &__poster_mask {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    padding: 15px;
+    background-color: rgba($color: #000000, $alpha: .7);
+    opacity: 0;
+    transition: opacity 0.3;
+
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .movie__icons_tooltip {
+      position: absolute;
+      top: -10px;
+      padding: 5px;
+      margin-right: 20px;
+      white-space: nowrap;
+
+      border-radius: 5px;
+      background-color: #0b2d61;
+      display: none;
+    }
+
+    .movie__poster_wrapper {
+      width: 20px;
+      align-self: flex-end;
+      display: flex;
+      justify-content: flex-end;
+      position: relative;
+      &:hover {
+        .movie__icons_tooltip {
+          display: block;
+        }
+      }
+    }
+
+    .movie__icons {
+      font-size: 20px;
+      cursor: pointer;
+    }   
+  }
+
+  &:hover {
+    .movie__poster {
+      transform: scale(1.05) translateY(-7px);
+    }
+    .movie__poster_mask {
+      display: flex;
+      opacity: 1;
+    }
+  }
+
+  &__poster {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    transition: .3s;
+  }
+
+  &__poster-image {
+    width: 200px;
+    height: 300px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 20px;
+  }
+
+  &__subscription {
+    font-size: 12px;
+    color: #a5a1b2;
+  }
+
+  &__default {
+    flex: 0 0 200px;
+    height: 300px;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform .3s;
+    background-color: #3c394d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #a5a1b2;
+    .movie__poster {
+      text-align: center;
+      font-weight: 700;
+    }
+    &:hover {
+      transform: scale(1.05) translateY(-7px);
+      color: #fff;
+    }
+  }
+}
