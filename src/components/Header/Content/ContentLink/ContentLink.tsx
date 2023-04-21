@@ -1,9 +1,10 @@
 import React from "react";
-import styles from "@/components/Header/Content/contentLinks-style.module.scss";
-import {ContentProps, IFormat} from "@/components/Header/Content/models";
+import styles from './contentLinks-style.module.scss';
 import { v4 as uuidv4 } from 'uuid';
-import {SlScreenDesktop} from "react-icons/sl";
 import {Teaser} from "@/components/UI/Teaser";
+import { SlScreenDesktop } from "@/components/Icons/index";
+import { IFormat } from "../../models";
+import { ContentProps } from "../models";
 
 interface ContentLinkProps extends ContentProps {
   content: IFormat;

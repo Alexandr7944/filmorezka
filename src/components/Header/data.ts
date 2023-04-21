@@ -1,15 +1,8 @@
-import {BsBookmarkHeart, BsCart2, BsCreditCard2Front} from 'react-icons/bs';
-import {SlDiamond} from "react-icons/sl";
-import {RiHistoryFill, RiSlideshow3Line} from "react-icons/ri";
-import {AiOutlineSafetyCertificate} from "react-icons/ai";
-
-interface IFormat  {
-  nameFormat: string,
-  genres: string[],
-  countries: string[],
-  years: number[],
-  filters: string[]
-}
+import { AiOutlineSafetyCertificate } from "react-icons/ai";
+import { BsCart2, BsBookmarkHeart, BsCreditCard2Front } from "react-icons/bs";
+import { RiHistoryFill, RiSlideshow3Line } from "react-icons/ri";
+import { SlDiamond } from "react-icons/sl";
+import { IUser, INavigationItem, IFormat, INotification } from "./models";
 
 const films: IFormat = {
   nameFormat: 'Фильмы',
@@ -56,68 +49,40 @@ const cartoons: IFormat = {
   filters: ['Новинки', 'Мультики в HD']
 }
 
-interface INotification  {
+const notifications: INotification[] = [
 
-}
-
-const notifications: INotification[] = []
-
-enum icons {
-  Cart = BsCart2,
-  Bookmark = BsBookmarkHeart,
-  History = RiHistoryFill,
-  Diamond = SlDiamond,
-  Certificate = AiOutlineSafetyCertificate,
-  Slideshow = RiSlideshow3Line,
-  CreditCard = BsCreditCard2Front
-}
-
-interface ILink {
-  icon: icons
-  title: string
-  description?: string,
-  mark?: boolean
-}
-
-interface IOption {
-  title: string
-}
-
-interface IUser  {
-  links: ILink[]
-  options: IOption[]
-}
+]
 
 const user: IUser = {
   links: [
     {
-      icon: icons.Cart,
+      icon: BsCart2,
       title: 'Покупки'
     },
     {
-      icon: icons.Bookmark,
+      icon: BsBookmarkHeart,
       title: 'Смотреть позже'
     },
     {
-      icon: icons.History,
+      icon: RiHistoryFill,
       title: 'История просмотров'
     },
     {
-      icon: icons.Diamond,
+      icon: SlDiamond,
       title: 'Подписки',
       description: 'Подключить',
       mark: true
     },
     {
-      icon: icons.Certificate,
+      icon: AiOutlineSafetyCertificate,
       title: 'Активация сертификата'
     },
     {
-      icon: icons.Slideshow,
+      icon: RiSlideshow3Line,
       title: 'Вход по коду'
     },
     {
-      icon: icons.CreditCard,
+      icon: BsCreditCard2Front,
       title: 'Способы оплаты'
     },
   ],
@@ -131,29 +96,43 @@ const user: IUser = {
   ]
 }
 
-type HeaderContent = IFormat | INotification | IUser;
-
 enum TypeContent {
   Link,
   Notification,
   User
 }
 
-interface INavigationItem {
-  title: string,
-  content?: HeaderContent,
-  typeContent?: TypeContent
-}
-
-interface ContentProps {
-  content: HeaderContent
-}
+const navigationsItems: INavigationItem[] = [
+  {
+    title: 'Мой Иви'
+  },
+  {
+    title: 'Что нового'
+  },
+  {
+    title: 'Фильмы',
+    content: films,
+    typeContent: TypeContent.Link
+  },
+  {
+    title: 'Сериалы',
+    content: shows,
+    typeContent: TypeContent.Link
+  },
+  {
+    title: 'Мультфильмы',
+    content: cartoons,
+    typeContent: TypeContent.Link
+  },
+  {
+    title: 'TV+'
+  }
+]
 
 export {
-  HeaderContent, ContentProps,
-  IFormat, films, shows, cartoons,
-  INotification, notifications,
-  IUser, user,
-  icons,
-  INavigationItem, TypeContent
+    films, shows, cartoons,
+    notifications,
+    user,
+    TypeContent,
+    navigationsItems
 }

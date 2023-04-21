@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import styles from './teaser-style.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 
-type TeaserProps = {
+interface TeaserProps {
 }
 
 const renderImages = (images: string[]) => {

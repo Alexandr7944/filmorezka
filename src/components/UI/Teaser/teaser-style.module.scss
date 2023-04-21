@@ -65,8 +65,9 @@
 
     .image {
       width: 128px;
-      border-radius: 10px;
       height: 72px;
+      object-fit: cover;
+      border-radius: 10px;
     }
   }
 }
