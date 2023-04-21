@@ -19,8 +19,8 @@ import ContentUser from "@/components/Header/Content/ContentUser";
 const pictureSite:string = 'https://solea-parent.dfs.ivi.ru/picture/ea003d,ffffff/reposition_iviLogoPlateRounded.svg';
 
 const Header: React.FC = () => {
-  const [contentHeader, setContentHeader] = useState<HeaderContent>();
-  const [typeContentHeader, setTypeContentHeader] = useState<TypeContent>();
+  const [contentHeader, setContentHeader] = useState<HeaderContent | null>();
+  const [typeContentHeader, setTypeContentHeader] = useState<TypeContent | null>();
 
   const resetContent = () => {
     setContentHeader(null);

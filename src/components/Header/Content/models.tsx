@@ -150,10 +150,10 @@ interface ContentProps {
 }
 
 export {
+  films, shows, cartoons, notifications, user,
+  icons, TypeContent
+};
+export type {
   HeaderContent, ContentProps,
-  IFormat, films, shows, cartoons,
-  INotification, notifications,
-  IUser, user,
-  icons,
-  INavigationItem, TypeContent
-}
+  IFormat, INotification, IUser, INavigationItem
+};

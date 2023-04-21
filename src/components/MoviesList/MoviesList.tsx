@@ -33,6 +33,7 @@ const MoviesList: React.FC<IMoviesListProps> = ({ title, url }) => {
   useEffect(() => {
     Fetching.getAll(url)
       .then(movies => movies.films && setMovies(movies.films));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
