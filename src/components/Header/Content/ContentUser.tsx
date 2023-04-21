@@ -1,7 +1,8 @@
 import React from "react";
 import styles from "@/components/Header/Content/contentUser-style.module.scss";
-import {ContentProps, icons, IUser} from "@/components/Header/Content/models";
+import {ContentProps, IUser} from "@/components/Header/Content/models";
 import { v4 as uuidv4 } from 'uuid';
+import {IconBaseProps, icons} from "react-icons";
 
 interface ContentUserProps extends ContentProps {
   content: IUser;
@@ -9,8 +10,10 @@ interface ContentUserProps extends ContentProps {
 
 const sizeIcon: string = '22.5px';
 
-const getIcon = (icon: icons, size: string): JSX.Element => {
-  const IconComponent: icons = icon;
+type IconType = keyof typeof icons;
+
+const getIcon = (icon: IconType, size: string): JSX.Element => {
+  const IconComponent: IconType = icon;
   return <IconComponent size={size}/>;
 };
 
@@ -26,7 +29,7 @@ const ContentUser: React.FC<ContentUserProps> = ({content}) => {
             key={uuidv4()}
           >
             <div className={styles['item__icon']}>
-              {getIcon(link.icon, sizeIcon)}
+              {getIcon(link.icon as IconType, sizeIcon)}
             </div>
 
             <div className={styles['item__title']}>
