@@ -41,33 +41,31 @@ const MoviesList: React.FC<IMoviesListProps> = ({ title, url }) => {
 
   return (
     <div className={style.movies}>
-      <div className='container'>
-        <Link href="/collections/#" className={style.movies__link}>
-          <h3 className={style.title}>{ title }</h3>
-          <Arrow className={style.movies__arrow}/>
-        </Link>
-        <div className={style.movies__list} ref={list}>
-          <button
-            className={style.movies__btn}
-            onClick={getMovieItemLeft}
-          >
-            <BiChevronLeft />
-          </button>
-          <div className={style.movies__wrapper} ref={wrapper}>
-            {
-              movies?.length && movies.map((item, index) => 
-              index < 20 && <MovieItem key={item.filmId} movie={item} />
-              )
-            }
-            <MovieItemDefault link='/collections/#' />
-          </div>
-          <button
-            className={style.movies__btn}
-            onClick={getMovieItemRight}
-          >
-            <BiChevronRight />
-          </button>
+      <Link href="/collections/#" className={style.movies__link}>
+        <h3 className={style.title}>{ title }</h3>
+        <Arrow className={style.movies__arrow}/>
+      </Link>
+      <div className={style.movies__list} ref={list}>
+        <button
+          className={style.movies__btn}
+          onClick={getMovieItemLeft}
+        >
+          <BiChevronLeft />
+        </button>
+        <div className={style.movies__wrapper} ref={wrapper}>
+          {
+            movies?.length && movies.map((item, index) => 
+            index < 20 && <MovieItem key={item.filmId} movie={item} />
+            )
+          }
+          <MovieItemDefault link='/collections/#' />
         </div>
+        <button
+          className={style.movies__btn}
+          onClick={getMovieItemRight}
+        >
+          <BiChevronRight />
+        </button>
       </div>
     </div>
   )
