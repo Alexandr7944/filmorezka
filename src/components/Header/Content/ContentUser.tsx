@@ -1,8 +1,7 @@
 import React from "react";
 import styles from "@/components/Header/Content/contentUser-style.module.scss";
-import {ContentProps, IUser} from "@/components/Header/Content/models";
+import {ContentProps, icons, IUser} from "@/components/Header/Content/models";
 import { v4 as uuidv4 } from 'uuid';
-import {icons} from "react-icons";
 
 interface ContentUserProps extends ContentProps {
   content: IUser;
