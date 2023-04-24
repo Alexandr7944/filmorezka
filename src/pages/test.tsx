@@ -2,7 +2,7 @@ import { Navbar } from '@/components';
 import Fetching from '@/API/Fetching';
 import React, { useMemo, useState } from 'react';
 import { IMovie } from '@/interface/IMovie';
-import MoviesList from '@/components/MoviesList';
+import MoviesList from '@/components/MoviesSlider';
 
 
 
