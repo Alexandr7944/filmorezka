@@ -1,6 +1,6 @@
 import MyContainer from "./MyContainer/MyContainer";
 import Navbar from "./Navbar/Navbar";
-import MoviesList from "./MoviesList";
+import MoviesSlider from "./MoviesSlider";
 import { MovieItem, MovieItemDefault } from "./MovieItem";
 
 export {
@@ -8,5 +8,5 @@ export {
   Navbar,
   MovieItem,
   MovieItemDefault,
-  MoviesList,
+  MoviesSlider,
 }

@@ -1,4 +1,4 @@
-import style from './moviesList-style.module.scss';
+import style from './moviesSlider-style.module.scss';
 import Fetching from '@/API/Fetching';
 import { IMovie } from '@/interface/IMovie';
 import Link from 'next/link';
@@ -8,12 +8,12 @@ import {MovieItem, MovieItemDefault} from '../MovieItem';
 
 const WIDTH_ITEM = 200;
 
-interface IMoviesListProps {
+interface IMoviesSliderProps {
   title: string;
   url: string;
 }
 
-const MoviesList: React.FC<IMoviesListProps> = ({ title, url }) => {
+const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
   const [movies, setMovies] = useState<IMovie[] | undefined>([]);
   const [positionWrapper, setPositionWrapper] = useState(0);
   const list = useRef<null | HTMLDivElement>(null);
@@ -33,6 +33,7 @@ const MoviesList: React.FC<IMoviesListProps> = ({ title, url }) => {
   useEffect(() => {
     Fetching.getAll(url)
       .then(movies => movies.films && setMovies(movies.films));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -71,4 +72,4 @@ const MoviesList: React.FC<IMoviesListProps> = ({ title, url }) => {
   )
 }
 
-export default MoviesList
+export default MoviesSlider
