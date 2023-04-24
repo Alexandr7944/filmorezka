@@ -1,7 +1,8 @@
 import React from "react";
-import styles from "@/components/Header/Content/contentNotification-style.module.scss";
-import {ContentProps, INotification} from "@/components/Header/Content/models";
-import {MdOutlineNotificationsActive} from "react-icons/md";
+import styles from './contentNotification-style.module.scss';
+import { MdOutlineNotificationsActive } from "@/components/Icons/index";
+import { INotification } from "../../models";
+import { ContentProps } from "../models";
 
 interface ContentNotificationProps extends ContentProps {
   content: INotification;

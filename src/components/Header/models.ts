@@ -1,32 +1,46 @@
-import {cartoons, films, INavigationItem, shows, TypeContent} from "@/components/Header/Content/models";
+import { IconType } from 'react-icons';
+import { TypeContent} from './data';
 
-const navigationsItems: INavigationItem[] = [
-  {
-    title: 'Мой Иви'
-  },
-  {
-    title: 'Что нового'
-  },
-  {
-    title: 'Фильмы',
-    content: films,
-    typeContent: TypeContent.Link
-  },
-  {
-    title: 'Сериалы',
-    content: shows,
-    typeContent: TypeContent.Link
-  },
-  {
-    title: 'Мультфильмы',
-    content: cartoons,
-    typeContent: TypeContent.Link
-  },
-  {
-    title: 'TV+'
-  }
-]
+interface IFormat  {
+  nameFormat: string,
+  genres: string[],
+  countries: string[],
+  years: number[],
+  filters: string[]
+}
 
-export {
-  navigationsItems
-};
+interface INotification  {
+
+}
+
+interface ILink {
+  icon: IconType
+  title: string
+  description?: string,
+  mark?: boolean
+}
+
+interface IOption {
+  title: string
+}
+
+interface IUser  {
+  links: ILink[]
+  options: IOption[]
+}
+
+type HeaderContent = IFormat | INotification | IUser;
+
+interface INavigationItem {
+  title: string,
+  content?: HeaderContent,
+  typeContent?: TypeContent
+}
+
+export type {
+  HeaderContent, 
+  IFormat, 
+  INotification,
+  IUser,
+  INavigationItem
+}
