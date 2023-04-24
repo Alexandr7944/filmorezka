@@ -1,14 +1,13 @@
 import React from "react";
-import styles from './contentNotification-style.module.scss';
+import styles from './notification-style.module.scss';
 import { MdOutlineNotificationsActive } from "@/components/Icons/index";
-import { INotification } from "../../models";
-import { ContentProps } from "../models";
+import { DropDownProps, INotification } from "@/interface/Header";
 
-interface ContentNotificationProps extends ContentProps {
+interface NotificationProps extends DropDownProps {
   content: INotification;
 }
 
-const ContentNotification: React.FC<ContentNotificationProps> = ({content}) => {
+const Notification: React.FC<NotificationProps> = ({content}) => {
   return (
     <div
       className={styles['wrapper']}
@@ -23,4 +22,4 @@ const ContentNotification: React.FC<ContentNotificationProps> = ({content}) => {
   )
 }
 
-export default ContentNotification
+export default Notification

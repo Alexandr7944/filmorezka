@@ -1,8 +1,7 @@
 import { IconType } from 'react-icons';
-import { TypeContent} from './data';
 
 interface IFormat  {
-  nameFormat: string,
+  typeFormat: string,
   genres: string[],
   countries: string[],
   years: number[],
@@ -29,18 +28,33 @@ interface IUser  {
   options: IOption[]
 }
 
-type HeaderContent = IFormat | INotification | IUser;
+type Content = IFormat | INotification | IUser;
+
+enum TypeContent {
+  Format,
+  Notification,
+  User
+}
 
 interface INavigationItem {
   title: string,
-  content?: HeaderContent,
+  content?: IFormat | INotification | IUser,
   typeContent?: TypeContent
 }
 
+interface DropDownProps {
+  content: Content
+}
+
 export type {
-  HeaderContent, 
+  Content, 
   IFormat, 
   INotification,
   IUser,
-  INavigationItem
+  INavigationItem,
+  DropDownProps
+}
+
+export {
+  TypeContent
 }
