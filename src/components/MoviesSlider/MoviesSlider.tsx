@@ -1,4 +1,4 @@
-import style from './moviesslider-style.module.scss';
+import style from './moviesSlider-style.module.scss';
 import Fetching from '@/API/Fetching';
 import { IMovie } from '@/interface/IMovie';
 import Link from 'next/link';
