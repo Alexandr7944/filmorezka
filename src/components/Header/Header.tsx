@@ -8,36 +8,8 @@ import { HeaderContent, IFormat, INotification, IUser } from './models';
 
 const pictureSite: string = 'https://solea-parent.dfs.ivi.ru/picture/ea003d,ffffff/reposition_iviLogoPlateRounded.svg';
 
-<<<<<<< HEAD
-const Header: React.FC = () => {
-  const [contentHeader, setContentHeader] = useState<HeaderContent | null>();
-  const [typeContentHeader, setTypeContentHeader] = useState<TypeContent | null>();
-
-  const resetContent = () => {
-    setContentHeader(null);
-    setTypeContentHeader(null);
-  }
-
-  const headerMouseLeaveHandler = (e: React.MouseEvent<HTMLDivElement>) => {
-    resetContent();
-  }
-
-  const setContentHeaderMouseEnterHandler = (e: React.MouseEvent<HTMLDivElement | SVGElement>, content: HeaderContent, type: TypeContent) => {
-    setContentHeader(content);
-    setTypeContentHeader(type);
-  }
-
-  const resetContentHeaderMouseEnterHandler = (e: React.MouseEvent<HTMLDivElement | SVGElement>) => {
-    resetContent();
-  }
-
-  const getReactComponentByContent = (content: HeaderContent, typeContent: TypeContent): React.FC<ContentProps> => {
-    const ContentComponent: React.FC<ContentProps> = () => {
-      switch (typeContent) {
-=======
 const getReactComponentContent = (content: HeaderContent, typeContent: TypeContent): React.ReactNode => {
     switch (typeContent) {
->>>>>>> 94627f70312bdb11e388bd3d0ebafaa437a86299
         case TypeContent.Link:
             return <ContentLink content={content as IFormat} />;
         case TypeContent.Notification:
