@@ -1,16 +1,15 @@
 import React from "react";
-import styles from './contentUser-style.module.scss';
+import styles from './user-style.module.scss';
 import { v4 as uuidv4 } from 'uuid';
-import { IUser } from "../../models";
-import { ContentProps } from "../models";
+import { DropDownProps, IUser } from "@/interface/Header";
 
-interface ContentUserProps extends ContentProps {
+interface UserProps extends DropDownProps {
   content: IUser;
 }
 
 const sizeIcon: string = '22.5px';
 
-const ContentUser: React.FC<ContentUserProps> = ({content}) => {
+const User: React.FC<UserProps> = ({content}) => {
   return (
     <div
       className={styles['wrapper']}
@@ -65,4 +64,4 @@ const ContentUser: React.FC<ContentUserProps> = ({content}) => {
   )
 }
 
-export default ContentUser
+export default User

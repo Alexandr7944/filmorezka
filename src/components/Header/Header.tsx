@@ -2,42 +2,42 @@ import React, { useState } from 'react';
 import styles from './header-style.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 import { IoMdNotificationsOutline, BiSearch, BiUser } from '../Icons';
-import { ContentLink, ContentNotification, ContentUser } from './Content';
-import { TypeContent, navigationsItems, notifications, user } from './data';
-import { HeaderContent, IFormat, INotification, IUser } from './models';
+import { navigationsItems, notifications, user } from './data';
+import { Content, TypeContent, IFormat, INotification, IUser } from '@/interface/Header';
+import { Format, User, Notification } from './DropDown';
 
 const pictureSite: string = 'https://solea-parent.dfs.ivi.ru/picture/ea003d,ffffff/reposition_iviLogoPlateRounded.svg';
 
-const getReactComponentContent = (content: HeaderContent, typeContent: TypeContent): React.ReactNode => {
+const getDropDown = (content: Content, typeContent: TypeContent): React.ReactNode => {
     switch (typeContent) {
-        case TypeContent.Link:
-            return <ContentLink content={content as IFormat} />;
+        case TypeContent.Format:
+            return <Format content={content as IFormat} />;
         case TypeContent.Notification:
-            return <ContentNotification content={content as INotification} />;
+            return <Notification content={content as INotification} />;
         case TypeContent.User:
-            return <ContentUser content={content as IUser} />;
+            return <User content={content as IUser} />;
         default:
             throw new Error(`Нереализованный тип ${typeContent}`);
     }
 }
 
 const Header: React.FC = () => {
-    const [contentHeader, setContentHeader] = useState<HeaderContent | null>();
-    const [typeContentHeader, setTypeContentHeader] = useState<TypeContent | null>();
+    const [contentDropDown, setContentDropDown] = useState<Content | null>();
+    const [typeComponentDropDown, setTypeComponentDropDown] = useState<TypeContent | null>();
 
     const resetContent = () => {
-        setContentHeader(null);
-        setTypeContentHeader(null);
+        setContentDropDown(null);
+        setTypeComponentDropDown(null);
     }
 
-    const setContentHeaderMouseEnterHandler = (content: HeaderContent, type: TypeContent) => {
-        setContentHeader(content);
-        setTypeContentHeader(type);
+    const setContentHeaderMouseEnterHandler = (content: Content, type: TypeContent) => {
+        setContentDropDown(content);
+        setTypeComponentDropDown(type);
     }
 
     return (
         <div
-            className={`${styles['header']} ${contentHeader ? styles['header-active'] : ''}`}
+            className={`${styles['header']} ${contentDropDown ? styles['header-active'] : ''}`}
             onMouseLeave={(e) => resetContent()}
         >
             <div className={styles['links']}>
@@ -90,7 +90,7 @@ const Header: React.FC = () => {
                 </div>
             </div>
 
-            {contentHeader && getReactComponentContent(contentHeader, typeContentHeader!)}
+            {contentDropDown && getDropDown(contentDropDown, typeComponentDropDown!)}
         </div>
     )
 }

@@ -1,11 +1,11 @@
+import { IFormat, INavigationItem, INotification, IUser, TypeContent } from "@/interface/Header";
 import { AiOutlineSafetyCertificate } from "react-icons/ai";
 import { BsCart2, BsBookmarkHeart, BsCreditCard2Front } from "react-icons/bs";
 import { RiHistoryFill, RiSlideshow3Line } from "react-icons/ri";
 import { SlDiamond } from "react-icons/sl";
-import { IUser, INavigationItem, IFormat, INotification } from "./models";
 
 const films: IFormat = {
-  nameFormat: 'Фильмы',
+  typeFormat: 'Фильмы',
   genres: [
     'Артхаус', 'Биография', 'Боевики', 'Вестерн', 'Военные',
     'Детективы', 'Для всей семьи', 'Для детей', 'Документальные', 'Драмы',
@@ -22,7 +22,7 @@ const films: IFormat = {
 }
 
 const shows: IFormat = {
-  nameFormat: 'Сериалы',
+  typeFormat: 'Сериалы',
   genres: [
     'Биография', 'Боевики', 'Военные', 'Детективы', 'Для всей семьи',
     'Документальные', 'Дорамы', 'Драмы', 'Исторические', 'Комедийные',
@@ -37,7 +37,7 @@ const shows: IFormat = {
 
 
 const cartoons: IFormat = {
-  nameFormat: 'Мультики',
+  typeFormat: 'Мультики',
   genres: [
     'Аниме', 'Боевик', 'Детектив', 'Для взрослых', 'Для всей семье',
     'Для детей', 'Драма', 'История', 'Комедия', 'Криминал',
@@ -96,12 +96,6 @@ const user: IUser = {
   ]
 }
 
-enum TypeContent {
-  Link,
-  Notification,
-  User
-}
-
 const navigationsItems: INavigationItem[] = [
   {
     title: 'Мой Иви'
@@ -112,17 +106,17 @@ const navigationsItems: INavigationItem[] = [
   {
     title: 'Фильмы',
     content: films,
-    typeContent: TypeContent.Link
+    typeContent: TypeContent.Format
   },
   {
     title: 'Сериалы',
     content: shows,
-    typeContent: TypeContent.Link
+    typeContent: TypeContent.Format
   },
   {
     title: 'Мультфильмы',
     content: cartoons,
-    typeContent: TypeContent.Link
+    typeContent: TypeContent.Format
   },
   {
     title: 'TV+'
@@ -133,6 +127,5 @@ export {
     films, shows, cartoons,
     notifications,
     user,
-    TypeContent,
     navigationsItems
 }

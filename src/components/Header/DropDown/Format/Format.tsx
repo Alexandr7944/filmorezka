@@ -1,12 +1,11 @@
 import React from "react";
-import styles from './contentLinks-style.module.scss';
+import styles from './format-style.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 import {Teaser} from "@/components/UI/Teaser";
 import { SlScreenDesktop } from "@/components/Icons/index";
-import { IFormat } from "../../models";
-import { ContentProps } from "../models";
+import { DropDownProps, IFormat } from "@/interface/Header";
 
-interface ContentLinkProps extends ContentProps {
+interface FormatProps extends DropDownProps {
   content: IFormat;
 }
 
@@ -21,7 +20,7 @@ const renderContentItems = (items: string[] | number[]) => {
   ));
 };
 
-const ContentLink: React.FC<ContentLinkProps> = ({content}) => {
+const Format: React.FC<FormatProps> = ({content}) => {
   return (
     <div
       className={styles['wrapper']}
@@ -59,7 +58,7 @@ const ContentLink: React.FC<ContentLinkProps> = ({content}) => {
           </div>
 
           <div className={styles['content']}>
-            {renderContentItems(content.years.map(year => `${content.nameFormat} ${year} года`))}
+            {renderContentItems(content.years.map(year => `${content.typeFormat} ${year} года`))}
           </div>
         </div>
       </div>
@@ -84,4 +83,4 @@ const ContentLink: React.FC<ContentLinkProps> = ({content}) => {
   )
 }
 
-export default ContentLink
+export default Format
