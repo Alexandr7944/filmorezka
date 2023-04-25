@@ -1,0 +1,28 @@
+@import '../../styles/options.scss';
+
+.watchMovie {
+  width: 100%;
+  min-height: 100vh;
+  &__title {
+    @include title-h1;
+  }
+
+  &__video-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10%;
+    flex-wrap: wrap;
+  }
+
+  &__player {
+  }
+  
+  &__title {
+    flex: 0 1 45%
+  }
+
+  &__params-countryGenre {
+    text-transform: capitalize;
+  }
+}

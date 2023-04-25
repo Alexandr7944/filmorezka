@@ -3,14 +3,14 @@ export interface IMovie {
   filmId: number;
   filmLength: string;
   genres: Array<genre>;
-  nameEn: string;
+  nameEn: string | null;
   nameRu: string;
   posterUrl: string;
   posterUrlPreview: string;
   rating: string;
   ratingChange: null | string;
   ratingVoteCount: number;
-  year: string
+  year: number
 }
 
 type country = {
