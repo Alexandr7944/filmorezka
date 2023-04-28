@@ -132,7 +132,7 @@ const FooterMobile: React.FC = () => {
                   </radialGradient>
                   <path id="a" d="M0 0h64v48H0z" />
                 </defs>
-                <g fill-rule="evenodd" opacity=".64">
+                <g fillRule="evenodd" opacity=".64">
                   <mask id="d" fill="#fff">
                     <use xlinkHref="#a" />
                   </mask>
@@ -256,7 +256,7 @@ const FooterMobile: React.FC = () => {
                   </radialGradient>
                   <path id="a" d="M0 0h64v48H0z" />
                 </defs>
-                <g fill-rule="evenodd" opacity=".64">
+                <g fillRule="evenodd" opacity=".64">
                   <mask id="d" fill="#fff">
                     <use xlinkHref="#a" />
                   </mask>
@@ -379,7 +379,7 @@ const FooterMobile: React.FC = () => {
                   </radialGradient>
                   <path id="a" d="M0 0h64v48H0z" />
                 </defs>
-                <g fill-rule="evenodd" opacity=".64">
+                <g fillRule="evenodd" opacity=".64">
                   <mask id="d" fill="#fff">
                     <use xlinkHref="#a" />
                   </mask>
@@ -503,7 +503,7 @@ const FooterMobile: React.FC = () => {
                   </radialGradient>
                   <path id="a" d="M0 0h64v48H0z" />
                 </defs>
-                <g fill-rule="evenodd" opacity=".64">
+                <g fillRule="evenodd" opacity=".64">
                   <mask id="d" fill="#fff">
                     <use xlinkHref="#a" />
                   </mask>
@@ -625,7 +625,7 @@ const FooterMobile: React.FC = () => {
                   </radialGradient>
                   <path id="a" d="M0 0h64v48H0z" />
                 </defs>
-                <g fill-rule="evenodd" opacity=".64">
+                <g fillRule="evenodd" opacity=".64">
                   <mask id="d" fill="#fff">
                     <use xlinkHref="#a" />
                   </mask>
@@ -704,7 +704,7 @@ const FooterMobile: React.FC = () => {
           <div className={style.line + " " + style.padding}>
             <div className={style.links}>
               {navigationsItems.map((item: any, i) => (
-                <RenderContentItems key={uuidv4()} {...item} />
+                <RenderContentItems key={`key`+ i} {...item} />
               ))}
             </div>
           </div>
