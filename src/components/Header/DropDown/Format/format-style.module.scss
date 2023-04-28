@@ -1,0 +1,112 @@
+@import '../general-style.module.scss';
+
+.title {
+  color: white;
+  font-weight: 700;
+  padding-bottom: 8px;
+}
+
+.content__item {
+  padding-top: 6px;
+
+  .item__text {
+    cursor: pointer;
+
+    &:hover {
+      color: white;
+      transition-duration: .4s;
+    }
+  }
+}
+
+.genres {
+  flex-basis: 35%;
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+
+    .content__left-part,
+    .content__right-part {
+      flex-basis: 45%;
+    }
+  }
+}
+
+.content-link__wrapper {
+  flex-basis: 17.5%;
+  display: flex;
+  flex-direction: column;
+}
+
+.years {
+  margin-top: 20px;
+}
+
+.filters {
+  flex-basis: 25%;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-left: 1px solid $colorText;
+    z-index: -1;
+  }
+
+  .content {
+    margin: -4px 0 0;
+
+    .content__item {
+      padding-left: 15px;
+      padding-top: 0;
+      margin-top: 4px;
+
+      &:hover {
+        border-left: 1px solid white;
+        color: white;
+        transition-duration: .2s;
+      }
+    }
+  }
+}
+
+.activities {
+  flex-basis: 23.5%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  .teaser {
+    flex-grow: 1;
+  }
+
+  .button-watch {
+    display: flex;
+    width: 244px;
+    height: 40px;
+    background: $colorElementHeader;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      background: $colorElementHeaderHover;
+      transition-duration: 0.4s;
+    }
+
+    .button-watch__icon {
+      margin-right: 5px;
+    }
+
+    .button-watch__text {
+      margin-left: 5px;
+    }
+  }
+}

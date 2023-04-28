@@ -1,0 +1,159 @@
+@import '../../../styles/options.scss';
+
+.teaser {
+  width: 244px;
+  height: 250px;
+  background: $colorElementHeaderHover;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+
+  .left-fade,
+  .right-fade,
+  .bottom-fade {
+    position: absolute;
+    z-index: 1;
+  }
+
+  .left-fade {
+    height: 250px;
+    width: 64px;
+    background-image: linear-gradient(270deg, rgba(49, 43, 69, 0), rgba(49, 43, 69, .96));
+  }
+
+  .right-fade {
+    height: 250px;
+    width: 64px;
+    right: 0;
+    background-image: linear-gradient(90deg, rgba(49, 43, 69, 0), rgba(49, 43, 69, .96));
+  }
+}
+
+.carousel {
+  display: flex;
+
+  .top-wrapper,
+  .middle-wrapper,
+  .bottom-wrapper {
+    position: absolute;
+    width: 700px;
+    display: flex;
+  }
+
+  .top-wrapper,
+  .bottom-wrapper {
+    animation: move-to-left 30s linear infinite;
+    left: -65px;
+  }
+
+  .top-wrapper {
+    top: -48px;
+  }
+
+  .middle-wrapper {
+    left: -600px;
+    top: 30px;
+    animation: move-to-right 30s linear infinite;
+  }
+
+  .bottom-wrapper {
+    top: 108px;
+  }
+
+  .container-image {
+    margin: 0 3px;
+
+    .image {
+      width: 128px;
+      height: 72px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+  }
+}
+
+@keyframes move-to-right {
+  100% {
+    transform: translateX(535px);
+  }
+}
+
+@keyframes move-to-left {
+  100% {
+    transform: translateX(-535px);
+  }
+}
+
+.subscribe {
+  position: absolute;
+  top: 192px;
+  transition-duration: 0.4s;
+  z-index: 2;
+  width: 100%;
+
+  .bottom-fade {
+    top: -48px;
+    height: 48px;
+    width: 244px;
+    background-image: linear-gradient(180deg, rgba(49, 43, 69, 0), rgba(49, 43, 69, .96));
+  }
+
+  .subscribe__info {
+    display: flex;
+    padding: 0 20px 15px;
+    background: rgba(49, 43, 69, .95);
+  }
+
+  .picture-manufacturer {
+    width: 48px;
+    height: 48px;
+    background: red;
+    border-radius: 8px;
+  }
+
+  .text {
+    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .title {
+      color: white;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .price {
+      margin-top: 5px;
+      color: $colorTextAccent;
+      font-size: 13px;
+    }
+  }
+
+  .subscribe-button {
+    margin: 0 20px;
+    width: 212px;
+    height: 32px;
+    border-radius: 8px;
+    background: red;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .footnote {
+    padding: 0 20px;
+    text-align: center;
+    font-size: 10px;
+    color: $colorTextAccent;
+    margin-top: 10px;
+  }
+}
+
+.subscribe-active {
+  top: 120px;
+  transition-duration: 0.4s;
+}
