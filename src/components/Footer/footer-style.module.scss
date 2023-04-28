@@ -1,0 +1,353 @@
+@import "../../styles/options.scss";
+
+.mycontainer {
+  width: 100%;
+  max-width: 1400px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+.footer__container {
+  display: flex;
+  padding-bottom: 48px;
+  padding-top: 48px;
+  position: relative;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.footer__container2 {
+  display: flex;
+  padding-bottom: 10px;
+  position: relative;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.line {
+  border-top: 1px solid hsla(0, 0%, 100%, 0.16);
+}
+.fpadding{
+  padding-bottom: 80px;
+}
+
+.footer__column {
+  box-sizing: border-box;
+  padding-left: 12px;
+  padding-right: 12px;
+  width: 25%;
+}
+.footer__column_wide {
+  box-sizing: border-box;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.footer__title {
+  color: #fff;
+  display: block;
+  font-weight: 700;
+  padding-bottom: 10px;
+}
+.footer__linkList {
+  display: grid;
+  row-gap: 8px;
+}
+.footer__linkItem {
+  font-size: 15px;
+  font-style: normal;
+  line-height: 20px;
+
+  &:hover {
+    color: white;
+    transition-duration: 0.8s;
+  }
+}
+.footer__certificate {
+  background-image: -webkit-linear-gradient(135deg, #c447ff, #ea003d);
+  background-image: linear-gradient(-45deg, #c447ff, #ea003d);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  &__link {
+    font-weight: 700;
+  }
+}
+.footerWidget {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 286px;
+  &__iconSection {
+    position: relative;
+  }
+  &__text {
+    margin-top: 24px;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 400;
+    font-style: normal;
+    color: #a5a1b2;
+    text-align: center;
+  }
+}
+.line2 {
+  position: absolute;
+  width: 56px;
+  border: 2px solid white;
+  transform: rotate(68deg);
+  top: 51px;
+  border-radius: 5px;
+  background-color: white;
+  left: 26px;
+}
+.stores {
+  display: flex;
+  position: relative;
+  gap: 12px;
+}
+.dropdown {
+  display: none;
+}
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: inherit;
+}
+.footer {
+  padding-bottom: 40px;
+  &__navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  &__navigation_line {
+    display: flex;
+    flex-direction: row;
+    gap: 57px;
+  }
+  &__support {
+    margin-top: 20px;
+  }
+  &__community {
+    column-gap: 12px;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: flex-end;
+  }
+  &__communityLink {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px !important;
+  }
+  &__copyrights {
+    display: flex;
+    margin-top: 32px;
+    gap: 5px;
+    flex-direction: column;
+  }
+  &__textBlock {
+    margin-right: 14px;
+    margin-top: 8px;
+  }
+  &__stores_icons {
+    font-size: 20px;
+    color: white;
+    margin-left: 11px;
+  }
+  &__preamble {
+    font-size: 10px;
+  }
+
+  &__mute {
+    width: 104px;
+    display: flex;
+    height: 104px;
+    border-radius: 20px;
+    background: linear-gradient(180deg, #a869f0 0%, #834cc2 100%);
+    box-shadow: 0 0 104px #a869f0;
+    justify-content: center;
+    align-items: center;
+  }
+  &__flex {
+    padding-top: 12px;
+    display: flex;
+    gap: 12px;
+  }
+  &__button {
+    background: rgba(255, 255, 255, 0.094);
+    border-color: rgba(255, 255, 255, 0.094);
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    border-width: 1px;
+    border-radius: 8px;
+    height: 38px;
+   
+    a {
+      height: 16px;
+    }
+    &:hover {
+      background: #ffffff2e;
+      transition-duration: 0.8s;
+    }
+  }
+  &__button_support {
+    width: 40px;
+    height: 40px;
+  }
+  &__buttonstyle {
+    text-align: center;
+    width: 196px;
+    height: 40px;
+
+    padding: 11px 15px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 15px;
+  }
+  &__questions {
+    margin-top: 24px;
+    a {
+      color: #fff;
+    }
+  }
+}
+.tabBar__selected {
+  color: #ffffff !important;
+}
+.tabBar {
+  position: relative;
+  &__itemCaption {
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 500;
+    height: 12px;
+    line-height: 12px;
+    max-width: 100%;
+  }
+  &__itemGlowImage {
+    position: absolute;
+    top: 0;
+    opacity: 0;
+  }
+  &__itemGlow {
+    opacity: 1 !important;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    opacity: 0;
+  }
+
+  &__content {
+    box-shadow: 0 -20px 40px rgba(7, 5, 14, 0.24);
+    box-sizing: border-box;
+    display: flex;
+    height: 48px;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    background-color: rgba(31, 27, 46, 0.477);
+    gap: 20px;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    z-index: 1001;
+  }
+  &__item {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 120px;
+    &:hover {
+      color: #ffffff;
+      transition-duration: 0.8s;
+    }
+  }
+  &__itemIcon {
+    z-index: 3;
+    color: #fff;
+  }
+}
+.drawer {
+  background-color: $bg-color;
+  display: none;
+  left: 0;
+  overflow: hidden;
+  overflow-y: auto;
+  position: fixed;
+  right: 0;
+  scroll-behavior: smooth;
+  bottom: 0px;
+  top: 0px;
+  z-index: 1000;
+  &__isOpen {
+    background-color: $bg-color;
+    display: block;
+    left: 0;
+    overflow: hidden;
+    overflow-y: auto;
+    position: fixed;
+    right: 0;
+    scroll-behavior: smooth;
+    bottom: 0px;
+    top: 72px;
+    z-index: 1000;
+  }
+}
+
+.isAbTest {
+  top: 72px;
+}
+.modal {
+  height: 100px;
+  overflow-y: hidden;
+}
+
+.padding {
+  padding: 20px 0px;
+}
+
+
+
+@media (min-width: 1043px) {
+  .tabBar {
+    display: none;
+  }
+  .modal{
+    height: 100vh;
+    overflow-y: visible;
+  }
+
+}
+
+@media (max-width: 1043px) {
+  .footer__desktop {
+    display: none;
+  }
+  .footer__button_width{
+    width: 49%;
+  }
+
+
+}
+@media (max-width: 575px) {
+  .footer__button_width {
+    width: 300px;
+  }
+  .footer__container{
+    gap: 20px;
+  }
+  .footer__container2{
+    gap: 20px;
+  }
+
+}
