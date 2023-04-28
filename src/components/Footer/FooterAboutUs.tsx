@@ -7,25 +7,25 @@ const FooterAboutUs: React.FC = () => {
       <span className={style.footer__title}>О нас</span>
       <ul className={style.footer__linkList}>
         <li className={style.footer__linkItem}>
-          <a href="https://corp.ivi.ru/" className="nbl-link">
+          <a href="https://corp.ivi.ru/" >
             О компании
           </a>
         </li>
         <li className={style.footer__linkItem}>
           <a
             href="https://corp.ivi.ru/career/#career-vacancy-block"
-            className="nbl-link"
+            
           >
             Вакансии
           </a>
         </li>
         <li className={style.footer__linkItem}>
-          <a href="https://www.ivi.tv/pages/beta/" className="nbl-link">
+          <a href="https://www.ivi.tv/pages/beta/" >
             Программа бета-тестирования
           </a>
         </li>
         <li className={style.footer__linkItem}>
-          <a href="https://www.ivi.tv/info/partners" className="nbl-link">
+          <a href="https://www.ivi.tv/info/partners" >
             Информация для партнёров
           </a>
         </li>
@@ -38,19 +38,19 @@ const FooterAboutUs: React.FC = () => {
           </a>
         </li>
         <li className={style.footer__linkItem}>
-          <a href="https://www.ivi.tv/info/agreement" className="nbl-link">
+          <a href="https://www.ivi.tv/info/agreement" >
             Пользовательское соглашение
           </a>
         </li>
         <li className={style.footer__linkItem}>
-          <a href="https://www.ivi.tv/info/confidential" className="nbl-link">
+          <a href="https://www.ivi.tv/info/confidential" >
             Политика конфиденциальности
           </a>
         </li>
         <li className={style.footer__linkItem}>
           <a
             href="https://www.ivi.tv/info/goryachaya-liniya-komplaens"
-            className="nbl-link"
+            
           >
             Комплаенс
           </a>
