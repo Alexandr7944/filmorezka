@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import styles from '@/styles/Home.module.scss'
-import { MoviesSlider, MyContainer, Navbar } from '@/components';
+import {MoviesSlider, MyContainer, Navbar, Footer } from '@/components';
 
 const Home = () => {
   const navbar = [{title: 'Home'}];
@@ -19,6 +19,7 @@ const Home = () => {
           url='https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_250_BEST_FILMS&page=2'
         />
       </div>
+      <Footer />
     </MyContainer>
   )
 }
