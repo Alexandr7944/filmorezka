@@ -1,6 +1,6 @@
-import Head from 'next/head'
-import React from 'react'
-import {Header} from "@/components/Header";
+import Head from 'next/head';
+import { Header } from '../Header'; 
+import { Footer } from '../Footer';
 
 type MyContainerProps = {
   children: React.ReactNode,
@@ -16,6 +16,7 @@ const MyContainer: React.FC<MyContainerProps> = ({ children, keywords }) => {
       </Head>
       <Header />
       {children}
+      <Footer />
     </>
   )
 }
