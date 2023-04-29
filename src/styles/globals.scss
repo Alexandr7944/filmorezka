@@ -28,6 +28,12 @@ li {
   list-style: none;
 }
 
+@supports (font: -apple-system-body) and (-webkit-appearance: none) {
+  img[loading="lazy"] {
+    clip-path: inset(0.6px)
+  }
+}
+
 .container {
   width: 100%;
   max-width: 1400px;
