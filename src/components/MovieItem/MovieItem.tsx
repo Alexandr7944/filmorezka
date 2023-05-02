@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 
 type MovieItemProps = {
   movie: IMovie,
-  width: number,
+  width?: number,
 }
 
 const MovieItem: React.FC<MovieItemProps> = ({ movie, width }) => {
@@ -13,7 +13,7 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie, width }) => {
 
   return (
     <div 
-      className={style.movie}
+      className={`${style.movie}`}
       onClick={() => router.push(`/watch/${movie.filmId}`)}
       style={{minWidth: width + 'px'}}
     >

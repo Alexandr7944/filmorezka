@@ -19,6 +19,13 @@ body {
   color: $colorText;
 }
 
+.my-body {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 a {
   color: inherit;
   text-decoration: none;
