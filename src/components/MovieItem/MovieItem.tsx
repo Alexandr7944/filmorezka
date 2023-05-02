@@ -1,16 +1,22 @@
 import style from './movieItem-style.module.scss';
 import { IMovie } from '@/interface/IMovie';
-import React, { MutableRefObject } from 'react';
 import { AiOutlineStar, BiBookmark, BsMagic, RiDislikeLine } from '../Icons';
+import { useRouter } from 'next/router';
 
 type MovieItemProps = {
-  movie: IMovie;
+  movie: IMovie,
+  width: number,
 }
 
-const MovieItem: React.FC<MovieItemProps> = ({ movie }) => {
+const MovieItem: React.FC<MovieItemProps> = ({ movie, width }) => {
+  const router = useRouter();
 
   return (
-    <div className={style.movie}>
+    <div 
+      className={style.movie}
+      onClick={() => router.push(`/watch/${movie.filmId}`)}
+      style={{minWidth: width + 'px'}}
+    >
       <div className={style.movie__poster}>
         <div className={style['movie__poster-image']}>
           <img src={movie.posterUrl} alt="poster" />

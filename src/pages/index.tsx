@@ -1,9 +1,7 @@
-import Image from 'next/image'
-import styles from '@/styles/Home.module.scss'
-import { MoviesSlider, MyContainer, Navbar } from '@/components';
+import {MoviesSlider, MyContainer, Navbar } from '@/components';
 
 const Home = () => {
-  const navbar = [{title: 'Home'}];
+  const navbar = [{title: 'Главная'}];
 
   return (
     <MyContainer>

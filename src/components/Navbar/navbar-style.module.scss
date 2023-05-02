@@ -15,12 +15,12 @@
   &__item {
     cursor: pointer;
     padding-right: 10px;
-    border-right: 1px dashed grey;
+    // border-right: 1px dashed grey;
 
     &:last-child {
       opacity: .5;
       padding-right: 0;
-      border-right: none;
+      // border-right: none;
 
       &:hover {
         opacity: 1;

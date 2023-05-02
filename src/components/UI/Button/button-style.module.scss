@@ -1,4 +1,4 @@
-@import '../../../styles/globals.scss';
+@import '../../../styles/options.scss';
 
 .my-button {
   background-color: $bgc-button;
@@ -7,9 +7,15 @@
   border-width: 1px;
   border-radius: 8px;
   padding: 7px 11px;
+  cursor: pointer;
 
   color: #fff;
   font-weight: 700;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 
   transition-duration: .4s;
 }

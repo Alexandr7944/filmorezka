@@ -1,0 +1,161 @@
+@import '../../styles/options.scss';
+
+.watchMovie {
+  width: 100%;
+  min-height: 100vh;
+
+  margin: 0 auto;
+  &__title {
+    @include title-h1;
+  }
+
+  &__video-wrapper {
+    display: grid;
+    grid-template-areas: "a a a b" "a a a c" "a a a d" "e e e f";
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  &__player {
+    grid-area: a;
+    width: 100%;
+    min-width: 640px;
+    aspect-ratio: 1.8 / 1;
+
+    margin: 0 auto;
+  }
+
+  &__player>div {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain;
+  }
+  
+  &__title {
+    grid-area: b;
+    text-align: center;
+  }
+
+  &__params {
+    grid-area: c;
+    align-self: start;
+    text-align: center;
+    line-height: 1.8;
+  }
+
+  &__params-row:last-child {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+
+  &__params-hd {
+    padding: 0 5px;
+    background: rgba(202, 197, 197, 0.5);
+    border-radius: 5px;
+    color: #fff;
+    font-weight: 700;
+  }
+
+  &__params-countryGenre {
+    text-transform: capitalize;
+  }
+
+  &__watchMedallions {
+    grid-area: d;
+
+    .watchMedallions__content {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-start;
+      gap: 5px;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    gap: 10px;
+    grid-area: e;
+
+    button {
+      background-color: $colorText;
+    }    
+  }
+
+  &__text {
+    grid-area: f;
+  }
+}
+
+@media (max-width: 1150px) {
+  .watchMovie {  
+    max-width: 800px;
+
+    &__title,
+    &__params {
+      text-align: left;
+    }
+
+    &__params-row:last-child {
+      justify-content: flex-start;
+    }
+
+    &__video-wrapper {
+      grid-template-areas: "b b" "c c" "a a" "d e" "f e";
+    }
+
+    &__player {
+      min-width: 275px;
+    }
+
+    &__buttons {
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-content: flex-start;
+  
+      button {
+        width: 45%;
+      }
+
+      button:first-child {
+        width: 100%;
+      }    
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .watchMedallions__content>div:last-child {
+    display: none;
+  }
+  .watchMovie {  
+    max-width: 800px;
+    &__video-wrapper {
+      grid-template-areas: "b b" "c c" "a a" "e e" "d d" "f f";
+    }
+    &__buttons {
+      width: 300px;
+      padding: 10px;
+      margin: -20px auto 0;
+
+      justify-content: center;
+      flex-wrap: nowrap;
+
+      border-radius: 0 0 30px 30px;
+      background: linear-gradient(0deg, rgba(255,255,255,0.1) 0%, rgba(47,55,61,1) 100%);
+  
+      button:first-child,
+      button {
+        width: auto;
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .watchMedallions__content>div:nth-child(5) {
+    display: none;
+  }
+}

@@ -2,14 +2,12 @@ import React from 'react';
 import styles from './button-style.module.scss';
 
 export type ButtonProps = {
-  title: string
+  title: string | React.ReactNode,
 }
 
-const Button: React.FC<ButtonProps> = ({title}) => {
+const Button: React.FC<ButtonProps> = ({ title }) => {
   return (
-    <button
-      className={styles['my-button']}
-    >
+    <button className={styles['my-button']}>
       { title }
     </button>
   )

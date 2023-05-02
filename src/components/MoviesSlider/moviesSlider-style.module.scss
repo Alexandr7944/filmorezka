@@ -6,7 +6,6 @@
   &__link {
     display: flex;
     align-items: center;
-    gap: 5px;
   }
   
   &__title {
@@ -28,10 +27,9 @@
   }
 
   &__wrapper {
-    padding: 30px 5px;
+    padding: 20px 0;
     display: flex;
     align-items: flex-start;
-    gap: 20px;
     transition: 0.4s;
   }
 
