@@ -7,9 +7,8 @@ const Home = () => {
     <MyContainer>
       <Navbar link={navbar} />
       <div className="container">
-        <h1>Главная</h1>
         <MoviesSlider
-          title='Рекомендую посмотреть'
+          title='Топ лучших'
           url='https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_250_BEST_FILMS&page=1'
         />
         <MoviesSlider

@@ -9,6 +9,7 @@ import {
 } from 'react-icons/bs'
 import { RiDislikeLine, RiHistoryFill, RiSlideshow3Line } from 'react-icons/ri'
 import { IoMdNotificationsOutline } from 'react-icons/io'
+import { CgFilters } from 'react-icons/cg'
 import { SlDiamond, SlScreenDesktop } from 'react-icons/sl'
 import { MdOutlineNotificationsActive } from 'react-icons/md'
 
@@ -28,6 +29,7 @@ export {
     BsBookmarkHeart,
     BsCreditCard2Front,
     BsMagic,
+    CgFilters,
     RiDislikeLine,
     IoMdNotificationsOutline,
     RiHistoryFill,

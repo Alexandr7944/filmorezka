@@ -4,6 +4,7 @@ import MoviesSlider from "./MoviesSlider";
 import { Footer } from "./Footer";
 import { MovieItem, MovieItemDefault } from "./MovieItem";
 import { Header } from "./Header";
+import { CollectionMovie } from "./CollectionMovie";
 
 export {
   MyContainer,
@@ -12,5 +13,6 @@ export {
   MovieItem,
   MovieItemDefault,
   MoviesSlider,
+  CollectionMovie,
   Footer
 }

@@ -1,0 +1,33 @@
+@import '../../styles/options.scss';
+
+.collection {
+  flex: 1 1 auto;
+
+  &__title {
+    margin-bottom: 30px;
+  }
+  
+  &__wrapper {
+    flex: 1 1 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 5px;
+    margin-bottom: 30px;
+  }
+  
+  &__item {
+    width: 180px;
+  }
+
+  &__next-btn {
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: 10px;
+    color: #fff;
+    width: 100%;
+    padding: 15px;
+    cursor: pointer;
+    margin-bottom: 50px;
+  }
+}

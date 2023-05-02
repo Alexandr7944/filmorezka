@@ -2,34 +2,37 @@ import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player';
 import style from './watchMovie-style.module.scss';
 import IMoviePage, { IVideo } from '@/interface/IMoviePage';
-import { useRouter } from 'next/router';
 import Fetching from '@/API/Fetching';
 import { BiBookmark, BsDownload, BsFillPlayFill, BsVolumeDown } from '../Icons';
 import { IActor } from '@/interface/IActor';
 import { ActorContainer } from '../UI/ActorContainer';
 import { Button } from '../UI/Button';
 
-const WatchMovie = () => {
+type WatchMovieProps = {
+  movieId: string
+}
+
+const WatchMovie: React.FC<WatchMovieProps> = ({ movieId }) => {
   const [movie, setMovie] = useState<IMoviePage | undefined>();
   const [video, setVideo] = useState<IVideo | undefined>();
   const [actors, setActors] = useState<IActor[] | undefined>();
-  const router = useRouter();
   
+  // router.query.movieId
   useEffect(() => {
-    Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${router.query.movieId}`)
+    Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${movieId}`)
       .then(movie => movie && setMovie(movie));
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.query.movieId]);
+  }, [movieId]);
 
   useEffect(() => {
-    Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${router.query.movieId}/videos`)
+    Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${movieId}/videos`)
       .then(video => video && video.items && setVideo(video));
-  }, [router.query.movieId]);
+  }, [movieId]);
 
   useEffect(() => {
-    Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v1/staff?filmId=${router.query.movieId}`)
+    Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v1/staff?filmId=${movieId}`)
       .then(actors => setActors(actors));
-  }, [router.query.movieId]);  
+  }, [movieId]);  
 
   const filmLength = (time: number) => {
     const hour = Math.floor(time / 60);

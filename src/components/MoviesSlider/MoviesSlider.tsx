@@ -20,6 +20,15 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
 
   const list = useRef<null | HTMLDivElement>(null);
   const wrapper = useRef<null | HTMLDivElement>(null);
+
+  // const [test, setTest] = useState<any>([]);
+
+  // useEffect(() => {
+  //   Fetching.getAll('http://localhost:5100/actors/load', 'POST')
+  //     .then(test => setTest(test))
+  //     .then(() => console.log(test));
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
   
   useEffect(() => {
     if (!list.current?.offsetWidth) return;
@@ -47,7 +56,11 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
   useEffect(() => {
     Fetching.getAll(url)
       .then(movies => movies.films && setMovies(movies.films));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [url]);
+
+  useEffect(() => {
+    Fetching.getAll(url)
+      .then(movies => movies.films && setMovies(movies.films));
   }, [url]);
 
   useEffect(() => {
@@ -56,7 +69,7 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
 
   return (
     <div className={style.movies}>
-      <Link href="/collections/#" className={style.movies__link}>
+      <Link href={`/collections/${title}`} className={style.movies__link}>
         <h3 className={style.title}>{ title }</h3>
         <Arrow className={style.movies__arrow}/>
       </Link>
