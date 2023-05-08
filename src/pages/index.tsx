@@ -1,7 +1,10 @@
+import Fetching from '@/API/Fetching';
+import LoadDB from '@/LoadDB';
 import {MoviesSlider, MyContainer, Navbar } from '@/components';
 
 const Home = () => {
   const navbar = [{title: 'Главная'}];
+  // new LoadDB().load();
 
   return (
     <MyContainer>
