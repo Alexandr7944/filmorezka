@@ -15,8 +15,8 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection }) => {
 
   useEffect(() => {
     Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_250_BEST_FILMS&page=${pages}`)
-      .then(movies => movies.films && setMovies(prev => pages > 1 ? [...prev, ...movies.films] : movies.films ));
-  }, [pages]);  
+      .then(movies => movies?.films && setMovies(prev => pages > 1 ? [...prev, ...movies.films] : movies.films ));
+  }, [pages]);
 
   const addMoviesHandler = () => setPages(prev => prev + 1);
 

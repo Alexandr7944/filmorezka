@@ -19,7 +19,7 @@ class Fetching {
     } catch (err) {
       console.log(err);
     }
-  }  
+  } 
 }
 
 export default Fetching;
