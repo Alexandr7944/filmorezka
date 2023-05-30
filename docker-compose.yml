@@ -1,0 +1,79 @@
+version: '3'
+services:
+  db1:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+
+
+  rabbitmq:
+    image: rabbitmq
+    restart: always
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_HOST: rabbitmq
+    ports:
+      - "5672:5672"
+
+
+
+  app-film:
+    container_name: film
+    build:
+      context: ./FilmMicroservice/
+    restart: always
+    depends_on:
+      - db1
+      - rabbitmq
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      POSTGRES_HOST: db1
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: 5432
+    ports:
+      - "5000:5000"
+
+  listener-persons:
+    build: ./PersonsMicroService/
+    depends_on:
+      - db1
+      - rabbitmq
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      POSTGRES_HOST: db1
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: 5432
+    command: npm run PersonsListenerDD
+
+
+  app-person:
+    container_name: person
+    build:
+      context: ./PersonsMicroService/
+    restart: always
+    depends_on:
+      - db1
+      - rabbitmq
+
+    environment:
+      RABBITMQ_HOST: rabbitmq
+      POSTGRES_HOST: db1
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_PORT: 5432
+    ports:
+      - "5100:5100"

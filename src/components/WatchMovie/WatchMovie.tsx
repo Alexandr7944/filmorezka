@@ -82,14 +82,12 @@ const WatchMovie: React.FC<WatchMovieProps> = ({ movieId }) => {
           </div>
         </div>
         <div className={style['watchMovie__buttons']}>
-          <Button title={
-            <>
-              <BsFillPlayFill />
-              Трейлер
-            </>
-          } />
-          <Button title={ <BiBookmark /> }/>
-          <Button title={ <BsDownload /> }/>
+          <Button >
+            <BsFillPlayFill />
+            Трейлер
+          </Button>
+          <Button> <BiBookmark /> </Button>
+          <Button> <BsDownload /> </Button>
         </div>
         <div className={style['watchMovie__text']}>
           <p>{movie.description}</p>

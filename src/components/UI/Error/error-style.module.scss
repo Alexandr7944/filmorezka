@@ -1,0 +1,31 @@
+@import '../../../styles/options.scss';
+
+.error {
+ display: flex;
+ width: 312px;
+ min-height: 70px; 
+ background-color: #FF542E;
+ color: white;
+ border-radius: 5px;
+ word-wrap: break-word;
+ overflow: hidden; 
+ padding-bottom: 10px;
+
+ .error__icon,
+ .error__text {
+  margin: 10px 0 0 12px;
+ }
+}
+
+.title {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 700;
+}
+
+.description {
+  margin-top: 4px;
+  color: $colorTextAccent;
+  font-size: 13px;
+  line-height: 16px;
+}

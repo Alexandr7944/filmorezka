@@ -49,6 +49,7 @@
     flex-grow: 1;
     justify-content: flex-end;
     align-items: center;
+    gap: 20px;
 
     * {
       cursor: pointer;
@@ -72,7 +73,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-left: 20px;
     font-size: 17px;
     line-height: 20px;
 
@@ -82,7 +82,6 @@
   }
 
   .notifications {
-    margin-left: 20px;
     padding-top: 5px;
   }
 
@@ -102,7 +101,6 @@
   }
 
   .avatar {
-    margin-left: 20px;
     border: 2px solid $colorText;
     width: 48px;
     height: 48px;
@@ -117,5 +115,18 @@
       box-shadow: -1px 1px 10px 2px $colorText;
       transition-duration: 0.4s;
     }
+  }
+
+  .avatar-name {
+    background-color: green;
+    border-color: green;
+    padding-bottom: 5px;
+
+    &:hover {
+      border-color: green;
+    }
+
+    font-size: 40px;
+    color: white;
   }
 }

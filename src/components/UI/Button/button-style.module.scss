@@ -17,5 +17,12 @@
   align-items: center;
   gap: 5px;
 
-  transition-duration: .4s;
+  transition-duration: 1s;
+
+  &[disabled] {
+    transition-duration: 1s;
+    background-color: $bgc-button-disabled;
+    color: #ffffff85;
+    cursor: auto;
+  }
 }

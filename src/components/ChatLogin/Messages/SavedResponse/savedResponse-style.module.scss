@@ -1,0 +1,37 @@
+@import '../messages-style.module.scss';
+
+.saved-response {
+  display: flex;
+  gap: 20px;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.edit {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid $colorTextAccent;
+  color: white;
+  transition: 0.4s;
+  cursor: pointer;
+  animation: fadeIn 5s;
+
+  &:hover {
+    border-color: white;
+    transition: 0.4s;
+  }
+}
+
+@keyframes fadeIn  {
+  0% {
+    opacity: 0;;
+  }
+  100% {
+    opacity: 1;
+  }
+}

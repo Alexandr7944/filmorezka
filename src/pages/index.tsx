@@ -1,7 +1,25 @@
-import {MoviesSlider, MyContainer, Navbar } from '@/components';
+import { MoviesSlider, MyContainer, Navbar } from '@/components';
+import { useAppDispatch } from '@/hooks/hook';
+import { IUserAccount } from '@/interface/IUserAccount';
+import Autorization from '@/microservices/Autorization';
+import { setUser } from '@/store/reducers/userSlice';
+import { useEffect } from 'react';
 
 const Home = () => {
   const navbar = [{title: 'Главная'}];
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    async function fetchData() {
+      let data: IUserAccount | undefined = await Autorization.getUser();
+
+      if (data) {
+        dispatch(setUser(data));
+      }
+    }
+
+    fetchData();
+  }, [])
 
   return (
     <MyContainer>
