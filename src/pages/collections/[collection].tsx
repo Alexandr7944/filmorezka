@@ -14,7 +14,7 @@ const Collection = () => {
   return (
     <MyContainer>
       <Navbar link={navbar} />
-      <CollectionMovie collection={`${router.query.collection}`} />
+      <CollectionMovie collection={collection} />
     </MyContainer>
   )
 }

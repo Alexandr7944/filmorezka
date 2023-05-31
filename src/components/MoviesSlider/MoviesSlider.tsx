@@ -1,6 +1,6 @@
 import style from './moviesSlider-style.module.scss';
 import Fetching from '@/API/Fetching';
-import { IMovie, INewMovie } from '@/interface/IMovie';
+import { INewMovie } from '@/interface/IMovie';
 import Link from 'next/link';
 import React, { useEffect, useState, useRef } from 'react'
 import { Arrow, BiChevronLeft, BiChevronRight } from '../Icons';
@@ -24,14 +24,14 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
     const calcWidthItem = Math.round(list.current.offsetWidth / numItem);
     calcWidthItem > 200 && numItem++;
     calcWidthItem < 150 && numItem--;
-    setWidthItem(
-      Math.round(list.current.offsetWidth / numItem)
-    )
+    
+    setWidthItem(Math.round(list.current.offsetWidth / numItem))
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [list.current?.offsetWidth]);
   
   const getMovieItemLeft = () => {
     const listWidth = list.current?.offsetWidth || 0;
-    setPositionWrapper(prev => Math.min(0, prev + listWidth));
+    setPositionWrapper(Math.min(0, positionWrapper + listWidth));
   }
 
   const getMovieItemRight = () => {
@@ -44,8 +44,7 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
 
   useEffect(() => {
     Fetching.getNewAll(url)
-      .then(movies => movies && setMovies(movies))
-      .then(() => console.log(movies));
+      .then(movies => setMovies(movies));
   }, [url]);
   
   useEffect(() => {

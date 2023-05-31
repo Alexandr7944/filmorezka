@@ -13,14 +13,12 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection }) => {
   const [movies, setMovies] = useState<INewMovie[]>([]);
   const [pages, setPages] = useState<number>(1);
 
-  // useEffect(() => {
-  //   Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_250_BEST_FILMS&page=${pages}`)
-  //     .then(movies => movies?.films && setMovies(prev => pages > 1
-  //       ? [...prev, ...movies.films]
-  //       : movies.films ));
-  // }, [pages]);
+  useEffect(() => {
+    Fetching.getAll(`http://localhost:5000/films/random`)
+      .then(movies => movies && setMovies(prev => [...prev, movies]));
+  }, [pages]);
 
-  const addMoviesHandler = () => setPages(prev => prev + 1);
+  const addMoviesHandler = () => setPages(pages + 1);
 
   return (
     <div className={style.collection}>

@@ -28,11 +28,11 @@ const WatchMovie: React.FC<WatchMovieProps> = ({ movie, video, actors }) => {
       { movie && 
       <div className={style['watchMovie__video-wrapper']}>
         <div className={style['watchMovie__player']}>
-          {/* <ReactPlayer
+          <ReactPlayer
             className={style['player']}
             url={video?.items && video.items[0]?.url}
-          /> */}
-          {video && video.items[0] && <video src={require(video.items[0].url)} />}
+          />
+          <video src='https://widgets.kinopoisk.ru/discovery/trailer/86972?onlyPlayer=1&autoplay=1&cover=1' />
         </div>
         <h1 className={style['watchMovie__title']}>
           {movie.name}

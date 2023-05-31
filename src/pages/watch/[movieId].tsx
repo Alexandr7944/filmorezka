@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Fetching from '@/API/Fetching';
 import { MyContainer, Navbar } from '@/components';
 import WatchMovie from '@/components/WatchMovie';
@@ -8,14 +9,16 @@ import { capitalizeStr } from '@/utils/capitalize';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-type TypeMovieType = {
-  movie: string,
-  serial: string
-}
-
 const WatchPage = () => {
   const [movie, setMovie] = useState<INewMovie>();
-  const [video, setVideo] = useState<IVideo>();
+  const [video, setVideo] = useState<IVideo>({
+    total: 0, 
+    items: [{
+      name: '',
+      site: '',
+      url: ''
+    }
+  ]});
   const [actors, setActors] = useState<IActor[]>();
 
   const router = useRouter();
@@ -24,7 +27,9 @@ const WatchPage = () => {
     {title: 'Главная', href: '/'},
     {
       title: `${movie && movie.genre && capitalizeStr(movie.genre[0]) || 'Подборка для Вас'}`,
-      href: `/collections/${movie?.type || 'random'}`
+      href: movie?.genre && movie?.genre[0]
+        ? `/collections/${movie?.genre[0]}`
+        : '/collections/random'
     },
     {title: `${movie && movie.name}`}
   ];
@@ -38,7 +43,7 @@ const WatchPage = () => {
 
   useEffect(() => {
     Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${movie && movie.filmSpId}/videos`)
-      .then(video => video && video.items && setVideo(video));
+      .then(video => video?.items && setVideo(video));
     Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v1/staff?filmId=${movie && movie.filmSpId}`)
       .then(actors => setActors(actors));
   }, [movie]);
