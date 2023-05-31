@@ -63,6 +63,7 @@ services:
       - .environment.env
     ports:
       - "5100:5100"
+<<<<<<< HEAD
 
   app-auth:
     container_name: auth
@@ -94,3 +95,5 @@ services:
       - db1
 
 
+=======
+>>>>>>> 322518ddc33f72044fff7f72071e80e1a8a1f3ce

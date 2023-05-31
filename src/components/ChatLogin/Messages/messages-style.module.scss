@@ -1,0 +1,87 @@
+@import '../../../styles/options.scss';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+}
+
+.message {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 20px;
+  padding-bottom: 15px;
+  transition: 0.4s;
+
+  .message__title {
+    color: white;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 700;
+    margin: 15px 20px 0;
+  }
+
+  .message__description {
+    color: $colorTextAccent;
+    font-size: 13px;
+    line-height: 16px;
+    margin: 5px 0 0 20px;
+  }
+}
+
+.message-site {
+  width: 450px;
+  background-color: #312B45;
+  border-bottom-left-radius: 0;
+  margin-top: 20px;
+  animation: showLeft 1s;
+}
+
+@keyframes showLeft {
+  from {
+    left: -100%;
+  }
+  to {
+    left:0;
+  }
+}
+
+.message-user {
+  width: 380px;
+  background-color: #1F1B2E;
+  border-bottom-right-radius: 0;
+  animation: showRight 1s;
+}
+
+@keyframes showRight {
+  from {
+    right: -100%;
+  }
+  to {
+    right: 0;
+  }
+}
+
+.response {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  margin-top: 20px;
+  width: 290px;
+  animation: fadeIn 1s;
+
+  Button {
+    margin-top: 10px;
+  }
+}
+
+@keyframes fadeIn  {
+  0% {
+    opacity: 0;;
+  }
+  100% {
+    opacity: 1;
+  }
+}

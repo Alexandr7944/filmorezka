@@ -1,8 +1,7 @@
 import { IFormat, INavigationItem, INotification, IUser, TypeContent } from "@/interface/Header";
-import { AiOutlineSafetyCertificate } from "react-icons/ai";
-import { BsCart2, BsBookmarkHeart, BsCreditCard2Front } from "react-icons/bs";
-import { RiHistoryFill, RiSlideshow3Line } from "react-icons/ri";
-import { SlDiamond } from "react-icons/sl";
+import { AiOutlineSafetyCertificate, BsBookmarkHeart, 
+  BsCart2, BsCreditCard2Front, BsShare, 
+  RiHistoryFill, RiSlideshow3Line, SlDiamond } from "../Icons";
 
 const films: IFormat = {
   typeFormat: 'Фильмы',
@@ -85,14 +84,10 @@ const user: IUser = {
       icon: BsCreditCard2Front,
       title: 'Способы оплаты'
     },
-  ],
-  options: [
     {
-      title: 'Настройки'
+      icon: BsShare,
+      title: 'Пригласить друзей'
     },
-    {
-      title: 'Помощь'
-    }
   ]
 }
 
