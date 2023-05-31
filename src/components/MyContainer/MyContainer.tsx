@@ -14,6 +14,7 @@ const MyContainer: React.FC<MyContainerProps> = ({ children, keywords }) => {
         <meta name='keywords' content={'кино, сериалы, ' + keywords }/>
         <title>Фильморезка</title>
       </Head>
+
       <div className='my-body'>
         <Header />
         {children}

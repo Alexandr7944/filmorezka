@@ -77,5 +77,3 @@ services:
       POSTGRES_PORT: 5432
     ports:
       - "5100:5100"
-
-

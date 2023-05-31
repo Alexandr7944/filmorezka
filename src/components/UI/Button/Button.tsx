@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes } from 'react';
 import styles from './button-style.module.scss';
 
-export type ButtonProps = {
-  title: string | React.ReactNode,
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode
 }
 
-const Button: React.FC<ButtonProps> = ({ title }) => {
+const Button: React.FC<ButtonProps> = ({ children, ...props }) => {
   return (
-    <button className={styles['my-button']}>
-      { title }
+    <button 
+      className={styles['my-button']}
+      {...props}
+    >
+      { children }
     </button>
   )
 }

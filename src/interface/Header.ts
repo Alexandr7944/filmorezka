@@ -19,13 +19,8 @@ interface ILink {
   mark?: boolean
 }
 
-interface IOption {
-  title: string
-}
-
 interface IUser  {
   links: ILink[]
-  options: IOption[]
 }
 
 type Content = IFormat | INotification | IUser;

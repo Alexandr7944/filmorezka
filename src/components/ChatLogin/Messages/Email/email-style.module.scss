@@ -1,0 +1,44 @@
+@import '../messages-style.module.scss';
+
+.politics {
+  margin-top: 25px;
+  font-size: 13px;
+  line-height: 1.3;
+  color: $colorTextAccent;
+
+  .politics__link {
+    color: white;
+    border-bottom: 2px solid $colorTextAccent;
+
+    &:hover {
+      background-color: $colorTextAccent;
+      transition: 0.4s;
+    }
+  }
+}
+
+.authrozitation {
+  display: flex;
+  margin-top: 10px;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+
+  div {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .vk {
+    color: blue;
+  }
+
+  .gmail {
+    color: green;
+  }
+}
