@@ -1,4 +1,5 @@
 import { CollectionMovie, MyContainer, Navbar } from '@/components';
+import { capitalizeStr } from '@/utils/capitalize';
 import { useRouter } from 'next/router';
 
 const Collection = () => {
@@ -8,7 +9,7 @@ const Collection = () => {
   const navbar = [
     {title: 'Главная', href: '/'},
     {title: 'Подборки', href: '/#'},
-    {title: collection},
+    {title: capitalizeStr(collection)},
   ];
   
   return (

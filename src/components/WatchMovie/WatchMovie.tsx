@@ -22,24 +22,39 @@ const WatchMovie: React.FC<WatchMovieProps> = ({ movie, video, actors }) => {
     const minut = time % 60 < 10 ? '0' +  time % 60 : time % 60
     return hour ? `${hour} ч. ${minut} мин.` : `${minut} мин.`;
   }
+
+  const videoUrl = video?.items?.find((video) => video.url.includes('youtube'))?.url
   
   return (
     <div className={style['watchMovie']}>
-      { movie && 
       <div className={style['watchMovie__video-wrapper']}>
         <div className={style['watchMovie__player']}>
-          <ReactPlayer
-            className={style['player']}
-            url={video?.items && video.items[0]?.url}
-          />
-          <video src='https://widgets.kinopoisk.ru/discovery/trailer/86972?onlyPlayer=1&autoplay=1&cover=1' />
+          {videoUrl
+            ? <ReactPlayer
+              className={style['player']}
+              url={videoUrl}
+            />
+            : <video 
+              width="100%" 
+              height="100%" 
+              controls={true} 
+              poster={movie.image}
+            >
+              <source src='http://trailers.s3.mds.yandex.net/video_original/171013-357535826b8706313fe4209fdd869ec0.mp4' />
+              Тег video не поддерживается вашим браузером.
+            </video>
+          }
         </div>
         <h1 className={style['watchMovie__title']}>
           {movie.name}
         </h1>
         <div className={style['watchMovie__params']}>
           <div className={style['watchMovie__params-row']}>
-            {`${movie.year} / ${filmLength(Number(movie.filmLength))} / ${movie.rating}`}
+            {
+              movie.filmLength 
+                ? `${movie.year} год, ${filmLength(Number(movie.filmLength))}, ${movie.rating}`
+                : `${movie.year} год, ${movie.rating}`
+            }
           </div>
           <div className={`${style['watchMovie__params-row']} ${style['watchMovie__params-countryGenre']}`}>
             {movie.countries && movie.countries.join(', ')}
@@ -70,7 +85,6 @@ const WatchMovie: React.FC<WatchMovieProps> = ({ movie, video, actors }) => {
           <p>{movie.filmDescription}</p>
         </div>
       </div>
-      }
     </div>
   )
 }

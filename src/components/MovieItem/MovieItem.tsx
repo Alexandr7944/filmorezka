@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 type MovieItemProps = {
   movie: INewMovie,
   width?: number,
+  className?: string
 }
 
 const MovieItem: React.FC<MovieItemProps> = ({ movie, width }) => {
@@ -25,14 +26,16 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie, width }) => {
       style={{minWidth: width + 'px'}}
     >
       <div className={style.movie__poster}>
-        <div className={style['movie__poster-image']}>
-          <Image 
-            src={movie.image}
-            width={500}
-            height={500}
-            alt="poster"
-          />
-        </div>
+        { movie?.image && 
+          <div className={style['movie__poster-image']}>
+            <Image 
+              src={movie.image}
+              width={500}
+              height={500}
+              alt="poster"
+            />
+          </div>
+        }
         <div className={style.movie__poster_mask}>
           <div className={style.movie__poster_wrapper}>
             <BiBookmark className={style.movie__icons} />

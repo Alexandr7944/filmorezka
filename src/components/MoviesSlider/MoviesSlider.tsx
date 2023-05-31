@@ -5,12 +5,13 @@ import Link from 'next/link';
 import React, { useEffect, useState, useRef } from 'react'
 import { Arrow, BiChevronLeft, BiChevronRight } from '../Icons';
 import {MovieItem, MovieItemDefault} from '../MovieItem';
+import { Loader } from '../UI/Loader';
 
 const WIDTH_ITEM = 180;
 const LIMIT_ITEM_PAGE = 15;
 
 const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
-  const [movies, setMovies] = useState<INewMovie[] | undefined>([]);
+  const [movies, setMovies] = useState<INewMovie[]>([]);
   const [widthItem, setWidthItem] = useState<number>(WIDTH_ITEM);
   const [positionWrapper, setPositionWrapper] = useState(0);
 
@@ -57,28 +58,32 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
         <h3 className={style.title}>{ title }</h3>
         <Arrow className={style.movies__arrow}/>
       </Link>
-      <div className={style.movies__list} ref={list}>
-        <button
-          className={style.movies__btn}
-          onClick={getMovieItemLeft}
-        >
-          <BiChevronLeft />
-        </button>
-        <div className={style.movies__wrapper} ref={wrapper}>
-          {
-            movies?.length && movies.map((item, index) => 
-              index < LIMIT_ITEM_PAGE && <MovieItem key={item.id} movie={item} width={widthItem} />
-            )
-          }
-          <MovieItemDefault link='/collections/#'  width={widthItem} />
+      {
+        movies
+        ? <div className={style.movies__list} ref={list}>
+          <button
+            className={style.movies__btn}
+            onClick={getMovieItemLeft}
+          >
+            <BiChevronLeft />
+          </button>
+          <div className={style.movies__wrapper} ref={wrapper}>
+            {
+              movies.map((item, index) => 
+                index < LIMIT_ITEM_PAGE && <MovieItem key={item.id} movie={item} width={widthItem} />
+              )
+            }
+            <MovieItemDefault link='/collections/#'  width={widthItem} />
+          </div>
+          <button
+            className={style.movies__btn}
+            onClick={getMovieItemRight}
+          >
+            <BiChevronRight />
+          </button>
         </div>
-        <button
-          className={style.movies__btn}
-          onClick={getMovieItemRight}
-        >
-          <BiChevronRight />
-        </button>
-      </div>
+        : <Loader />
+      }
     </div>
   )
 }

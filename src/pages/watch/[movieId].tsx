@@ -26,12 +26,12 @@ const WatchPage = () => {
   const navbar = [
     {title: 'Главная', href: '/'},
     {
-      title: `${movie && movie.genre && capitalizeStr(movie.genre[0]) || 'Подборка для Вас'}`,
+      title: `${movie && movie.genre[0] && capitalizeStr(movie.genre[0]) || 'Подборка для Вас'}`,
       href: movie?.genre && movie?.genre[0]
         ? `/collections/${movie?.genre[0]}`
         : '/collections/random'
     },
-    {title: `${movie && movie.name}`}
+    {title: `${movie?.name && capitalizeStr(movie.name)}`}
   ];
 
   const movieId = router.query.movieId;
