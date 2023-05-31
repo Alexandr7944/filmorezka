@@ -7,45 +7,49 @@ import { BiBookmark, BsDownload, BsFillPlayFill, BsVolumeDown } from '../Icons';
 import { IActor } from '@/interface/IActor';
 import { ActorContainer } from '../UI/ActorContainer';
 import { Button } from '../UI/Button';
+import { INewMovie } from '@/interface/IMovie';
 
 type WatchMovieProps = {
   movieId: string
 }
 
 const WatchMovie: React.FC<WatchMovieProps> = ({ movieId }) => {
-  const [movie, setMovie] = useState<IMoviePage | undefined>();
-  const [video, setVideo] = useState<IVideo | undefined>();
-  const [actors, setActors] = useState<IActor[] | undefined>();
-  
-  // router.query.movieId
+  const [movie, setMovie] = useState<INewMovie>();
+  const [video, setVideo] = useState<IVideo>();
+  const [actors, setActors] = useState<IActor[]>();
+  console.log(movie);
+
   useEffect(() => {
-    Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${movieId}`)
-      .then(movie => movie && setMovie(movie));
+    Fetching.getNewAll(`http://localhost:5000/films/id/${movieId}`)
+      .then(movie => movie && setMovie(movie))
+      .then(() => console.log(movie));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [movieId]);
 
   useEffect(() => {
-    Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${movieId}/videos`)
+    Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${movie && movie.filmSpId}/videos`)
       .then(video => video && video.items && setVideo(video));
   }, [movieId]);
 
   useEffect(() => {
-    Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v1/staff?filmId=${movieId}`)
+    Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v1/staff?filmId=${movie && movie.filmSpId}`)
       .then(actors => setActors(actors));
   }, [movieId]);  
 
   const filmLength = (time: number) => {
+    if (!time) return '';
+    if (movie?.type === 'serial') {
+      const typeLength = time % 10 === 1 && time !== 11
+        ? 'серия'
+        : (time % 10 > 1 && time % 10 < 5) && !(time > 11 && time <= 15)
+          ? 'серии'
+          : 'серий'
+      return `${time} ${typeLength}`
+    };
     const hour = Math.floor(time / 60);
     const minut = time % 60 < 10 ? '0' +  time % 60 : time % 60
     return hour ? `${hour} ч. ${minut} мин.` : `${minut} мин.`;
   }
-
-  const countryGenre = movie && movie.countries && movie.genres
-    ? [
-      ...movie.countries.map(country => country.country),
-      ...movie.genres.map(genre => genre.genre)
-    ]
-    : []; 
   
   return (
     <div className={style['watchMovie']}>
@@ -58,14 +62,14 @@ const WatchMovie: React.FC<WatchMovieProps> = ({ movieId }) => {
           />
         </div>
         <h1 className={style['watchMovie__title']}>
-          {movie.nameRu}
+          {movie.name}
         </h1>
         <div className={style['watchMovie__params']}>
           <div className={style['watchMovie__params-row']}>
-            {`${movie.year} ${filmLength(Number(movie.filmLength))} ${movie.ratingKinopoisk}`}
+            {`${movie.year} / ${filmLength(Number(movie.filmLength))} / ${movie.rating}`}
           </div>
           <div className={`${style['watchMovie__params-row']} ${style['watchMovie__params-countryGenre']}`}>
-            {countryGenre && countryGenre.join(', ')}
+            {movie.countries && movie.countries.join(', ')}
           </div>
           <div className={style['watchMovie__params-row']}>
             <span className={style['watchMovie__params-hd']}>FullHD</span>
@@ -75,7 +79,7 @@ const WatchMovie: React.FC<WatchMovieProps> = ({ movieId }) => {
         </div>
         <div className={style['watchMovie__watchMedallions']}>
           <div className={style['watchMedallions__content']}>
-            <ActorContainer rating={movie.ratingKinopoisk} />
+            <ActorContainer rating={movie.rating} />
             {actors && (actors.length > 0) && actors.map((actor, index) => (
               index < 5 && <ActorContainer key={actor.staffId} actor={actor} />
             ))}
@@ -92,7 +96,7 @@ const WatchMovie: React.FC<WatchMovieProps> = ({ movieId }) => {
           <Button title={ <BsDownload /> }/>
         </div>
         <div className={style['watchMovie__text']}>
-          <p>{movie.description}</p>
+          <p>{movie.filmDescription}</p>
         </div>
       </div>
       }

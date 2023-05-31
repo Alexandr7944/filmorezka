@@ -20,3 +20,27 @@ type country = {
 type genre = {
   genre: string;
 }
+
+export interface INewMovie {
+  countries?: string[],
+  actors?: any,
+  composer?: string,
+  director?: string,
+  filmDescription?: string,
+  filmLength: string,
+  filmSpId: number,
+  id: number,
+  image: string,
+  installation: string,
+  genre?: string[],
+  name: string,
+  nameEn: string,
+  operator?: string,
+  painter?: string,
+  producer?: string,
+  rating: number,
+  ratingVoteCount: number,
+  scenario?: string,
+  type: string,
+  year: number,
+}

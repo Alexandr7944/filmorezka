@@ -5,9 +5,11 @@
 /.pnp
 .pnp.js
 
-/FilmMicroservice
-/PersonsMicroService
-/pgdata
+# /FilmMicroservice
+# /PersonsMicroService
+# /CommentsMicroservice
+# /AuthMicroservice
+# /pgdata
 
 # testing
 /coverage

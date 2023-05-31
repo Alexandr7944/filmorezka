@@ -1,25 +1,21 @@
 import style from './moviesSlider-style.module.scss';
 import Fetching from '@/API/Fetching';
-import { IMovie } from '@/interface/IMovie';
+import { IMovie, INewMovie } from '@/interface/IMovie';
 import Link from 'next/link';
 import React, { useEffect, useState, useRef } from 'react'
 import { Arrow, BiChevronLeft, BiChevronRight } from '../Icons';
 import {MovieItem, MovieItemDefault} from '../MovieItem';
 
 const WIDTH_ITEM = 180;
-
-interface IMoviesSliderProps {
-  title: string;
-  url: string;
-}
+const LIMIT_ITEM_PAGE = 15;
 
 const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
-  const [movies, setMovies] = useState<IMovie[] | undefined>([]);
+  const [movies, setMovies] = useState<INewMovie[] | undefined>([]);
   const [widthItem, setWidthItem] = useState<number>(WIDTH_ITEM);
   const [positionWrapper, setPositionWrapper] = useState(0);
 
-  const list = useRef<null | HTMLDivElement>(null);
-  const wrapper = useRef<null | HTMLDivElement>(null);
+  const list = useRef<HTMLDivElement>(null);
+  const wrapper = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     if (!list.current?.offsetWidth) return;
@@ -40,16 +36,17 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
 
   const getMovieItemRight = () => {
     const listWidth = list.current?.offsetWidth || 0;
+    const moviesLength = movies && movies.length <= LIMIT_ITEM_PAGE 
+      ? movies?.length : LIMIT_ITEM_PAGE;
     setPositionWrapper(prev => Math.max(prev - listWidth,
-      -(widthItem) * ((movies?.length || 0) + 1) + listWidth));
+      (-widthItem * (moviesLength + 1)) + listWidth));
   }
 
   useEffect(() => {
-    Fetching.getAll(url)
-      .then(movies => movies?.films && setMovies(movies.films));
+    Fetching.getNewAll(url)
+      .then(movies => movies && setMovies(movies))
+      .then(() => console.log(movies));
   }, [url]);
-  
-  console.log(movies);
   
   useEffect(() => {
     wrapper.current?.setAttribute('style', `transform: translateX(${positionWrapper}px)`)
@@ -71,7 +68,7 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
         <div className={style.movies__wrapper} ref={wrapper}>
           {
             movies?.length && movies.map((item, index) => 
-            index < 20 && <MovieItem key={item.filmId} movie={item} width={widthItem} />
+              index < LIMIT_ITEM_PAGE && <MovieItem key={item.id} movie={item} width={widthItem} />
             )
           }
           <MovieItemDefault link='/collections/#'  width={widthItem} />
@@ -88,3 +85,8 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
 }
 
 export default MoviesSlider
+
+interface IMoviesSliderProps {
+  title: string;
+  url: string;
+}

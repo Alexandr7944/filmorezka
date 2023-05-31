@@ -34,28 +34,19 @@ services:
     depends_on:
       - db1
       - rabbitmq
-    environment:
-      RABBITMQ_HOST: rabbitmq
-      POSTGRES_HOST: db1
-      POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_PORT: 5432
+    env_file:
+      - .environment.env
     ports:
       - "5000:5000"
+
 
   listener-persons:
     build: ./PersonsMicroService/
     depends_on:
       - db1
       - rabbitmq
-    environment:
-      RABBITMQ_HOST: rabbitmq
-      POSTGRES_HOST: db1
-      POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_PORT: 5432
+    env_file:
+      - .environment.env
     command: npm run PersonsListenerDD
 
 
@@ -68,14 +59,38 @@ services:
       - db1
       - rabbitmq
 
-    environment:
-      RABBITMQ_HOST: rabbitmq
-      POSTGRES_HOST: db1
-      POSTGRES_USER: postgres
-      POSTGRES_DB: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_PORT: 5432
+    env_file:
+      - .environment.env
     ports:
       - "5100:5100"
+
+  app-auth:
+    container_name: auth
+    build:
+      context: ./AuthMicroservice/
+    restart: always
+    depends_on:
+      - db1
+      - rabbitmq
+
+    env_file:
+      - .environment.env
+    ports:
+      - "5010:5010"
+
+  comments:
+    container_name: comments
+    build:
+      context: ./commentsMicroService/
+    restart: always
+    env_file:
+      - .environment.env
+    volumes:
+      - .:/app
+      - /app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db1
 
 

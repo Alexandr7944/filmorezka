@@ -1,10 +1,10 @@
 import style from './movieItem-style.module.scss';
-import { IMovie } from '@/interface/IMovie';
+import { IMovie, INewMovie } from '@/interface/IMovie';
 import { AiOutlineStar, BiBookmark, BsMagic, RiDislikeLine } from '../Icons';
 import { useRouter } from 'next/router';
 
 type MovieItemProps = {
-  movie: IMovie,
+  movie: INewMovie,
   width?: number,
 }
 
@@ -14,12 +14,12 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie, width }) => {
   return (
     <div 
       className={`${style.movie}`}
-      onClick={() => router.push(`/watch/${movie.filmId}`)}
+      onClick={() => router.push(`/watch/${movie.id}`)}
       style={{minWidth: width + 'px'}}
     >
       <div className={style.movie__poster}>
         <div className={style['movie__poster-image']}>
-          <img src={movie.posterUrl} alt="poster" />
+          <img src={movie.image} alt="poster" />
         </div>
         <div className={style.movie__poster_mask}>
           <div className={style.movie__poster_wrapper}>
@@ -51,19 +51,21 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie, width }) => {
           </div>
           <div className={style.movie__row}>
             {movie.year + ', '}
-            {movie.countries.map(country => country.country + ', ')}
+            {movie.countries && movie.countries.join(', ')}
           </div>
           <div className={style.movie__row}>
-          {movie.genres[0].genre[0].toUpperCase() + movie.genres[0].genre.slice(1).toLowerCase()} <br/>
+          {
+            movie.genre && 
+            movie.genre[0][0].toUpperCase() + movie.genre[0].slice(1).toLowerCase()} <br/>
           </div>
           <div className={style.movie__row}>
-            Продолжительность:
+            {movie.filmLength && `${movie.filmLength} мин`}
           </div>
         </div>
       </div>
       <div className={style.movie__info}>
         <span className={style.movie__title}>
-          {movie.nameRu}
+          {movie.name}
         </span>
         <span className={style.movie__subscription}>
           Бесплатно

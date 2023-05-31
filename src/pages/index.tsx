@@ -4,7 +4,8 @@ import {MoviesSlider, MyContainer, Navbar } from '@/components';
 
 const Home = () => {
   const navbar = [{title: 'Главная'}];
-  // new LoadDB().load();
+  // new LoadDB().login();
+  // new LoadDB().load(); 
 
   return (
     <MyContainer>
@@ -12,11 +13,15 @@ const Home = () => {
       <div className="container">
         <MoviesSlider
           title='Топ лучших'
-          url='https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_250_BEST_FILMS&page=1'
+          url='http://localhost:5000/films/random'
         />
         <MoviesSlider
-          title='Современные мультфильмы'
-          url='https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_250_BEST_FILMS&page=2'
+          title='Случайная подборка'
+          url='http://localhost:5000/films/rating/9'
+        />
+        <MoviesSlider
+          title='Топ лучших'
+          url='http://localhost:5000/films/random'
         />
       </div>
     </MyContainer>
