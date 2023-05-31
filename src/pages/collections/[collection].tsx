@@ -3,11 +3,12 @@ import { useRouter } from 'next/router';
 
 const Collection = () => {
   const router = useRouter();
-
+  const collection: string = `${router.query.collection || ''}`;
+  
   const navbar = [
     {title: 'Главная', href: '/'},
     {title: 'Подборки', href: '/#'},
-    {title: `${router.query.collection}`},
+    {title: collection},
   ];
   
   return (

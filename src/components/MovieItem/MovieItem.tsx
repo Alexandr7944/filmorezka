@@ -1,5 +1,6 @@
 import style from './movieItem-style.module.scss';
-import { IMovie, INewMovie } from '@/interface/IMovie';
+import Image from 'next/image';
+import { INewMovie } from '@/interface/IMovie';
 import { AiOutlineStar, BiBookmark, BsMagic, RiDislikeLine } from '../Icons';
 import { useRouter } from 'next/router';
 
@@ -11,6 +12,12 @@ type MovieItemProps = {
 const MovieItem: React.FC<MovieItemProps> = ({ movie, width }) => {
   const router = useRouter();
 
+  const capitalize = (arr: string[]): string[] => {
+    return arr.map(item => 
+      item[0].toUpperCase() + item.slice(1).toLowerCase()
+    )
+  }
+
   return (
     <div 
       className={`${style.movie}`}
@@ -19,7 +26,12 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie, width }) => {
     >
       <div className={style.movie__poster}>
         <div className={style['movie__poster-image']}>
-          <img src={movie.image} alt="poster" />
+          <Image 
+            src={movie.image}
+            width={500}
+            height={500}
+            alt="poster"
+          />
         </div>
         <div className={style.movie__poster_mask}>
           <div className={style.movie__poster_wrapper}>
@@ -55,8 +67,8 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie, width }) => {
           </div>
           <div className={style.movie__row}>
           {
-            movie.genre && 
-            movie.genre[0][0].toUpperCase() + movie.genre[0].slice(1).toLowerCase()} <br/>
+            movie.genre && capitalize(movie.genre).join(', ')
+          } <br/>
           </div>
           <div className={style.movie__row}>
             {movie.filmLength && `${movie.filmLength} мин`}

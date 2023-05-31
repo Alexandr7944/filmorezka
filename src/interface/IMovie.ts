@@ -32,7 +32,7 @@ export interface INewMovie {
   id: number,
   image: string,
   installation: string,
-  genre?: string[],
+  genre: string[],
   name: string,
   nameEn: string,
   operator?: string,

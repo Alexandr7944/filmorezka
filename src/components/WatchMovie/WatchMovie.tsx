@@ -1,49 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, {  } from 'react';
 import ReactPlayer from 'react-player';
 import style from './watchMovie-style.module.scss';
-import IMoviePage, { IVideo } from '@/interface/IMoviePage';
-import Fetching from '@/API/Fetching';
 import { BiBookmark, BsDownload, BsFillPlayFill, BsVolumeDown } from '../Icons';
-import { IActor } from '@/interface/IActor';
 import { ActorContainer } from '../UI/ActorContainer';
 import { Button } from '../UI/Button';
-import { INewMovie } from '@/interface/IMovie';
+import { WatchMovieProps } from '@/interface/WatchMovieProps';
 
-type WatchMovieProps = {
-  movieId: string
-}
-
-const WatchMovie: React.FC<WatchMovieProps> = ({ movieId }) => {
-  const [movie, setMovie] = useState<INewMovie>();
-  const [video, setVideo] = useState<IVideo>();
-  const [actors, setActors] = useState<IActor[]>();
-  console.log(movie);
-
-  useEffect(() => {
-    Fetching.getNewAll(`http://localhost:5000/films/id/${movieId}`)
-      .then(movie => movie && setMovie(movie))
-      .then(() => console.log(movie));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [movieId]);
-
-  useEffect(() => {
-    Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${movie && movie.filmSpId}/videos`)
-      .then(video => video && video.items && setVideo(video));
-  }, [movieId]);
-
-  useEffect(() => {
-    Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v1/staff?filmId=${movie && movie.filmSpId}`)
-      .then(actors => setActors(actors));
-  }, [movieId]);  
-
+const WatchMovie: React.FC<WatchMovieProps> = ({ movie, video, actors }) => {  
+  console.log(video);
+  
   const filmLength = (time: number) => {
     if (!time) return '';
     if (movie?.type === 'serial') {
       const typeLength = time % 10 === 1 && time !== 11
         ? 'серия'
         : (time % 10 > 1 && time % 10 < 5) && !(time > 11 && time <= 15)
-          ? 'серии'
-          : 'серий'
+          ? 'серии' : 'серий'
       return `${time} ${typeLength}`
     };
     const hour = Math.floor(time / 60);
@@ -56,10 +28,11 @@ const WatchMovie: React.FC<WatchMovieProps> = ({ movieId }) => {
       { movie && 
       <div className={style['watchMovie__video-wrapper']}>
         <div className={style['watchMovie__player']}>
-          <ReactPlayer
+          {/* <ReactPlayer
             className={style['player']}
-            url={video?.items && video.items[0].url}
-          />
+            url={video?.items && video.items[0]?.url}
+          /> */}
+          {video && video.items[0] && <video src={require(video.items[0].url)} />}
         </div>
         <h1 className={style['watchMovie__title']}>
           {movie.name}

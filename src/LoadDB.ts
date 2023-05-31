@@ -24,12 +24,12 @@ class LoadDB {
       password: "12345678a", 
       displayName: "Test1"
     }
+
     try {
       const response = await fetch('http://localhost:5010/auth/login', {
         method: 'POST',
         headers: {
-          'Content-type': 'application/json',
-          'Cookie': this.token
+          'Content-type': 'application/json'
         },
         body: JSON.stringify(body),
         credentials: 'include',

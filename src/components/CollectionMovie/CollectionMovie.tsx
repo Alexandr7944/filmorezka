@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import style from './collectionMovie-style.module.scss';
-import { IMovie } from '@/interface/IMovie';
+import { IMovie, INewMovie } from '@/interface/IMovie';
 import Fetching from '@/API/Fetching';
 import { MovieItem } from '../MovieItem';
 import { BsCreditCard2Front } from 'react-icons/bs';
@@ -10,13 +10,15 @@ type CollectionMovieProps = {
 }
 
 const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection }) => {
-  const [movies, setMovies] = useState<(IMovie | undefined)[]>([]);
+  const [movies, setMovies] = useState<INewMovie[]>([]);
   const [pages, setPages] = useState<number>(1);
 
-  useEffect(() => {
-    Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_250_BEST_FILMS&page=${pages}`)
-      .then(movies => movies?.films && setMovies(prev => pages > 1 ? [...prev, ...movies.films] : movies.films ));
-  }, [pages]);
+  // useEffect(() => {
+  //   Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_250_BEST_FILMS&page=${pages}`)
+  //     .then(movies => movies?.films && setMovies(prev => pages > 1
+  //       ? [...prev, ...movies.films]
+  //       : movies.films ));
+  // }, [pages]);
 
   const addMoviesHandler = () => setPages(prev => prev + 1);
 
@@ -32,7 +34,7 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection }) => {
         <div className={style.collection__wrapper}>
           {movies.map((item) => 
             item && <div
-              key={item.filmId}
+              key={item.id}
               className={style.collection__item}
             >
               <MovieItem
