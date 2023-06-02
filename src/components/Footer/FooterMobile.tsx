@@ -13,6 +13,7 @@ import FooterAboutUs from "./FooterAboutUs";
 import { IoMdInformationCircleOutline } from "react-icons/io";
 import { RiTv2Fill } from "react-icons/ri";
 import FooterNetworks from "./FooterNetworks";
+import Search from "../Search/Search";
 
 const FooterMobile: React.FC = () => {
   const textYet = <BiDotsHorizontalRounded size="20px" />;
@@ -178,7 +179,7 @@ const FooterMobile: React.FC = () => {
           <Link
             onClick={() => updateMenu("catalog")}
             data-test="my_ivi"
-            href="/"
+            href="/collection"
             className={
               value === "catalog"
                 ? style.tabBar__item + " " + style.tabBar__selected
@@ -417,15 +418,16 @@ const FooterMobile: React.FC = () => {
                 </g>
               </svg>
             </div>
-            <div className="nbl-tabBar__itemIcon">
+            {/* <div className="nbl-tabBar__itemIcon">
               <BiSearch size="20px" />
             </div>
-            <div className={style.tabBar__itemCaption}>Поиск</div>
+            <div className={style.tabBar__itemCaption}>Поиск</div> */}
+            <Search />
           </a>
           <Link
             onClick={() => updateMenu("user")}
             data-test="my_ivi"
-            href="/"
+            href="/profile"
             className={
               value === "user"
                 ? style.tabBar__item + " " + style.tabBar__selected

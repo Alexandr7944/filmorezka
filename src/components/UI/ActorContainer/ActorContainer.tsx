@@ -3,6 +3,7 @@ import React from 'react';
 import style from './actorContainer-style.module.scss';
 import { BsFillPersonFill } from 'react-icons/bs';
 import Image from 'next/image';
+import router from 'next/router';
 
 interface ActorContainerProps {
   actor?: IActor,
@@ -11,9 +12,8 @@ interface ActorContainerProps {
 }
 
 const ActorContainer: React.FC<ActorContainerProps> = ({ actor, rating }) => {
-  
   return (
-    <div className={style.actor}>
+    <div className={style.actor} onClick={() => router.push(`/actorpage/${actor?.staffId}`)}>
       <div className={style.actor__photo}>
         {
           rating 
