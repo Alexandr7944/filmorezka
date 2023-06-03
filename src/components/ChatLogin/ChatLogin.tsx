@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './chatLogin-style.module.scss';
 import { CgClose } from '../Icons';
 import { Error } from '../UI/Error';
@@ -8,6 +8,7 @@ import { MessagesProps, steps } from '@/interface/ChatLogin';
 import { useAppDispatch } from '@/hooks/hook';
 import { setUser } from '@/store/reducers/userSlice';
 import { IUserAccount } from '@/interface/IUserAccount';
+import { TokenResponse, useGoogleLogin } from '@react-oauth/google';
 
 interface ChatLoginProps {
   dispatch: ReturnType<typeof useAppDispatch>
@@ -158,10 +159,13 @@ const ChatLogin: React.FC<ChatLoginProps> = ({ dispatch }) => {
     saveToStore();
   }
 
-  const authorizationGmail = async () => {
-    await Autorization.loginGmail();
-    saveToStore();
-  }
+  const authorizationGmail = useGoogleLogin({
+    onSuccess: async (codeResponse: TokenResponse) => {
+      await Autorization.loginGmail(codeResponse.access_token);
+      saveToStore();
+    },
+    onError: (error) => console.log('Login Failed:', error)
+  });
 
   const generalPropsMessages = {
     currentStep: step,

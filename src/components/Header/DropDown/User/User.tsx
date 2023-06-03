@@ -9,6 +9,8 @@ import { IUserState, clearUser } from "@/store/reducers/userSlice";
 import { selectUser } from "@/store/selectors";
 import { useAppDispatch } from "@/hooks/hook";
 import Autorization from "@/microservices/Autorization";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import process from 'process';
 
 interface UserProps extends DropDownProps {
   content: IUser;
@@ -32,8 +34,16 @@ const User: React.FC<UserProps> = ({content}) => {
     const container = document.createElement('div');
     container.id = 'modal';
     document.body.appendChild(container);
+    console.log(process.env);
+
+    const clientId: string = process.env.GOOGLE_CLIENT_ID as string;
   
-    ReactDOM.render(<ChatLogin dispatch={dispatch}/>, container);
+    ReactDOM.render(
+      <GoogleOAuthProvider clientId={clientId}>
+        <ChatLogin dispatch={dispatch}/> 
+      </GoogleOAuthProvider>,
+      container
+    );
   }
 
   const logOutProfileClickHandler = async () => {

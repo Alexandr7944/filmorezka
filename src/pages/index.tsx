@@ -25,7 +25,7 @@ const Home = () => {
     <MyContainer>
       <Navbar link={navbar} />
       <div className="container">
-        <MoviesSlider
+        {/* <MoviesSlider
           title='Топ лучших'
           url='http://localhost:5000/films/random'
         />
@@ -36,7 +36,7 @@ const Home = () => {
         <MoviesSlider
           title='Топ лучших'
           url='http://localhost:5000/films/random'
-        />
+        /> */}
       </div>
     </MyContainer>
   )
