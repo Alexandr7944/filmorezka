@@ -9,7 +9,7 @@
   }
   
   &__title {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 700;
     line-height: 28px;
   }
@@ -44,10 +44,10 @@
     transform: translateY(-50%);
     z-index: 10;
     &:first-child {
-      left: 0;
+      left: -10px;
     }
     &:last-child {
-      right: 0;
+      right: -10px;
     }
   }
 

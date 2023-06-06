@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import style from './collectionMovie-style.module.scss';
-import { IMovie, INewMovie } from '@/interface/IMovie';
+import { INewMovie } from '@/interface/IMovie';
 import Fetching from '@/API/Fetching';
 import { MovieItem } from '../MovieItem';
 import { BsCreditCard2Front } from 'react-icons/bs';
 import { capitalizeStr } from '@/utils/capitalize';
+import { MovieFilter } from '@/interface/MovieFilter';
+import MovieFilterContainer from '../MovieFilterContainer/MovieFilterContainer';
 
 type CollectionMovieProps = {
   collection: string
@@ -12,24 +14,50 @@ type CollectionMovieProps = {
 
 const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection }) => {
   const [movies, setMovies] = useState<INewMovie[]>([]);
-  const [pages, setPages] = useState<number>(1);
+  const [showFilter, setShowFilter] = useState<boolean>(false);
+  const [moviesFilter, setMoviesFilter] = useState<MovieFilter>({
+    genre: ['all'],
+    countries: ['all'],
+    rating: 0,
+    year: 0
+  })
 
   useEffect(() => {
-    Fetching.getAll(`http://localhost:5000/films/random`)
+    Fetching.getNewAll(`http://localhost:5000/films/random`)
       .then(movies => setMovies(movies));
-  }, [pages]);
+  }, []);
 
-  const addMoviesHandler = () => setPages(pages + 1);
+  const addMoviesHandler = () => {
+    Fetching.getNewAll(`http://localhost:5000/films/random`)
+      .then(movies => setMovies(prev => [...prev, ...movies]))
+  };
+
+  const titleCollection = collection && collection !== 'random'
+    ? capitalizeStr(collection) + ' смотреть онлайн'
+    : 'Смотреть онлайн'
 
   return (
     <div className={style.collection}>
       <div className="container">
         <h1 className={style.collection__title}>
-          {collection && capitalizeStr(collection)} смотреть онлайн
+          {titleCollection}
         </h1>
-        <div className={style.collection__filter}>
-          <BsCreditCard2Front /> Фильтры
-        </div>
+        {movies && 
+          <div className={style.collection__filter}>
+            <div
+              className={style['collection__filter-name']}
+              onClick={() => setShowFilter(prev => !prev)}
+            >
+              <BsCreditCard2Front />
+              {showFilter ? 'Свернуть': 'Фильтры'}
+            </div>
+            {showFilter && <MovieFilterContainer 
+              movies={movies}
+              moviesFilter={moviesFilter}
+              setMoviesFilter={setMoviesFilter} 
+            />}
+          </div>
+        }
         { movies &&
           <>
           <div className={style.collection__wrapper}>

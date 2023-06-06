@@ -55,8 +55,8 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
   return (
     <div className={style.movies}>
       <Link href={`/collections/${title}`} className={style.movies__link}>
-        <h3 className={style.title}>{ title }</h3>
-        <Arrow className={style.movies__arrow}/>
+        <h3 className={style.movies__title}>{ title }</h3>
+        <Arrow className={style.movies__arrow} width='40px' height='15px'/>
       </Link>
       {
         movies

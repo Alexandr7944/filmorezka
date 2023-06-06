@@ -40,6 +40,7 @@
     "@storybook/nextjs": "^7.0.6",
     "@storybook/react": "^7.0.6",
     "@storybook/testing-library": "^0.0.14-next.2",
+    "@types/country-list-js": "^3.1.2",
     "@types/uuid": "^9.0.1",
     "eslint-plugin-storybook": "^0.6.11",
     "prettier": "^2.8.7",

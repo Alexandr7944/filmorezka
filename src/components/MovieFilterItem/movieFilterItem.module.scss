@@ -1,0 +1,37 @@
+@import '../../styles/options.scss';
+
+.filter-item {
+  width: 23%;
+  padding: 15px;
+  border: 2px solid $colorElementHeaderHover;
+  border-radius: 5px;
+  background-color: rgb(71, 61, 104);
+  position: relative;
+
+  &__title {
+    color: $colorTextAccent;
+  }
+
+  &__body {
+    position: absolute;
+    width: 100%;
+    padding: 15px;
+    left: 0;
+    top: 50px;
+    // z-index: 5;
+    border: 2px solid $colorElementHeaderHover;
+    border-radius: 5px;
+    background-color: rgb(71, 61, 104);
+  }
+}
+
+@media (max-width: 880px) {
+  .filter-item {
+    width: 48%;
+  }
+}
+@media (max-width: 500px) {
+  .filter-item {
+    width: 100%;
+  }
+}

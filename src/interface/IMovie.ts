@@ -22,8 +22,8 @@ type genre = {
 }
 
 export interface INewMovie {
-  countries?: string[],
-  actors?: any,
+  countries: string[] | [],
+  actors?: any[],
   composer?: string,
   director?: string,
   filmDescription?: string,
@@ -32,7 +32,7 @@ export interface INewMovie {
   id: number,
   image: string,
   installation: string,
-  genre: string[],
+  genre: string[] | [],
   name: string,
   nameEn: string,
   operator?: string,

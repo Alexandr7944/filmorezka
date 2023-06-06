@@ -6,6 +6,16 @@
   &__title {
     margin-bottom: 30px;
   }
+
+  &__filter {
+    position: relative;
+  }
+
+  &__filter-name {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+  }
   
   &__wrapper {
     flex: 1 1 auto;

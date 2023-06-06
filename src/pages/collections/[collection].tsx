@@ -5,11 +5,13 @@ import { useRouter } from 'next/router';
 const Collection = () => {
   const router = useRouter();
   const collection: string = `${router.query.collection || ''}`;
-  
+  const titleCollection = collection && collection !== 'random'
+    ? capitalizeStr(collection)
+    : 'Подборки'
+
   const navbar = [
     {title: 'Главная', href: '/'},
-    {title: 'Подборки', href: '/#'},
-    {title: capitalizeStr(collection)},
+    {title: titleCollection}
   ];
   
   return (

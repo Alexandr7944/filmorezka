@@ -20,9 +20,7 @@ const WatchPage = () => {
     }
   ]});
   const [actors, setActors] = useState<IActor[]>();
-
   const router = useRouter();
-  
   const navbar = [
     {title: 'Главная', href: '/'},
     {
@@ -33,6 +31,8 @@ const WatchPage = () => {
     },
     {title: `${movie?.name && capitalizeStr(movie.name)}`}
   ];
+  console.log(movie);
+  
 
   const movieId = router.query.movieId;
 
