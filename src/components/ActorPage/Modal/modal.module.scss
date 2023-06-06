@@ -1,0 +1,100 @@
+.modal {
+  opacity: 0;
+  pointer-events: none;
+
+  &__content {
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    align-items: flex-start
+  }
+  &__box {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+.watchBtn {
+  background: rgba(255, 255, 255, 0.094);
+  border-color: rgba(255, 255, 255, 0.094);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-width: 1px;
+  border-radius: 8px;
+  height: 38px;
+  width: 150px;
+  cursor: pointer;
+  &:hover {
+    background: #ffffff2e;
+    transition-duration: 0.8s;
+  }
+}
+.active {
+    background: -webkit-linear-gradient(
+    45deg,
+    rgb(78, 106, 191),
+    rgb(127, 62, 204)
+  );
+  background: -moz-linear-gradient(45deg, rgb(78, 106, 191), rgb(127, 62, 204));
+  background: linear-gradient(45deg, rgb(78, 106, 191), rgb(127, 62, 204));
+  position: absolute;
+  display:inherit;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  top: 74px;
+  left: 56px;
+  z-index: 50;
+  transition: 0.5s;
+  opacity: 1;
+}
+.hidden {
+  display: none;
+}
+.img2 {
+  img {
+    border-radius: 4px;
+  }
+}
+.title {
+    display: inherit;
+  color: #fff;
+  line-height: 20px;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 18px;
+}
+.title2 {
+  color: #ffffffc6;
+  line-height: 18px;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 14px;
+  max-width: 350px;
+}
+.title3 {
+  color: #fff;
+  line-height: 18px;
+  font-weight: 700;
+  font-style: normal;
+  font-size: 14px;
+  max-width: 350px;
+}
+.person_name {
+  color: #a5a1b2;
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 400;
+}
+.description{
+    color: #a5a1b2;
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 400;
+}
+@media (max-width: 768px) {
+
+
+}

@@ -102,43 +102,34 @@ class Autorization {
 			}
     }
 
-		static async loginVK(): Promise<boolean> {
+		static async loginGmail(accsessToken: string): Promise<boolean> {
 			try {
-				const response = await fetch(this._url + 'vkontakte/login', {
+				const responseGoogle = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accsessToken}`, {
 					mode: 'cors',
 					method: 'GET',
 					headers: {
 						'Content-type': 'application/json',
 					},
-					credentials: 'include'
-				});
+				})
 
-				console.log(response)
-				const result: string = await response.text();
-				console.log(result)
-        
-				return true;
-			} catch (err) {
-				throw err;
-			}
-    }
+				const { email, name } = await responseGoogle.json();
+				const user: IUserAccount = {
+					displayName: name,
+					email
+				};
 
-		static async loginGmail(): Promise<boolean> {
-			try {
-				const response = await fetch(this._url + 'google/login', {
+				const responseAuth = await fetch(this._url + 'google/login', {
 					mode: 'cors',
-					method: 'GET',
+					method: 'POST',
 					headers: {
 						'Content-type': 'application/json',
 					},
-					credentials: 'include'
+					body: JSON.stringify(user),
 				});
 
-				console.log(response)
-				const result: string = await response.text();
-				console.log(result)
+				const result: string = await responseAuth.text();
         
-				return true;
+				return !result;
 			} catch (err) {
 				throw err;
 			}

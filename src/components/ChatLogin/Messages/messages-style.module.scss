@@ -32,7 +32,7 @@
 }
 
 .message-site {
-  width: 450px;
+  width: 85%;
   background-color: #312B45;
   border-bottom-left-radius: 0;
   margin-top: 20px;
@@ -49,7 +49,7 @@
 }
 
 .message-user {
-  width: 380px;
+  width: 65%;
   background-color: #1F1B2E;
   border-bottom-right-radius: 0;
   animation: showRight 1s;
@@ -83,5 +83,29 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@media (max-width: 1000px) {
+  .wrapper {
+    width: 60%;
+  }
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    width: 70%;
+  }
+}
+
+@media (max-width: 640px) {
+  .wrapper {
+    width: 90%;
+  }
+}
+
+@media (max-width: 480px) {  
+  .message-site {
+    width: 95%;
   }
 }

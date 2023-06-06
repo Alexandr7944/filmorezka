@@ -7,8 +7,9 @@ import { Button } from '@/components/UI/Button';
 import SavedResponse from '../SavedResponse/SavedResponse';
 import { Loader } from '@/components/UI/Loader';
 
+const vkAuthURL: string = process.env.VK_AUTH_URL as string;
+
 export interface EmailProps extends MessagesProps {
-  authorizationVK: () => void,
   authorizationGmail: () => void,
 }
 
@@ -47,12 +48,12 @@ const Email: React.FC<EmailProps> = ({...props}) => {
           </Button>
 
           <div className={style['authrozitation']}>
-            <div 
+            <a 
               className={style['vk']}
-              onClick={props.authorizationVK}
+              href={vkAuthURL}
             >
               <SlSocialVkontakte size='25px'/>
-            </div>
+            </a>
 
             <div 
               className={style['gmail']}

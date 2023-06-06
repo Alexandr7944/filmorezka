@@ -12,8 +12,6 @@ services:
       - ./pgdata:/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
-
-
   rabbitmq:
     image: rabbitmq
     restart: always
@@ -23,8 +21,6 @@ services:
       RABBITMQ_HOST: rabbitmq
     ports:
       - "5672:5672"
-
-
 
   app-film:
     container_name: film
@@ -38,7 +34,6 @@ services:
       - .environment.env
     ports:
       - "5000:5000"
-
 
   listener-persons:
     build: ./PersonsMicroService/
@@ -91,4 +86,8 @@ services:
     ports:
       - "8000:8000"
     depends_on:
+<<<<<<< HEAD
       - db1
+=======
+      - db1
+>>>>>>> 5738acedd38c63161274e909b4f1c976cc122b03

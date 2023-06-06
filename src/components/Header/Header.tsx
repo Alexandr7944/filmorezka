@@ -8,6 +8,7 @@ import { Format, User, Notification } from './DropDown';
 import { useRouter } from 'next/router';
 import { IUserState } from '@/store/reducers/userSlice';
 import { selectUser } from '@/store/selectors';
+import Search from '../Search/Search';
 
 const pictureSite: string = 'https://solea-parent.dfs.ivi.ru/picture/ea003d,ffffff/reposition_iviLogoPlateRounded.svg';
 
@@ -72,10 +73,8 @@ const Header: React.FC = () => {
           <div className={styles['activities']}>
             <div className={styles['subscription-payment']}>Оплатить подписку</div>
 
-            <div className={styles['search']}>
-              <BiSearch size="20px" />
-              <span>Поиск</span>
-            </div>
+            <div className={styles['search']}><Search /></div> 
+
 
             <div className={styles['notifications']}>
               <IoMdNotificationsOutline

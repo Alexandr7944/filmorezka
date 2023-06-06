@@ -1,0 +1,49 @@
+.footer {
+
+
+    &__button {
+      background: rgba(255, 255, 255, 0.094);
+      border-color: rgba(255, 255, 255, 0.094);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      border-width: 1px;
+      border-radius: 8px;
+      height: 38px;
+     
+      a {
+        height: 16px;
+      }
+      &:hover {
+        background: #ffffff2e;
+        transition-duration: 0.8s;
+      }
+    }
+
+    &__buttonstyle {
+      text-align: center;
+      width: 196px;
+      height: 40px;
+  
+      padding: 11px 15px;
+      color: #fff;
+      font-weight: 500;
+      font-size: 15px;
+    }
+    &__buttonstyle2 {
+      text-align: center;
+      width: 49%;
+      height: 40px;
+      padding: 11px 15px;
+      color: #fff;
+      font-weight: 500;
+      font-size: 15px;
+    }
+    &__questions {
+      margin-top: 24px;
+      a {
+        color: #fff;
+      }
+    }
+  }

@@ -26,7 +26,7 @@ class Fetching {
       const response = await fetch(url, {
         method,
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/jsnpm install @react-oauth/google@lateston'
         }
       });
       const result = await response.json();
