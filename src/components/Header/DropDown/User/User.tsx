@@ -34,7 +34,6 @@ const User: React.FC<UserProps> = ({content}) => {
     const container = document.createElement('div');
     container.id = 'modal';
     document.body.appendChild(container);
-    console.log(process.env);
 
     const clientId: string = process.env.GOOGLE_CLIENT_ID as string;
   

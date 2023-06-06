@@ -154,15 +154,10 @@ const ChatLogin: React.FC<ChatLoginProps> = ({ dispatch }) => {
     }
   }
 
-  const authorizationVK = async () => {
-    await Autorization.loginVK();
-    saveToStore();
-  }
-
   const authorizationGmail = useGoogleLogin({
     onSuccess: async (codeResponse: TokenResponse) => {
       await Autorization.loginGmail(codeResponse.access_token);
-      saveToStore();
+      // location.reload();
     },
     onError: (error) => console.log('Login Failed:', error)
   });
@@ -174,7 +169,7 @@ const ChatLogin: React.FC<ChatLoginProps> = ({ dispatch }) => {
 
   const propsMessages = {
     email: {
-      ...generalPropsMessages, authorizationVK, authorizationGmail,
+      ...generalPropsMessages, authorizationGmail,
       step: steps.email,
       setterState: setEmail,
       sendState: sendEmail,

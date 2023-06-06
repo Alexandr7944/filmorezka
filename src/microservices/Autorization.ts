@@ -102,27 +102,6 @@ class Autorization {
 			}
     }
 
-		static async loginVK(): Promise<boolean> {
-			try {
-				const response = await fetch(this._url + 'vkontakte/login', {
-					mode: 'cors',
-					method: 'GET',
-					headers: {
-						'Content-type': 'application/json',
-					},
-					credentials: 'include'
-				});
-
-				console.log(response)
-				const result: string = await response.text();
-				console.log(result)
-        
-				return true;
-			} catch (err) {
-				throw err;
-			}
-    }
-
 		static async loginGmail(accsessToken: string): Promise<boolean> {
 			try {
 				const responseGoogle = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accsessToken}`, {
@@ -133,11 +112,11 @@ class Autorization {
 					},
 				})
 
-				const {email, name} = await responseGoogle.json();
+				const { email, name } = await responseGoogle.json();
 				const user: IUserAccount = {
 					displayName: name,
 					email
-				}
+				};
 
 				const responseAuth = await fetch(this._url + 'google/login', {
 					mode: 'cors',
@@ -145,8 +124,7 @@ class Autorization {
 					headers: {
 						'Content-type': 'application/json',
 					},
-					credentials: 'include',
-					body: JSON.stringify(user)
+					body: JSON.stringify(user),
 				});
 
 				const result: string = await responseAuth.text();
