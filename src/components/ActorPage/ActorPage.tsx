@@ -17,7 +17,7 @@ interface ActorPageProps {
 
 const ActorPages: React.FC<ActorPageProps> = ({ actorID }) => {
   const URL_ACTORS = "http://localhost:5100/actors/id/";
-  const URL_FILMS = "http://localhost:5005/films/sp/";
+  const URL_FILMS = "http://localhost:5000/films/sp/";
 
   const [actor, setActor] = useState<IActor>();
   const [film, setFilm] = useState<INewMovie[]>();

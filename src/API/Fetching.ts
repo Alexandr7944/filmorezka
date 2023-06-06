@@ -6,15 +6,15 @@ class Fetching {
     }
     let result;
     try {
-      // const response = await fetch(url, {
-      //   method,
-      //   headers: {
-      //       'X-API-KEY': 'bd41c576-b9b8-455e-b3fa-dc54c04dc1dd',
-      //       'Content-Type': 'application/json',
-      //   },
-      // });
-      // result = await response.json();
-      // sessionStorage.setItem(url, JSON.stringify(result));
+      const response = await fetch(url, {
+        method,
+        headers: {
+            'X-API-KEY': 'bd41c576-b9b8-455e-b3fa-dc54c04dc1dd',
+            'Content-Type': 'application/json',
+        },
+      });
+      result = await response.json();
+      sessionStorage.setItem(url, JSON.stringify(result));
       return result;
     } catch (err) {
       console.log(err);
@@ -23,15 +23,14 @@ class Fetching {
 
   static async getNewAll(url: string, method: string = 'GET') {
     try {
-      // const response = await fetch(url, {
-      //   method,
-      //   headers: {
-      //     'Content-Type': 'application/jsnpm install @react-oauth/google@lateston'
-      //   }
-      // });
-      // const result = await response.json();
-      // return result;
-      return null;
+      const response = await fetch(url, {
+        method,
+        headers: {
+          'Content-Type': 'application/jsnpm install @react-oauth/google@lateston'
+        }
+      });
+      const result = await response.json();
+      return result;
     } catch (err) {
       console.log(err);
     }
