@@ -4,23 +4,42 @@ import { v4 as uuidv4 } from 'uuid';
 import {Teaser} from "@/components/UI/Teaser";
 import { SlScreenDesktop } from "@/components/Icons/index";
 import { DropDownProps, IFormat } from "@/interface/Header";
+import { useAppDispatch } from "@/hooks/hook";
+import { selectMediaFilters } from "@/store/selectors";
+import { genre } from "@/types/genre";
 
 interface FormatProps extends DropDownProps {
   content: IFormat;
 }
 
-const renderContentItems = (items: string[] | number[]) => {
+const getWrapperContentItems = (items: string[] | number[]) => {
   return items.map((item) => (
     <div
       className={styles['content__item']}
       key={uuidv4()}
     >
-      <span className={styles['item__text']}>{item}</span>
+        <span className={styles['item__text']}>{item}</span>
+    </div>
+  ));
+};
+
+const getWrapperGenres = (genres: genre[]) => {
+  return genres.map((genre) => (
+    <div
+      className={styles['content__item']}
+      key={uuidv4()}
+    >
+      <span className={styles['item__text']}>
+        {genre.nameRu.charAt(0).toUpperCase() + genre.nameRu.slice(1)}
+      </span>
     </div>
   ));
 };
 
 const Format: React.FC<FormatProps> = ({content}) => {
+  const dispatch = useAppDispatch();
+  const { genres } = selectMediaFilters();
+
   return (
     <div
       className={styles['wrapper']}
@@ -32,11 +51,11 @@ const Format: React.FC<FormatProps> = ({content}) => {
 
         <div className={styles['content']}>
           <div className={styles['content__left-part']}>
-            {renderContentItems(content.genres.slice(0, 11))}
+            {getWrapperGenres(genres.slice(0, genres.length / 2))}
           </div>
 
           <div className={styles['content__right-part']}>
-            {renderContentItems(content.genres.slice(11))}
+            {getWrapperGenres(genres.slice(genres.length / 2 + 1, genres.length))}
           </div>
         </div>
       </div>
@@ -48,7 +67,7 @@ const Format: React.FC<FormatProps> = ({content}) => {
           </div>
 
           <div className={styles['content']}>
-            {renderContentItems(content.countries)}
+            {getWrapperContentItems(content.countries)}
           </div>
         </div>
 
@@ -58,14 +77,14 @@ const Format: React.FC<FormatProps> = ({content}) => {
           </div>
 
           <div className={styles['content']}>
-            {renderContentItems(content.years.map(year => `${content.typeFormat} ${year} года`))}
+            {getWrapperContentItems(content.years.map(year => `${content.typeFormat} ${year} года`))}
           </div>
         </div>
       </div>
 
       <div className={styles['filters']}>
         <div className={styles['content']}>
-          {renderContentItems(content.filters)}
+          {getWrapperContentItems(content.filters)}
         </div>
       </div>
 

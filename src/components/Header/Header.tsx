@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './header-style.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 import { IoMdNotificationsOutline, BiSearch, BiUser } from '../Icons';
-import { navigationsItems, notifications, user } from './data';
+import { navigationsItems, notifications, user } from './DropDown/data';
 import { Content, TypeContent, IFormat, INotification, IUser } from '@/interface/Header';
 import { Format, User, Notification } from './DropDown';
 import { useRouter } from 'next/router';

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import style from './chatLogin-style.module.scss';
 import { CgClose } from '../Icons';
 import { Error } from '../UI/Error';

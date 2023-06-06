@@ -46,7 +46,7 @@ const ActorPages: React.FC<ActorPageProps> = ({ actorID }) => {
               //@ts-ignore
               `${URL_FILMS}${sortedByKeyLenght[i].filmId}`
             );
-            if (temp.statusCode !== 404) {
+            if (temp && temp.statusCode !== 404) {
               data = data?.concat(temp);
             }
           }
