@@ -16,10 +16,10 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
   const [getTypes, setGetTypes] = useState<string>('');
   const resetFilter = () => {
     setMoviesFilter({
-      genre: '',
-      countries: '',
-      year: 0,
-      rating: 0
+      genre: [],
+      countries: [],
+      year: [],
+      rating: []
     });
     setGetTypes('');
   }
@@ -40,11 +40,12 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
     const arr = movies.map(item => item[typeFilter as keyof MovieFilterString])
       .reduce((acc, item) => item?.length ? acc.concat(item) : acc, []);
     return [...new Set(arr)].map(item => capitalizeStr(item));
-  }  
-  
+  }
+
   return (
     <div className={styles['movie-filter']}>
-      <div className={styles['movie-filter__container']}>
+      <div className={styles['movie-filter__container']}
+      >
         {
           typesFilter.map(type => <MovieFilterItem 
               key={type.type}
