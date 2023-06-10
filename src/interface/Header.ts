@@ -2,7 +2,6 @@ import { IconType } from 'react-icons';
 
 interface IFormat  {
   typeFormat: string,
-  genres: string[],
   countries: string[],
   years: number[],
   filters: string[]
