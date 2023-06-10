@@ -1,7 +1,7 @@
 @import '../../styles/options.scss';
 
 .movie-filter {
-  position: absolute;
+  // position: absolute;
   width: 100%;
   // overflow: hidden;
   z-index: 1;
@@ -21,6 +21,10 @@
     flex-wrap: wrap;
     gap: 10px;
     margin-bottom: 20px;
+  }
+
+  &__reset {
+    cursor: pointer;
   }
 }
 

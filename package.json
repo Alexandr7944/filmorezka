@@ -42,11 +42,6 @@
     "@storybook/nextjs": "^7.0.6",
     "@storybook/react": "^7.0.6",
     "@storybook/testing-library": "^0.0.14-next.2",
-<<<<<<< HEAD
-    "@types/country-list-js": "^3.1.2",
-    "@types/uuid": "^9.0.1",
-=======
->>>>>>> 5738acedd38c63161274e909b4f1c976cc122b03
     "eslint-plugin-storybook": "^0.6.11",
     "prettier": "^2.8.7",
     "sass": "^1.62.0",

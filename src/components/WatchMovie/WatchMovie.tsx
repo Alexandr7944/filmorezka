@@ -6,8 +6,7 @@ import { ActorContainer } from '../UI/ActorContainer';
 import { Button } from '../UI/Button';
 import { WatchMovieProps } from '@/interface/WatchMovieProps';
 
-const WatchMovie: React.FC<WatchMovieProps> = ({ movie, video, actors }) => {  
-  console.log(video);
+const WatchMovie: React.FC<WatchMovieProps> = ({ movie, video, actors }) => {
   
   const filmLength = (time: number) => {
     if (!time) return '';
@@ -31,9 +30,9 @@ const WatchMovie: React.FC<WatchMovieProps> = ({ movie, video, actors }) => {
         <div className={style['watchMovie__player']}>
           {videoUrl
             ? <ReactPlayer
-              className={style['player']}
-              url={videoUrl}
-            />
+                className={style['player']}
+                url={videoUrl}
+              />
             : <video 
               width="100%" 
               height="100%" 

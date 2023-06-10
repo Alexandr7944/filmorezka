@@ -19,27 +19,28 @@ const WatchPage = () => {
       url: ''
     }
   ]});
+  
   const [actors, setActors] = useState<IActor[]>();
   const router = useRouter();
   const navbar = [
     {title: 'Главная', href: '/'},
     {
-      title: `${movie && movie.genre[0] && capitalizeStr(movie.genre[0]) || 'Подборка для Вас'}`,
+      title: `${movie?.genre?.length &&
+        movie?.genre[0] &&
+        capitalizeStr(movie.genre[0]) || 'Подборка для Вас'}`,
       href: movie?.genre && movie?.genre[0]
         ? `/collections/${movie?.genre[0]}`
         : '/collections/random'
     },
-    {title: `${movie?.name && capitalizeStr(movie.name)}`}
-  ];
-  console.log(movie);
-  
+    {title: `${movie?.name && capitalizeStr(movie.name) || ''}`}
+  ];  
 
   const movieId = router.query.movieId;
 
   useEffect(() => {
     Fetching.getNewAll(`http://localhost:5000/films/id/${movieId}`)
       .then(movie => setMovie(movie));
-  }, []);
+  }, [movieId]);
 
   useEffect(() => {
     Fetching.getAll(`https://kinopoiskapiunofficial.tech/api/v2.2/films/${movie && movie.filmSpId}/videos`)

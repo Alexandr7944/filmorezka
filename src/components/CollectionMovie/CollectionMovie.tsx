@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import style from './collectionMovie-style.module.scss';
 import { INewMovie } from '@/interface/IMovie';
 import Fetching from '@/API/Fetching';
@@ -16,8 +16,8 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection }) => {
   const [movies, setMovies] = useState<INewMovie[]>([]);
   const [showFilter, setShowFilter] = useState<boolean>(false);
   const [moviesFilter, setMoviesFilter] = useState<MovieFilter>({
-    genre: ['all'],
-    countries: ['all'],
+    genre: '',
+    countries: '',
     rating: 0,
     year: 0
   })
@@ -35,6 +35,23 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection }) => {
   const titleCollection = collection && collection !== 'random'
     ? capitalizeStr(collection) + ' смотреть онлайн'
     : 'Смотреть онлайн'
+
+  const getMoviesFilterList = useCallback((): INewMovie[] => {
+    return movies
+      .filter(item => moviesFilter.genre
+        ? item.genre.includes(moviesFilter.genre.toLowerCase())
+        : item.genre)
+      .filter(item => moviesFilter.countries
+        ? item.countries.includes(moviesFilter.countries)
+        : item.countries)
+      .filter(item => moviesFilter.rating
+        ? +item.rating.toFixed(1) === moviesFilter.rating
+        : item.rating)
+      .filter(item => moviesFilter.year
+        ? item.year === moviesFilter.year
+        : item.year);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [movies, moviesFilter])
 
   return (
     <div className={style.collection}>
@@ -58,10 +75,10 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection }) => {
             />}
           </div>
         }
-        { movies &&
+        {movies &&
           <>
           <div className={style.collection__wrapper}>
-            {movies.map((item) => 
+            {getMoviesFilterList().map((item) => 
               <div key={item.id} className={style.collection__item} >
                 <MovieItem
                   movie={item}

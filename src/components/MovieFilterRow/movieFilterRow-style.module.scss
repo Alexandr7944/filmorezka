@@ -1,0 +1,10 @@
+.filter-row {
+  display: flex;
+  justify-content: space-between;
+  line-height: 1.5;
+  user-select: none;
+}
+
+.filter-row_active {
+  color: #fff;
+}

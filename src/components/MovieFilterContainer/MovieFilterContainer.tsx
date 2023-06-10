@@ -4,6 +4,7 @@ import { INewMovie } from '@/interface/IMovie';
 import MovieFilterItem from '../MovieFilterItem/MovieFilterItem';
 import { useState } from 'react';
 import typesFilter from '../../data/typesFilter.json';
+import { capitalizeStr } from '@/utils/capitalize';
 
 type MovieFilterContainerProps = {
   movies: INewMovie[],
@@ -15,11 +16,12 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
   const [getTypes, setGetTypes] = useState<string>('');
   const resetFilter = () => {
     setMoviesFilter({
-      genre: ['all'],
-      countries: ['all'],
+      genre: '',
+      countries: '',
       year: 0,
       rating: 0
-    })
+    });
+    setGetTypes('');
   }
 
   const getType = (typeFilter: string) => {
@@ -29,15 +31,15 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
   }
 
   const getTypeNumber = (typeFilter: string) => {
-    const arr = movies.map(item => item[typeFilter as keyof MovieFilterNumber]);
-    arr.sort((a, b) => b - a);
-    return [...new Set(arr)];
+    let arr = movies.map(item => +item[typeFilter as keyof MovieFilterNumber].toFixed(1));
+    arr = [...new Set(arr)]
+    return arr.filter(i => i !== 0).sort((a, b) => b - a);
   }
 
   const getTypeString = (typeFilter: string) => {
     const arr = movies.map(item => item[typeFilter as keyof MovieFilterString])
-      .reduce((acc, item) => item && item.length ? acc.concat(item) : acc, []);
-    return [...new Set(arr)];
+      .reduce((acc, item) => item?.length ? acc.concat(item) : acc, []);
+    return [...new Set(arr)].map(item => capitalizeStr(item));
   }  
   
   return (
@@ -51,6 +53,8 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
               types={getType(type.type)}
               getTypes={getTypes} 
               setGetTypes={setGetTypes}
+              moviesFilter={moviesFilter}
+              setMoviesFilter={setMoviesFilter}
             />
           )
         }

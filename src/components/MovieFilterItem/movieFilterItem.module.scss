@@ -7,21 +7,44 @@
   border-radius: 5px;
   background-color: rgb(71, 61, 104);
   position: relative;
+  cursor: pointer;
 
   &__title {
-    color: $colorTextAccent;
+    color: #fff;
+    font-weight: 700;
+    text-transform: uppercase;
   }
 
   &__body {
     position: absolute;
+    z-index: 1;
     width: 100%;
+    max-height: 300px;
+    overflow: auto;
     padding: 15px;
     left: 0;
     top: 50px;
-    // z-index: 5;
     border: 2px solid $colorElementHeaderHover;
     border-radius: 5px;
     background-color: rgb(71, 61, 104);
+
+    &::-webkit-scrollbar {
+      width: 12px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: rgb(126, 109, 182);
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background-color: rgb(71, 61, 104);
+      border-radius: 20px;
+      border: 3px solid rgb(126, 109, 182);
+    }
+  }
+
+  &__item_active {
+    color: #fff;
   }
 }
 
