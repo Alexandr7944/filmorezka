@@ -18,6 +18,6 @@ const args: EyeProps = {
   size: '25px'
 }
 
-export const Default: Story = {
+export const Eye: Story = {
   args: args
 }

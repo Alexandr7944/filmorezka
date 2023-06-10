@@ -1,8 +1,10 @@
 @import '../../styles/options';
 
 .header {
-  margin: 2.5px $indentApp 0;
   position: relative;
+  width: 100%;
+  max-width: 1400px;
+  margin: 2.5px auto;
 }
 
 .header-active {
@@ -12,6 +14,7 @@
 }
 
 .links {
+  padding: 0 15px;
   display: flex;
   height: 72px;
   align-items: center;
@@ -130,6 +133,7 @@
     color: white;
   }
 }
+
 @media (max-width: 1043px) {
   .search{
     display: none !important;

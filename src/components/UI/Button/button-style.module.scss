@@ -8,6 +8,7 @@
   border-radius: 8px;
   padding: 7px 11px;
   cursor: pointer;
+  opacity: 0.75;
 
   color: #fff;
   font-weight: 700;
@@ -24,5 +25,9 @@
     background-color: $bgc-button-disabled;
     color: #ffffff85;
     cursor: auto;
+  }
+
+  &:hover {
+    opacity: 1;
   }
 }

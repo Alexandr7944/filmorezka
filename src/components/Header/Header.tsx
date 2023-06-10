@@ -68,45 +68,43 @@ const Header: React.FC = () => {
               {item.title}
             </div>
           ))}
-          </div>
-
-          <div className={styles['activities']}>
-            <div className={styles['subscription-payment']}>Оплатить подписку</div>
-
-            <div className={styles['search']}><Search /></div> 
-
-
-            <div className={styles['notifications']}>
-              <IoMdNotificationsOutline
-                size="25px"
-                className={styles['notification-icon']}
-                onMouseEnter={() =>
-                    setContentHeaderMouseEnterHandler(
-                        notifications,
-                        TypeContent.Notification
-                    )
-                }
-              />
-            </div>
-
-            <div
-                className={`${styles['avatar']} ${userAccount.isAuth ? styles['avatar-name'] : ''}`}
-                onMouseEnter={() => setContentHeaderMouseEnterHandler(user, TypeContent.User)}
-                onClick={() => router.push(`/profile`)}
-            >
-              {userAccount.isAuth 
-                ?
-                userAccount.displayName![0]
-                :
-                <BiUser size="25px" />
-              }
-            </div>
-          </div>
         </div>
 
-        {contentDropDown && getDropDown(contentDropDown, typeComponentDropDown!)}
+        <div className={styles['activities']}>
+          <div className={styles['subscription-payment']}>Оплатить подписку</div>
+
+          <div className={styles['search']}>
+            <Search />
+          </div> 
+
+          <div className={styles['notifications']}>
+            <IoMdNotificationsOutline
+              size="25px"
+              className={styles['notification-icon']}
+              onMouseEnter={() =>
+                setContentHeaderMouseEnterHandler(notifications, TypeContent.Notification)
+              }
+          />
+          </div>
+
+          <div
+            className={`${styles['avatar']} ${userAccount.isAuth ? styles['avatar-name'] : ''}`}
+            onMouseEnter={() => setContentHeaderMouseEnterHandler(user, TypeContent.User)}
+            onClick={() => router.push(`/profile`)}
+          >
+            {userAccount.isAuth 
+              ?
+              userAccount.displayName![0]
+              :
+              <BiUser size="25px" />
+            }
+          </div>
+        </div>
+      </div>
+
+      {contentDropDown && getDropDown(contentDropDown, typeComponentDropDown!)}
     </div>
   )
 }
 
-export default Header
+export default Header;
