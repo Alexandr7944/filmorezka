@@ -30,7 +30,7 @@ const Comments: React.FC<CommentsProps> = ({ movieId, movieName }) => {
         filmId: movieId,
         parentCommentId: null
       }),
-      // credentials: "include"
+      credentials: "include"
     })
     .then(response => response.json())
     .then(result => console.log('Success: ', result))

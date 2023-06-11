@@ -69,8 +69,8 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
           </button>
           <div className={style.movies__wrapper} ref={wrapper}>
             {
-              movies.map((item, index) => 
-                index < LIMIT_ITEM_PAGE && <MovieItem key={item.id} movie={item} width={widthItem} />
+              movies?.map((item, index) => 
+                (index < LIMIT_ITEM_PAGE) && <MovieItem key={item.id} movie={item} width={widthItem} />
               )
             }
             <MovieItemDefault link='/collections/#'  width={widthItem} />
