@@ -69,7 +69,7 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
           </button>
           <div className={style.movies__wrapper} ref={wrapper}>
             {
-              movies && movies.map((item, index) => 
+              movies?.length && movies.map((item, index) => 
                 (index < LIMIT_ITEM_PAGE) && <MovieItem key={item.id} movie={item} width={widthItem} />
               )
             }

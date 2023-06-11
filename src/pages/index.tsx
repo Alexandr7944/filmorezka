@@ -40,12 +40,12 @@ const Home = () => {
       <Navbar link={navbar} />
       <div className="container">
         <MoviesSlider
-          title='Топ лучших'
+          title='Случайная подборка'
           url='http://localhost:5000/films/random'
         />
         <MoviesSlider
-          title='Случайная подборка'
-          url='http://localhost:5000/films/rating/9'
+          title='Топ лучших комедий'
+          url='http://localhost:5000/films/filters?genre=comedy'
         />
         <MoviesSlider
           title='Топ лучших'

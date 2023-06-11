@@ -10,17 +10,10 @@ type CommentsProps = {
 const Comments: React.FC<CommentsProps> = ({ movieId, movieName }) => {
   const user = useAppSelector(state => state.user);
   
-  // setTimeout(() => console.log('cookie ' + document.cookie.split(';')));
-  // const cookies = await cookieStore.getAll();
-  // const sessionCookies = await cookieStore.getAll({
-  //     name: 'session_',
-  //     matchType: 'starts-with',
-  // });
-
   useEffect(() => {
     fetch('http://localhost:8000/comments', {
       method: 'POST',
-      mode: 'no-cors',
+      mode: 'cors',
       headers: {
         "Content-Type": "application/json"
       },
