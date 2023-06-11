@@ -28,6 +28,7 @@ const Comments: React.FC<CommentsProps> = ({ movieId, movieName }) => {
     .then(response => response.json())
     .then(result => console.log('Success: ', result))
     .catch(error => console.error('Error: ', error));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   
 
