@@ -43,7 +43,7 @@ const Header: React.FC = () => {
 
   return (
     <div
-      className={`${styles['header']} ${contentDropDown ? styles['header-active'] : ''}`}
+      className={`${styles['header']} ${contentDropDown ? styles['header-active'] : ''} container`}
       onMouseLeave={(e) => resetContent()}
     >
       <div className={styles['links']}>
@@ -95,10 +95,8 @@ const Header: React.FC = () => {
                 onClick={() => router.push(`/profile`)}
             >
               {userAccount.isAuth 
-                ?
-                userAccount.displayName![0]
-                :
-                <BiUser size="25px" />
+                ? userAccount.displayName![0]
+                : <BiUser size="25px" />
               }
             </div>
           </div>

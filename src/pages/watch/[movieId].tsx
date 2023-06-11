@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Fetching from '@/API/Fetching';
 import { MyContainer, Navbar } from '@/components';
+import Comments from '@/components/Comments/Comments';
 import WatchMovie from '@/components/WatchMovie';
 import { IActor } from '@/interface/IActor';
 import { INewMovie } from '@/interface/IMovie';
@@ -54,8 +55,9 @@ const WatchPage = () => {
       <Navbar link={navbar} />
       <div className='container'>
         {movie && <WatchMovie movie={movie} video={video} actors={actors} />}
+        <Comments movieId={movieId} movieName={movie ? movie.name : ''} />
       </div>
-    </MyContainer>    
+    </MyContainer>
   )
 }
 
