@@ -20,7 +20,7 @@ const Comments: React.FC<CommentsProps> = ({ movieId, movieName }) => {
   useEffect(() => {
     fetch('http://localhost:8000/comments', {
       method: 'POST',
-      mode: 'cors',
+      mode: 'no-cors',
       headers: {
         "Content-Type": "application/json"
       },
