@@ -2,6 +2,8 @@
 
 .header {
   position: relative;
+  margin-top: 5px;
+  padding: 0;
 }
 
 .header-active {
@@ -18,8 +20,6 @@
 
   .picture-site {
     cursor: pointer;
-    height: 48px;
-    width: 66px;
   }
 
   .navigation {
@@ -130,8 +130,18 @@
   }
 }
 
-@media (max-width: 1043px) {
-  .search{
+@media (max-width: 1150px) {
+  .search {
+    display: none !important;
+  }
+
+  .navigation {
+    display: none !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .subscription-payment {
     display: none !important;
   }
 }

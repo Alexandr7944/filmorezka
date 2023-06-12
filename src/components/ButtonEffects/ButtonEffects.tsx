@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './buttonEffects-style.module.scss';
 import { Button } from '../UI/Button';
+import Image from 'next/image';
 
 const ButtonEffects: React.FC = () => {
   return (
@@ -15,10 +16,13 @@ const ButtonEffects: React.FC = () => {
       }}
     >
       <div className={styles.background}>
-        <img
+        <Image
           src={'https://solea-parent.dfs.ivi.ru/picture/ffffff,ffffff/lightning.svg'}
+          alt="image"
+          width={30}
+          height={30}
         >
-        </img>
+        </Image>
 
         <span className={styles.description}>30 дней подписки бесплатно</span>
       </div>

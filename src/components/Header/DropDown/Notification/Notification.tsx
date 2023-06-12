@@ -10,7 +10,7 @@ interface NotificationProps extends DropDownProps {
 const Notification: React.FC<NotificationProps> = ({content}) => {
   return (
     <div
-      className={styles['wrapper']}
+    className={`${styles['wrapper']} container`}
     >
       <div className={styles['content']}>
         <MdOutlineNotificationsActive

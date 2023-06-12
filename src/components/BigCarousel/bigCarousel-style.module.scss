@@ -58,22 +58,21 @@
   z-index: 999;
   color: white;
   opacity: 0.5;
+  top: 45%;
+  transition: 0.4s;
   
   &:hover {
     opacity: 1;
-    transition: 0.4s;
     cursor: pointer;
   }
 }
 
 .arrow-back {
-  left: -2.5%;
-  top: 45%;
+  left: -32px;
 }
 
 .arrow-next {
-  right: -2.5%;
-  top: 45%;
+  right: -32px;
 }
 
 @media (max-width: 1200px) {
@@ -130,16 +129,23 @@
   .carousel {
     height: 350px;
   }
+
+  .arrow {
+    top: 35%;
+  }
 }
 
 @media (max-width: 640px) {
   .movie {
     &__logo {
-      display: none;
+      top: 50%;
+      width: 240px;
     }
   
     &__description {
-     display: none;
+      top: 75%;
+      width: 270px;
+      font-size: 11px;
     }
   }
 
@@ -149,6 +155,18 @@
 }
 
 @media (max-width: 480px) {  
+  .movie {
+    &__logo {
+      width: 180px;
+    }
+  
+    &__description {
+      width: 240px;
+      font-size: 10px;
+      line-height: 12px;
+    }
+  }
+
   .carousel {
     height: 200px;
   }

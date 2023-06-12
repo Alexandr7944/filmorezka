@@ -14,14 +14,16 @@ const getMovieComponent = (movie: movie, styleComponent: CSSProperties, router: 
       key={uuidv4()}
       onClick={() => router.push('/')}
     > 
-      <img 
+      <img
         src={movie.imageURL}
         className={style.movie__image}
+        alt="image"
       />
 
       <img
         src={movie.logoURL}
         className={style.movie__logo}
+        alt="image"
       />
 
       <span
