@@ -1,8 +1,9 @@
 @import '../../styles/options';
 
 .header {
-  // margin: 2.5px $indentApp 0;
   position: relative;
+  margin-top: 5px;
+  padding: 0;
 }
 
 .header-active {
@@ -12,15 +13,13 @@
 }
 
 .links {
+  padding: 0 15px;
   display: flex;
   height: 72px;
   align-items: center;
-  // margin: 0 10px;
 
   .picture-site {
     cursor: pointer;
-    height: 48px;
-    width: 66px;
   }
 
   .navigation {
@@ -130,8 +129,19 @@
     color: white;
   }
 }
-@media (max-width: 1043px) {
-  .search{
+
+@media (max-width: 1150px) {
+  .search {
+    display: none !important;
+  }
+
+  .navigation {
+    display: none !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .subscription-payment {
     display: none !important;
   }
 }

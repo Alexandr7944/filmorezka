@@ -1,0 +1,173 @@
+@import '../../styles/options.scss';
+
+.carousel {
+  position: relative;
+  height: 524px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  user-select: none;
+}
+
+.movies {
+  position: absolute;
+  display: flex;
+  height: 100%;
+
+  transition: translate;
+  transition-property: transform;
+  transition-duration: 1s;
+  transition-timing-function: ease-in-out;
+}
+
+.movie {
+  position: relative;
+  padding: 0 15px;
+  height: 100%;
+  width: 1400px;
+
+  &__image {
+    border-radius: 25px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__logo {
+    position: absolute;
+    top: 45%;
+    left: 60px;
+    object-fit: cover;
+    width: 480px;
+  }
+
+  &__description {
+    position: absolute;
+    color: white;
+    top: 70%;
+    left: 60px;
+    width: 480px;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 22px;
+  }
+}
+
+.arrow {
+  position: absolute;
+  z-index: 999;
+  color: white;
+  opacity: 0.5;
+  top: 45%;
+  transition: 0.4s;
+  
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+}
+
+.arrow-back {
+  left: -32px;
+}
+
+.arrow-next {
+  right: -32px;
+}
+
+@media (max-width: 1200px) {
+  .movie {
+    &__logo {
+      left: 50px;
+      width: 400px;
+    }
+  
+    &__description {
+      left: 50px;
+      width: 400px;
+      font-size: 15px;
+      line-height: 22px;
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .movie {
+    &__logo {
+      left: 40px;
+      width: 360px;
+    }
+  
+    &__description {
+      left: 40px;
+      width: 360px;
+      font-size: 13px;
+      line-height: 18px;
+    }
+  }
+
+  .carousel {
+    height: 450px;
+  }
+}
+
+@media (max-width: 768px) {
+  .movie {
+    &__logo {
+      left: 25px;
+      width: 300px;
+    }
+  
+    &__description {
+      left: 25px;
+      width: 300px;
+      font-size: 12px;
+      line-height: 14px;
+    }
+  }
+
+  .carousel {
+    height: 350px;
+  }
+
+  .arrow {
+    top: 35%;
+  }
+}
+
+@media (max-width: 640px) {
+  .movie {
+    &__logo {
+      top: 50%;
+      width: 240px;
+    }
+  
+    &__description {
+      top: 75%;
+      width: 270px;
+      font-size: 11px;
+    }
+  }
+
+  .carousel {
+    height: 300px;
+  }
+}
+
+@media (max-width: 480px) {  
+  .movie {
+    &__logo {
+      width: 180px;
+    }
+  
+    &__description {
+      width: 240px;
+      font-size: 10px;
+      line-height: 12px;
+    }
+  }
+
+  .carousel {
+    height: 200px;
+  }
+}

@@ -36,13 +36,11 @@
   .middle-wrapper,
   .bottom-wrapper {
     position: absolute;
-    width: 700px;
     display: flex;
   }
 
   .top-wrapper,
   .bottom-wrapper {
-    animation: move-to-left 30s linear infinite;
     left: -65px;
   }
 
@@ -51,9 +49,8 @@
   }
 
   .middle-wrapper {
-    left: -600px;
+    right: -65px;
     top: 30px;
-    animation: move-to-right 30s linear infinite;
   }
 
   .bottom-wrapper {
@@ -62,25 +59,15 @@
 
   .container-image {
     margin: 0 3px;
+    background-color: $colorTextAccent;
+    width: 128px;
+    height: 72px;
+    border-radius: 10px;
 
     .image {
-      width: 128px;
-      height: 72px;
-      object-fit: cover;
       border-radius: 10px;
+      object-fit: cover;
     }
-  }
-}
-
-@keyframes move-to-right {
-  100% {
-    transform: translateX(535px);
-  }
-}
-
-@keyframes move-to-left {
-  100% {
-    transform: translateX(-535px);
   }
 }
 
@@ -105,10 +92,10 @@
   }
 
   .picture-manufacturer {
-    width: 48px;
-    height: 48px;
     background: red;
     border-radius: 8px;
+    width: 48px;
+    height: 48px;
   }
 
   .text {

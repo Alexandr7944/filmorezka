@@ -1,12 +1,17 @@
+import { objectToQueryString } from "../utils/serialize";
+
 class Fetching {
-  static async getAll(url: string, method: string = 'GET') {
+  static async getAll(url: string, method: string = 'GET', params?: object) {
     if (typeof sessionStorage.getItem(url) === 'string') {
       const resultStor: string = sessionStorage.getItem(url) || '';
       return JSON.parse(resultStor);
     }
     let result;
+
+    const queryParams: string = params ? "?" + objectToQueryString(params) : "";
+
     try {
-      const response = await fetch(url, {
+      const response = await fetch(url + queryParams, {
         method,
         headers: {
             'X-API-KEY': 'bd41c576-b9b8-455e-b3fa-dc54c04dc1dd',

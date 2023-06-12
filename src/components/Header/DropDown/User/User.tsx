@@ -72,7 +72,7 @@ const User: React.FC<UserProps> = ({content}) => {
 
   return (
     <div
-      className={styles['wrapper']}
+      className={`${styles['wrapper']} container`}
     >
       <div className={styles['links']}>
         {content.links.map((link) => (

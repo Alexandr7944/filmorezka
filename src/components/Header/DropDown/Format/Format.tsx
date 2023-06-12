@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from './format-style.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 import {Teaser} from "@/components/UI/Teaser";
@@ -7,6 +7,12 @@ import { DropDownProps, IFormat } from "@/interface/Header";
 import { useAppDispatch } from "@/hooks/hook";
 import { selectMediaFilters } from "@/store/selectors";
 import { genre } from "@/types/genre";
+import Fetching from "@/API/Fetching";
+import { INewMovie } from "@/interface/IMovie";
+import { objectToQueryString } from "@/utils/serialize";
+
+const urlRandomFilms: string = 'http://localhost:5000/films/random';
+const urlFiltersFilms: string = 'http://localhost:5000/films/filters';
 
 interface FormatProps extends DropDownProps {
   content: IFormat;
@@ -37,12 +43,37 @@ const getWrapperGenres = (genres: genre[]) => {
 };
 
 const Format: React.FC<FormatProps> = ({content}) => {
-  const dispatch = useAppDispatch();
   const { genres } = selectMediaFilters();
+  const [imagesTeaser, setImagesTeaser] = useState<string[]>([]);
+  const [lastRequesURL, setLastRequestURL] = useState<string>("");
+
+  const fillImagesTeaser = (url: string, paramsURL: object = {}) => {
+    paramsURL = {...paramsURL, type: content.typeFormat}
+
+    if (lastRequesURL !== url) {
+      setLastRequestURL(url);
+
+      Fetching.getAll(url, 'GET', paramsURL)
+        .then((data: INewMovie[]) => {
+          if (data) {
+            setImagesTeaser(data.slice(0, 15).map(obj => obj.image));
+          }
+        })
+        .catch((error: any) => {
+          console.error(error);
+        });
+    }
+  }
+
+  useEffect(() => {
+    const randomFilms: string = 'http://localhost:5000/films/random';
+
+    fillImagesTeaser(randomFilms);
+  }, []);
 
   return (
     <div
-      className={styles['wrapper']}
+      className={`${styles['wrapper']} container`}
     >
       <div className={styles['genres']}>
         <div className={styles['title']}>
@@ -90,7 +121,7 @@ const Format: React.FC<FormatProps> = ({content}) => {
 
       <div className={styles['activities']}>
         <div className={styles['teaser']}>
-          <Teaser/>
+          <Teaser images={imagesTeaser}/>
         </div>
 
         <div className={styles['button-watch']}>
