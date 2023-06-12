@@ -1,7 +1,6 @@
 @import '../../styles/options';
 
 .header {
-  // margin: 2.5px $indentApp 0;
   position: relative;
 }
 
@@ -12,10 +11,10 @@
 }
 
 .links {
+  padding: 0 15px;
   display: flex;
   height: 72px;
   align-items: center;
-  // margin: 0 10px;
 
   .picture-site {
     cursor: pointer;
@@ -130,6 +129,7 @@
     color: white;
   }
 }
+
 @media (max-width: 1043px) {
   .search{
     display: none !important;

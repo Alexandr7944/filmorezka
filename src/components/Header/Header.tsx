@@ -102,9 +102,9 @@ const Header: React.FC = () => {
           </div>
         </div>
 
-        {contentDropDown && getDropDown(contentDropDown, typeComponentDropDown!)}
-    </div>
+      {contentDropDown && getDropDown(contentDropDown, typeComponentDropDown!)}
+  </div>
   )
 }
 
-export default Header
+export default Header;

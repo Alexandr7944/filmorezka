@@ -5,7 +5,7 @@ import {
 import { AiOutlineEye, AiOutlineEyeInvisible, AiOutlineSafetyCertificate, AiOutlineStar } from 'react-icons/ai'
 import { 
     BsBookmarkHeart, BsCart2, BsCreditCard2Front, BsMagic, 
-    BsVolumeDown, BsFillPersonFill, BsFillPlayFill,BsDownload, BsEmojiSunglasses, BsShare
+    BsVolumeDown, BsFillPersonFill, BsFillPlayFill,BsDownload, BsEmojiSunglasses, BsShare, BsLightningCharge
 } from 'react-icons/bs'
 import { RiDislikeLine, RiHistoryFill, RiSlideshow3Line } from 'react-icons/ri'
 import { IoMdNotificationsOutline } from 'react-icons/io'
@@ -47,5 +47,5 @@ export {
 	AiOutlineEyeInvisible,
 	SlSocialVkontakte,
 	SiGmail,
-	BsShare
+	BsShare,
 }
