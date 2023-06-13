@@ -1,30 +1,32 @@
-import { MovieFilterItemProps, MovieFilterNumber, MovieFilterString } from '@/interface/MovieFilter';
+import { MovieFilter, MovieFilterItemProps } from '@/interface/MovieFilter';
 import styles from './movieFilterItem.module.scss';
 import MovieFilterRow from '../MovieFilterRow/MovieFilterRow';
 
 const MovieFilterItem: React.FC<MovieFilterItemProps> = (
-    { type, title, types, getTypes, setGetTypes, moviesFilter, setMoviesFilter }
+    { type, title, types, presenceTypes, getTypes, setGetTypes, moviesFilter, setMoviesFilter }
   ) => {
     
-  const handlerClickItem = (type: string, name: string | number): void => {
-    typeof name === 'string'
-      ? moviesFilter[type as keyof MovieFilterString].includes(name)
+  const handlerClickItem = (type: string, name: string): void => {
+    type === 'genre' || type === 'countries'
+      ? moviesFilter[type as keyof MovieFilter].includes(name)
         ? setMoviesFilter({
           ...moviesFilter,
-          [type]: moviesFilter[type as keyof MovieFilterString].filter(i => i !== name)})
+          [type]: moviesFilter[type as keyof MovieFilter].filter(i => i !== name)})
         : setMoviesFilter({
           ...moviesFilter,
-          [type]: [...moviesFilter[type as keyof MovieFilterString], name]
+          [type]: [...moviesFilter[type as keyof MovieFilter], name]
         })
-      : moviesFilter[type as keyof MovieFilterNumber].includes(name)
+      : moviesFilter[type as keyof MovieFilter].includes(name)
         ? setMoviesFilter({
           ...moviesFilter,
-          [type]: moviesFilter[type as keyof MovieFilterNumber].filter(i => i !== name)})
+          [type]: []})
         : setMoviesFilter({
           ...moviesFilter,
-          [type]: [...moviesFilter[type as keyof MovieFilterNumber], name]
+          [type]: [name]
         })
   }
+
+  console.log(moviesFilter);
 
   return (
     <div className={styles['filter-item']}>
@@ -42,10 +44,9 @@ const MovieFilterItem: React.FC<MovieFilterItemProps> = (
             type={type}
             name={item} 
             active={
-              typeof item === 'string'
-                ? moviesFilter[type as keyof MovieFilterString].includes(item)
-                : moviesFilter[type as keyof MovieFilterNumber].includes(item)
+                moviesFilter[type as keyof MovieFilter].includes(item)
               }
+            presence={true}
             handlerClickItem={handlerClickItem}
           />
           )}

@@ -14,15 +14,18 @@ const Home = () => {
 
       <div className="container">
         <MoviesSlider
-          title='Случайная подборка'
-          url='http://localhost:5000/films/random'
+          title='Современные мультфильмы'
+          genre='childlike'
+          url='http://localhost:5000/films/filters?raitinr=9&genre=childlike'
         />
         <MoviesSlider
-          title='Топ лучших комедий'
+          title='Подборка комедий'
+          genre='comedy'
           url='http://localhost:5000/films/filters?genre=comedy'
         />
         <MoviesSlider
-          title='Топ лучших'
+          title='Топ лучших, наверное'
+          genre='random'
           url='http://localhost:5000/films/random'
         />
       </div>
