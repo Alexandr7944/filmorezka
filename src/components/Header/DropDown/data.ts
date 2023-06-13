@@ -4,7 +4,8 @@ import { AiOutlineSafetyCertificate, BsBookmarkHeart,
   RiHistoryFill, RiSlideshow3Line, SlDiamond } from "../../Icons";
 
 const films: IFormat = {
-  typeFormat: 'Фильмы',
+  typeFormatRu: 'фильм',
+  typeFormatEn: 'movie',
   countries: ['Русские', 'Зарубежные', 'Советское кино'],
   years: [2023, 2022, 2021, 2020],
   filters: [
@@ -14,7 +15,8 @@ const films: IFormat = {
 }
 
 const shows: IFormat = {
-  typeFormat: 'Сериалы',
+  typeFormatRu: 'сериал',
+  typeFormatEn: 'serial',
   countries: ['Русские', 'Зарубежные', 'Американские', 'Украинские', 'Турецкие'],
   years: [2023, 2022, 2021, 2020],
   filters: ['Новинки', 'Иви.Рейтинг', 'Сериалы в HD']
@@ -22,7 +24,8 @@ const shows: IFormat = {
 
 
 const cartoons: IFormat = {
-  typeFormat: 'Мультики',
+  typeFormatRu: 'мультик',
+  typeFormatEn: 'cartoon',
   countries: ['Советские', 'Русские', 'Американские', 'Зарубежные'],
   years: [2023, 2022, 2021, 2020],
   filters: ['Новинки', 'Мультики в HD']

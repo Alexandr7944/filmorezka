@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import styles from './format-style.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 import {Teaser} from "@/components/UI/Teaser";
@@ -9,10 +9,6 @@ import { selectMediaFilters } from "@/store/selectors";
 import { genre } from "@/types/genre";
 import Fetching from "@/API/Fetching";
 import { INewMovie } from "@/interface/IMovie";
-import { objectToQueryString } from "@/utils/serialize";
-
-const urlRandomFilms: string = 'http://localhost:5000/films/random';
-const urlFiltersFilms: string = 'http://localhost:5000/films/filters';
 
 interface FormatProps extends DropDownProps {
   content: IFormat;
@@ -24,20 +20,7 @@ const getWrapperContentItems = (items: string[] | number[]) => {
       className={styles['content__item']}
       key={uuidv4()}
     >
-        <span className={styles['item__text']}>{item}</span>
-    </div>
-  ));
-};
-
-const getWrapperGenres = (genres: genre[]) => {
-  return genres.map((genre) => (
-    <div
-      className={styles['content__item']}
-      key={uuidv4()}
-    >
-      <span className={styles['item__text']}>
-        {genre.nameRu.charAt(0).toUpperCase() + genre.nameRu.slice(1)}
-      </span>
+      <span className={styles['item__text']}>{item}</span>
     </div>
   ));
 };
@@ -45,15 +28,36 @@ const getWrapperGenres = (genres: genre[]) => {
 const Format: React.FC<FormatProps> = ({content}) => {
   const { genres } = selectMediaFilters();
   const [imagesTeaser, setImagesTeaser] = useState<string[]>([]);
-  const [lastRequesURL, setLastRequestURL] = useState<string>("");
+  const [paramsURL, setParamsURL] = useState<object>({});
 
-  const fillImagesTeaser = (url: string, paramsURL: object = {}) => {
-    paramsURL = {...paramsURL, type: content.typeFormat}
+  const getWrapperGenres = (genres: genre[]) => {
+    return genres.map((genre) => (
+      <div
+        className={styles['content__item']}
+        key={uuidv4()}
+      >
+        <span 
+          className={styles['item__text']}
+          onMouseEnter={() => setParamsURL({genre: genre.nameEn})}
+        >
+          {genre.nameRu.charAt(0).toUpperCase() + genre.nameRu.slice(1)}
+        </span>
+      </div>
+    ));
+  };
 
-    if (lastRequesURL !== url) {
-      setLastRequestURL(url);
+  const fillImagesTeaser = useMemo(() => {
+    return () => {
+      const urlFiltersFilms: string = 'http://localhost:5000/films/filters';
+      let changedParamsURL = paramsURL;
+      
+      if (content.typeFormatEn === 'cartoon') {
+        changedParamsURL = {...paramsURL, genre: content.typeFormatEn}
+      } else {
+        changedParamsURL = {...paramsURL, type: content.typeFormatEn}
+      }
 
-      Fetching.getAll(url, 'GET', paramsURL)
+      Fetching.getNewAll(urlFiltersFilms, 'GET', changedParamsURL)
         .then((data: INewMovie[]) => {
           if (data) {
             setImagesTeaser(data.slice(0, 15).map(obj => obj.image));
@@ -62,14 +66,12 @@ const Format: React.FC<FormatProps> = ({content}) => {
         .catch((error: any) => {
           console.error(error);
         });
-    }
-  }
+    };
+  }, [paramsURL, content.typeFormatEn]);
 
   useEffect(() => {
-    const randomFilms: string = 'http://localhost:5000/films/random';
-
-    fillImagesTeaser(randomFilms);
-  }, []);
+    fillImagesTeaser();
+  }, [paramsURL, content.typeFormatEn]);
 
   return (
     <div
@@ -108,7 +110,9 @@ const Format: React.FC<FormatProps> = ({content}) => {
           </div>
 
           <div className={styles['content']}>
-            {getWrapperContentItems(content.years.map(year => `${content.typeFormat} ${year} года`))}
+            {getWrapperContentItems(content.years.map(year => 
+              `${content.typeFormatRu[0].toUpperCase() + content.typeFormatRu.slice(1)} ${year} года`))
+            }
           </div>
         </div>
       </div>
