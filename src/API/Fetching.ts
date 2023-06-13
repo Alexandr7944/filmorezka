@@ -40,6 +40,32 @@ class Fetching {
       console.log(err);
     }
   }
+
+  static async getFilters(url: string, method: string = 'GET', params?: object) {
+    try {
+      const queryParams: string = params ? objectToQueryString(params) : "";
+
+      const response = await fetch(url + `?timestamp=${new Date().getTime()}&` + queryParams, {
+        mode: 'cors',
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          'Pragma': 'no-cache',
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'X-Requested-With': 'XMLHttpRequest',
+          'Expires': '0',
+        },
+        cache: 'no-store'
+      });
+
+      const result = await response.json();
+      console.log(url + `?timestamp=${new Date().getTime()}&` + queryParams)
+      console.log(result)
+      return result;
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
 
 export default Fetching;

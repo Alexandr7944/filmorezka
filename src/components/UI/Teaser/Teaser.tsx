@@ -24,11 +24,20 @@ const renderImages = (images: string[]) => {
   ));
 };
 
-const countImagesScreen = 3;
-const countWrapperMovies = 3;
+const countImagesScreen:number = 3;
+const countWrapperMovies:number = 3;
+const minLenght:number = 15;
 
 const Teaser: React.FC<TeaserProps> = ({ images }) => {
   const [isActiveTeaser, setIsActiveTeaser] = useState<boolean>();
+  
+  if (images.length > minLenght) {
+    images = images.slice(0, 15);
+  } else if (images.length > 0 && images.length < minLenght) {
+    for (let i = 0; images.length < minLenght; ++i) {
+      images.push(images[i]);
+    }
+  }
 
   const topMovies: string[] = images 
     ? images.slice(0, images.length / countWrapperMovies) 

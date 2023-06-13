@@ -1,14 +1,18 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from './format-style.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 import {Teaser} from "@/components/UI/Teaser";
 import { SlScreenDesktop } from "@/components/Icons/index";
 import { DropDownProps, IFormat } from "@/interface/Header";
-import { useAppDispatch } from "@/hooks/hook";
 import { selectMediaFilters } from "@/store/selectors";
 import { genre } from "@/types/genre";
 import Fetching from "@/API/Fetching";
 import { INewMovie } from "@/interface/IMovie";
+import { objectToQueryString } from "@/utils/serialize";
+import useDebounce from "@/hooks/useDebounce";
+
+const urlFiltersFilms: string = 'http://localhost:5000/films/filters';
+const hashMapImages:Map<string, string[]> = new Map();
 
 interface FormatProps extends DropDownProps {
   content: IFormat;
@@ -29,6 +33,7 @@ const Format: React.FC<FormatProps> = ({content}) => {
   const { genres } = selectMediaFilters();
   const [imagesTeaser, setImagesTeaser] = useState<string[]>([]);
   const [paramsURL, setParamsURL] = useState<object>({});
+  const debouncedParams:boolean = useDebounce(paramsURL, 300);
 
   const getWrapperGenres = (genres: genre[]) => {
     return genres.map((genre) => (
@@ -46,32 +51,31 @@ const Format: React.FC<FormatProps> = ({content}) => {
     ));
   };
 
-  const fillImagesTeaser = useMemo(() => {
-    return () => {
-      const urlFiltersFilms: string = 'http://localhost:5000/films/filters';
-      let changedParamsURL = paramsURL;
-      
-      if (content.typeFormatEn === 'cartoon') {
-        changedParamsURL = {...paramsURL, genre: content.typeFormatEn}
-      } else {
-        changedParamsURL = {...paramsURL, type: content.typeFormatEn}
-      }
+  useEffect(() => {
+    let changedParamsURL = paramsURL;
+  
+    if (content.typeFormatEn === 'cartoon') {
+      changedParamsURL = { ...paramsURL, genre: content.typeFormatEn };
+    } else {
+      changedParamsURL = { ...paramsURL, type: content.typeFormatEn };
+    }
 
-      Fetching.getNewAll(urlFiltersFilms, 'GET', changedParamsURL)
+    const serializeParams: string = objectToQueryString(changedParamsURL);
+
+    if (hashMapImages.has(serializeParams)) {
+      setImagesTeaser(hashMapImages.get(serializeParams) || []);
+    } else if (!debouncedParams) {
+      Fetching.getFilters(urlFiltersFilms, 'GET', changedParamsURL)
         .then((data: INewMovie[]) => {
-          if (data) {
-            setImagesTeaser(data.slice(0, 15).map(obj => obj.image));
-          }
+          const images: string[] = data.map(obj => obj.image);
+          hashMapImages.set(serializeParams, images);
+          setImagesTeaser(images);
         })
         .catch((error: any) => {
           console.error(error);
         });
-    };
-  }, [paramsURL, content.typeFormatEn]);
-
-  useEffect(() => {
-    fillImagesTeaser();
-  }, [paramsURL, content.typeFormatEn]);
+    }
+  }, [paramsURL, debouncedParams]);
 
   return (
     <div
