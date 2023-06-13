@@ -5,6 +5,10 @@ import MovieFilterItem from '../MovieFilterItem/MovieFilterItem';
 import { useState } from 'react';
 import typesFilter from '../../data/typesFilter.json';
 import { capitalizeStr } from '@/utils/capitalize';
+import { selectMediaFilters } from '@/store/selectors';
+import countriesJSON from '../../data/countries.json';
+import yearsJSON from '../../data/years.json';
+import ratingJSON from '../../data/rating.json';
 
 type MovieFilterContainerProps = {
   movies: INewMovie[],
@@ -12,8 +16,16 @@ type MovieFilterContainerProps = {
   setMoviesFilter: (prev: MovieFilter) => void
 }
 
+type TypeOfGetTypes = {
+  genre: string[],
+  countries: string[],
+  year: string[],
+  rating: string[],
+}
+
 const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, moviesFilter, setMoviesFilter }) => {
   const [getTypes, setGetTypes] = useState<string>('');
+
   const resetFilter = () => {
     setMoviesFilter({
       genre: [],
@@ -22,9 +34,19 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
       rating: []
     });
     setGetTypes('');
-  }
+  }  
 
   const getType = (typeFilter: string) => {
+    const type: TypeOfGetTypes = {
+      genre: selectMediaFilters().genres.map(genre => capitalizeStr(genre.nameRu)),
+      countries: countriesJSON.countries,
+      year: yearsJSON.years.map(year => year.year),
+      rating: ratingJSON.rating.map(rating => rating.name)
+    }
+    return type[typeFilter as keyof TypeOfGetTypes];
+  }
+
+  const getPresenceType = (typeFilter: string) => {
     return typeFilter === 'year' || typeFilter === 'rating'
       ? getTypeNumber(typeFilter)
       : getTypeString(typeFilter)
@@ -39,7 +61,7 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
   const getTypeString = (typeFilter: string) => {
     const arr = movies.map(item => item[typeFilter as keyof MovieFilterString])
       .reduce((acc, item) => item?.length ? acc.concat(item) : acc, []);
-    return [...new Set(arr)].map(item => capitalizeStr(item));
+    return [...new Set(arr)].map(i => capitalizeStr(i));
   }
 
   return (
@@ -52,6 +74,7 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
               type={type.type}
               title={type.title}
               types={getType(type.type)}
+              presenceTypes={getPresenceType(type.type)}
               getTypes={getTypes} 
               setGetTypes={setGetTypes}
               moviesFilter={moviesFilter}
@@ -70,4 +93,4 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
   )
 }
 
-export default MovieFilterContainer
+export default MovieFilterContainer;

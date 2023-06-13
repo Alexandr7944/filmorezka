@@ -4,39 +4,54 @@ import { INewMovie } from '@/interface/IMovie';
 import Fetching from '@/API/Fetching';
 import { MovieItem } from '../MovieItem';
 import { BsCreditCard2Front } from 'react-icons/bs';
-import { capitalizeStr } from '@/utils/capitalize';
 import { MovieFilter } from '@/interface/MovieFilter';
 import MovieFilterContainer from '../MovieFilterContainer/MovieFilterContainer';
+import yearsJSON from '../../data/years.json';
+import ratingJSON from '../../data/rating.json';
+import { Rating } from '@/interface/Rating';
+
 
 type CollectionMovieProps = {
-  collection: string
+  collection: string,
+  title?: string,
 }
 
-const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection }) => {
+const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection, title }) => {
   const [movies, setMovies] = useState<INewMovie[]>([]);
+  const [showMovies, setShowMovies] = useState(20);
   const [showFilter, setShowFilter] = useState<boolean>(false);
   const [moviesFilter, setMoviesFilter] = useState<MovieFilter>({
     genre: [],
     countries: [],
     rating: [],
     year: []
-  })
+  });
 
   useEffect(() => {
-    Fetching.getNewAll(`http://localhost:5000/films/random`)
+    Fetching.getAll(`http://localhost:5000/films/filters`, 'GET', {
+      genre: collection
+    })
       .then(movies => setMovies(movies));
   }, []);
 
-  const handlerAddMovies = () => {
-    Fetching.getNewAll(`http://localhost:5000/films/random`)
-      .then(movies => setMovies(prev => [...prev, ...movies]))
-  };
-
-  const titleCollection = collection && collection !== 'random'
-    ? capitalizeStr(collection) + ' смотреть онлайн'
-    : 'Смотреть онлайн'
-
   const getMoviesFilterList = useCallback((): INewMovie[] => {
+  //   return movies.filter(item => 
+  //     (moviesFilter.genre.length
+  //       ? moviesFilter.genre.some(i => item.genre.includes(i.toLowerCase()))
+  //       : item.genre)
+  //     && (moviesFilter.countries.length
+  //       ? moviesFilter.countries.some(i => item.countries.includes(i))
+  //       : item.countries)
+  //     && (moviesFilter.rating.length
+  //       ? moviesFilter.rating.includes(+item.rating.toFixed(1))
+  //       : item.rating)
+  //     && (moviesFilter.year.length
+  //       ? moviesFilter.year.includes(+item.year.toFixed(1))
+  //       : item.year))
+    const filterRatings = ratingJSON.rating.map((rating: Rating) => {
+      if (rating.name === moviesFilter.rating[0]) return rating.value;
+    }).join('')        
+
     return movies.filter(item => 
       (moviesFilter.genre.length
         ? moviesFilter.genre.some(i => item.genre.includes(i.toLowerCase()))
@@ -44,23 +59,23 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection }) => {
       && (moviesFilter.countries.length
         ? moviesFilter.countries.some(i => item.countries.includes(i))
         : item.countries)
-      && (moviesFilter.rating.length
-        ? moviesFilter.rating.includes(+item.rating.toFixed(1))
+      && (moviesFilter.rating.length && filterRatings
+        ? item.rating > +filterRatings
         : item.rating)
-      && (moviesFilter.year.length
-        ? moviesFilter.year.includes(+item.year.toFixed(1))
-        : item.year))
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+      // && (moviesFilter.year.length
+      //   ? moviesFilter.year.includes(+item.year.toFixed(1))
+      //   : item.year))
+    )
   }, [movies, moviesFilter]);
 
   return (
     <div className={style.collection}>
       <div className="container">
         <h1 className={style.collection__title}>
-          {titleCollection}
+          {title + ' смотреть онлайн'}
         </h1>
-        {movies && 
+        {movies.length && 
+          <>
           <div className={style.collection__filter}>
             <div
               className={style['collection__filter-name']}
@@ -75,11 +90,9 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection }) => {
               setMoviesFilter={setMoviesFilter} 
             />}
           </div>
-        }
-        {movies &&
-          <>
           <div className={style.collection__wrapper}>
-            {getMoviesFilterList().map((item) => 
+            {movies.length && getMoviesFilterList().map((item, index) => 
+              index < showMovies &&
               <div key={item.id} className={style.collection__item} >
                 <MovieItem
                   movie={item}
@@ -89,7 +102,7 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection }) => {
           </div>
           <button
             className={style['collection__next-btn']}
-            onClick={handlerAddMovies}
+            onClick={() => setShowMovies(Math.min(showMovies + 20, movies.length))}
           >Показать ещё</button>
           </>
         }

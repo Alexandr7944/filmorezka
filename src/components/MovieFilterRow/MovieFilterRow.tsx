@@ -2,17 +2,22 @@ import styles from './movieFilterRow-style.module.scss';
 
 type MovieFilterRowProps = {
   type: string,
-  name: string | number,
+  name: string,
   active: boolean,
-  handlerClickItem: (type: string, name: string | number) => void
+  presence: boolean,
+  handlerClickItem: (type: string, name: string) => void
 }
 
-const MovieFilterRow: React.FC<MovieFilterRowProps> = ({ type, name, active, handlerClickItem }) => {
+const MovieFilterRow: React.FC<MovieFilterRowProps> = ({ 
+  type, name, active, presence, handlerClickItem 
+}) => {
+  
   return (
     <li
       className={`
         ${styles['filter-row']} 
         ${styles[`${active && 'filter-row_active'}`]}
+        ${styles[`${presence && 'filter-row_presence'}`]}
       `}
       onClick={() => handlerClickItem(type, name)}>
       <span>{name}</span>

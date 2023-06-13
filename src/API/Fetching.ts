@@ -7,7 +7,7 @@ class Fetching {
       return JSON.parse(resultStor);
     }
     let result;
-
+    
     try {
       const response = await fetch(url, {
         method,
@@ -18,6 +18,7 @@ class Fetching {
       });
       result = await response.json();
       sessionStorage.setItem(url, JSON.stringify(result));
+      console.log(result);
       return result;
     } catch (err) {
       console.log(err);

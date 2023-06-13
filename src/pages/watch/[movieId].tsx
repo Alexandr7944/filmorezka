@@ -6,6 +6,7 @@ import WatchMovie from '@/components/WatchMovie';
 import { IActor } from '@/interface/IActor';
 import { INewMovie } from '@/interface/IMovie';
 import { IVideo } from '@/interface/IMoviePage';
+import { selectMediaFilters } from '@/store/selectors';
 import { capitalizeStr } from '@/utils/capitalize';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -20,18 +21,24 @@ const WatchPage = () => {
       url: ''
     }
   ]});
-  
   const [actors, setActors] = useState<IActor[]>();
   const router = useRouter();
+  const { genres } = selectMediaFilters();
+  const nameEn: string | undefined = genres?.map(genre => {
+    if (genre.nameRu === movie?.genre[0]) return genre.nameEn;
+  }).join('');
+  
   const navbar = [
     {title: 'Главная', href: '/'},
     {
       title: `${movie?.genre?.length &&
         movie?.genre[0] &&
         capitalizeStr(movie.genre[0]) || 'Подборка для Вас'}`,
-      href: movie?.genre && movie?.genre[0]
-        ? `/collections/${movie?.genre[0]}`
-        : '/collections/random'
+
+      href: movie?.genre && movie?.genre[0] && genres
+        ? `/collections/${nameEn}`
+        : '/'
+
     },
     {title: `${movie?.name && capitalizeStr(movie.name) || ''}`}
   ];  
