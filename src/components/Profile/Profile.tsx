@@ -2,7 +2,7 @@ import { IUserAccount } from '@/interface/IUserAccount';
 import styles from './profile-style.module.scss';
 
 type ProfileProps = {
-  person: IUserAccount;
+  person?: IUserAccount;
 }
 
 const Profile: React.FC<ProfileProps> = ({ person }) => {

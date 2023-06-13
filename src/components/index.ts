@@ -6,6 +6,7 @@ import { MovieItem, MovieItemDefault } from "./MovieItem";
 import { Header } from "./Header";
 import { CollectionMovie } from "./CollectionMovie";
 import { ButtonEffects } from "./ButtonEffects";
+import Admin from "./Admin";
 
 export {
   MyContainer,
@@ -16,5 +17,6 @@ export {
   MoviesSlider,
   CollectionMovie,
   Footer,
-  ButtonEffects
+  ButtonEffects,
+  Admin
 }

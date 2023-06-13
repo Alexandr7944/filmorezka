@@ -5,7 +5,7 @@ import MovieFilterItem from '../MovieFilterItem/MovieFilterItem';
 import { useState } from 'react';
 import typesFilter from '../../data/typesFilter.json';
 import { capitalizeStr } from '@/utils/capitalize';
-import { selectMediaFilters } from '@/store/selectors';
+import { selectGenres } from '@/store/selectors';
 import countriesJSON from '../../data/countries.json';
 import yearsJSON from '../../data/years.json';
 import ratingJSON from '../../data/rating.json';
@@ -38,7 +38,7 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
 
   const getType = (typeFilter: string) => {
     const type: TypeOfGetTypes = {
-      genre: selectMediaFilters().genres.map(genre => capitalizeStr(genre.nameRu)),
+      genre: selectGenres().genres.map(genre => capitalizeStr(genre.nameRu)),
       countries: countriesJSON.countries,
       year: yearsJSON.years.map(year => year.year),
       rating: ratingJSON.rating.map(rating => rating.name)

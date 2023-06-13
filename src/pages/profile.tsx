@@ -1,7 +1,7 @@
 import { MyContainer, Navbar } from '@/components';
 import Profile from '@/components/Profile/Profile';
-import { useAppSelector } from '@/hooks/hook';
-import { useRouter } from 'next/router';
+// import { useAppSelector } from '@/hooks/hook';
+// import { useRouter } from 'next/router';
 
 const ProfilePage = () => {
   const navbar = [
@@ -9,16 +9,16 @@ const ProfilePage = () => {
     {title: 'Профиль'}
   ];
 
-  const user = useAppSelector(state => state.user);
+  // const user = useAppSelector(state => state.user);
 
-  const router = useRouter();
-  !user.isAuth && router.push('/');
+  // const router = useRouter();
+  // !user.isAuth && router.push('/');
 
   return (
     <MyContainer>
       <Navbar link={navbar} />
       <div className="container">
-        <Profile person={user}/>
+        <Profile />
       </div>
     </MyContainer>
   )
