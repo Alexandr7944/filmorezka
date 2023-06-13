@@ -9,7 +9,6 @@ class Fetching {
     let result;
 
     const queryParams: string = params ? "?" + objectToQueryString(params) : "";
-    console.log(url + queryParams);
     
     try {
       const response = await fetch(url + queryParams, {
@@ -21,7 +20,6 @@ class Fetching {
       });
       result = await response.json();
       sessionStorage.setItem(url, JSON.stringify(result));
-      console.log(result);
       return result;
     } catch (err) {
       console.log(err);

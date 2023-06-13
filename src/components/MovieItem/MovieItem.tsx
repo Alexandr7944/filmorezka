@@ -2,6 +2,7 @@ import style from './movieItem-style.module.scss';
 import Image from 'next/image';
 import { INewMovie } from '@/interface/IMovie';
 import { AiOutlineStar, BiBookmark, BsMagic, RiDislikeLine } from '../Icons';
+import defaultImage from '@/image/pngjoy.com_movie-clapper-clap-board-png-hd-transparent-png_2339042.png';
 import { useRouter } from 'next/router';
 
 type MovieItemProps = {
@@ -26,16 +27,14 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie, width }) => {
       style={{minWidth: width + 'px'}}
     >
       <div className={style.movie__poster}>
-        { movie?.image && 
-          <div className={style['movie__poster-image']}>
-            <Image 
-              src={movie.image}
-              width={500}
-              height={500}
-              alt="poster"
-            />
-          </div>
-        }
+        <div className={style['movie__poster-image']}>
+          <Image 
+            src={movie.image || defaultImage}
+            width={500}
+            height={500}
+            alt="poster"
+          />
+        </div>
         <div className={style.movie__poster_mask}>
           <div className={style.movie__poster_wrapper}>
             <BiBookmark className={style.movie__icons} />

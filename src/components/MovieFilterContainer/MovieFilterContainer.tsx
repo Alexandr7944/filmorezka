@@ -30,8 +30,8 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
     setMoviesFilter({
       genre: [],
       countries: [],
-      year: [],
-      rating: []
+      year: ['Все годы'],
+      rating: ['Любой рейтинг']
     });
     setGetTypes('');
   }  

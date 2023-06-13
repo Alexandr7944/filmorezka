@@ -19,14 +19,14 @@ const MovieFilterItem: React.FC<MovieFilterItemProps> = (
       : moviesFilter[type as keyof MovieFilter].includes(name)
         ? setMoviesFilter({
           ...moviesFilter,
-          [type]: []})
+          [type]: ['Все годы', 'Любой рейтинг']})
         : setMoviesFilter({
           ...moviesFilter,
           [type]: [name]
         })
   }
 
-  console.log(moviesFilter);
+  const moviesFilterType = moviesFilter[type as keyof MovieFilter];
 
   return (
     <div className={styles['filter-item']}>
@@ -37,6 +37,11 @@ const MovieFilterItem: React.FC<MovieFilterItemProps> = (
         {title}
       </h5>
       {
+        !moviesFilterType.includes('Все годы') 
+        && !moviesFilterType.includes('Любой рейтинг')
+        && moviesFilterType.join(', ')
+      }
+      {
         getTypes === title &&
         <ul className={styles['filter-item__body']}>
           {types.map(item => <MovieFilterRow
@@ -44,7 +49,7 @@ const MovieFilterItem: React.FC<MovieFilterItemProps> = (
             type={type}
             name={item} 
             active={
-                moviesFilter[type as keyof MovieFilter].includes(item)
+              moviesFilterType.includes(item)
               }
             presence={true}
             handlerClickItem={handlerClickItem}
