@@ -42,6 +42,7 @@
   .top-wrapper,
   .bottom-wrapper {
     left: -65px;
+    animation: move-to-left 30s linear infinite;
   }
 
   .top-wrapper {
@@ -51,6 +52,7 @@
   .middle-wrapper {
     right: -65px;
     top: 30px;
+    animation: move-to-right 30s linear infinite;
   }
 
   .bottom-wrapper {
@@ -68,6 +70,18 @@
       border-radius: 10px;
       object-fit: cover;
     }
+  }
+}
+
+@keyframes move-to-right {
+  100% {
+    transform: translateX(670px);
+  }
+}
+
+@keyframes move-to-left {
+  100% {
+    transform: translateX(-670px);
   }
 }
 

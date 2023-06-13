@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import styles from './teaser-style.module.scss';
 import { v4 as uuidv4 } from 'uuid';
+import Image from "next/image";
 
 interface TeaserProps {
+  images: string[]
 }
 
 const renderImages = (images: string[]) => {
@@ -11,58 +13,67 @@ const renderImages = (images: string[]) => {
       className={styles['container-image']}
       key={uuidv4()}
     >
-      <img
+      <Image
         className={styles['image']}
         src={image}
         alt="image"
+        width={128}
+        height={72}
       />
     </div>
   ));
 };
 
-const images: string[] = [
-  'https://solea-parent.dfs.ivi.ru/picture/ea003d,ffffff/reposition_iviLogoPlateRounded.svg',
-  'https://hit-print.ru/upload/iblock/637/637f1198fe9a718764fa82131303b2b3.jpg',
-  'https://d9ae6ad5-3627-4bf2-85a7-22bbd5549e94.selcdn.net/uploads/picture/picture/330926/large_4607010740191.JPG',
-  'https://emksp.ru/files/fba/fba4fd332567a5ee2f1e7b65f5c148f0.jpg'
-]
+const countImagesScreen:number = 3;
+const countWrapperMovies:number = 3;
+const minLenght:number = 15;
 
-const countImageOnScreen = 3;
-
-const Teaser: React.FC<TeaserProps> = () => {
+const Teaser: React.FC<TeaserProps> = ({ images }) => {
   const [isActiveTeaser, setIsActiveTeaser] = useState<boolean>();
-
-  const teaserMouseEnterHandler = (e: React.MouseEvent<HTMLDivElement>) => {
-    setIsActiveTeaser(true);
+  
+  if (images.length > minLenght) {
+    images = images.slice(0, 15);
+  } else if (images.length > 0 && images.length < minLenght) {
+    for (let i = 0; images.length < minLenght; ++i) {
+      images.push(images[i]);
+    }
   }
 
-  const teaserMouseLeaveHandler = (e: React.MouseEvent<HTMLDivElement>) => {
-    setIsActiveTeaser(false);
-  }
+  const topMovies: string[] = images 
+    ? images.slice(0, images.length / countWrapperMovies) 
+    : [];
+
+  const middleMovies: string[] = images 
+    ? images.slice(images.length / countWrapperMovies, images.length / countWrapperMovies * 2) 
+    : [];
+
+  const bottomMovies: string[] = images 
+    ? images.slice(-images.length / countWrapperMovies) 
+    : [];
 
   return (
     <div
       className={styles['teaser']}
-      onMouseEnter={teaserMouseEnterHandler}
-      onMouseLeave={teaserMouseLeaveHandler}
+      onMouseEnter={() => setIsActiveTeaser(true)}
+      onMouseLeave={() => setIsActiveTeaser(false)}
     >
       <div className={styles['left-fade']}></div>
       <div className={styles['right-fade']}></div>
 
       <div className={styles['carousel']}>
         <div className={styles['top-wrapper']}>
-          {renderImages(images)}
-          {renderImages(images.slice(0, countImageOnScreen))}
+          {renderImages(topMovies.slice(-countImagesScreen))}
+          {renderImages(topMovies)}
         </div>
 
         <div className={styles['middle-wrapper']}>
-          {renderImages(images)}
-          {renderImages(images.slice(0, countImageOnScreen))}
+          {renderImages(middleMovies.slice(-countImagesScreen))}
+          {renderImages(middleMovies)}
         </div>
 
         <div className={styles['bottom-wrapper']}>
-          {renderImages(images)}
-          {renderImages(images.slice(0, countImageOnScreen))}
+          {renderImages(bottomMovies.slice(-countImagesScreen))}
+          {renderImages(bottomMovies)}
         </div>
       </div>
 
@@ -73,9 +84,11 @@ const Teaser: React.FC<TeaserProps> = () => {
 
         <div className={styles['subscribe__info']}>
           <div className={styles['picture-manufacturer']}>
-            <img
+            <Image
               src="https://solea-parent.dfs.ivi.ru/picture/bypass/reposition_subscription_ivi.svg"
               alt="manufacturer"
+              width={48}
+              height={48}
             />
           </div>
 

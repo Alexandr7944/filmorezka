@@ -4,15 +4,15 @@ import { v4 as uuidv4 } from 'uuid';
 import {Teaser} from "@/components/UI/Teaser";
 import { SlScreenDesktop } from "@/components/Icons/index";
 import { DropDownProps, IFormat } from "@/interface/Header";
-import { useAppDispatch } from "@/hooks/hook";
 import { selectMediaFilters } from "@/store/selectors";
 import { genre } from "@/types/genre";
 import Fetching from "@/API/Fetching";
 import { INewMovie } from "@/interface/IMovie";
 import { objectToQueryString } from "@/utils/serialize";
+import useDebounce from "@/hooks/useDebounce";
 
-const urlRandomFilms: string = 'http://localhost:5000/films/random';
 const urlFiltersFilms: string = 'http://localhost:5000/films/filters';
+const hashMapImages:Map<string, string[]> = new Map();
 
 interface FormatProps extends DropDownProps {
   content: IFormat;
@@ -24,20 +24,7 @@ const getWrapperContentItems = (items: string[] | number[]) => {
       className={styles['content__item']}
       key={uuidv4()}
     >
-        <span className={styles['item__text']}>{item}</span>
-    </div>
-  ));
-};
-
-const getWrapperGenres = (genres: genre[]) => {
-  return genres.map((genre) => (
-    <div
-      className={styles['content__item']}
-      key={uuidv4()}
-    >
-      <span className={styles['item__text']}>
-        {genre.nameRu.charAt(0).toUpperCase() + genre.nameRu.slice(1)}
-      </span>
+      <span className={styles['item__text']}>{item}</span>
     </div>
   ));
 };
@@ -45,31 +32,50 @@ const getWrapperGenres = (genres: genre[]) => {
 const Format: React.FC<FormatProps> = ({content}) => {
   const { genres } = selectMediaFilters();
   const [imagesTeaser, setImagesTeaser] = useState<string[]>([]);
-  const [lastRequesURL, setLastRequestURL] = useState<string>("");
+  const [paramsURL, setParamsURL] = useState<object>({});
+  const debouncedParams:boolean = useDebounce(paramsURL, 300);
 
-  const fillImagesTeaser = (url: string, paramsURL: object = {}) => {
-    paramsURL = {...paramsURL, type: content.typeFormat}
+  const getWrapperGenres = (genres: genre[]) => {
+    return genres.map((genre) => (
+      <div
+        className={styles['content__item']}
+        key={uuidv4()}
+      >
+        <span 
+          className={styles['item__text']}
+          onMouseEnter={() => setParamsURL({genre: genre.nameEn})}
+        >
+          {genre.nameRu.charAt(0).toUpperCase() + genre.nameRu.slice(1)}
+        </span>
+      </div>
+    ));
+  };
 
-    if (lastRequesURL !== url) {
-      setLastRequestURL(url);
+  useEffect(() => {
+    let changedParamsURL = paramsURL;
+  
+    if (content.typeFormatEn === 'cartoon') {
+      changedParamsURL = { ...paramsURL, genre: content.typeFormatEn };
+    } else {
+      changedParamsURL = { ...paramsURL, type: content.typeFormatEn };
+    }
 
-      Fetching.getAll(url, 'GET', paramsURL)
+    const serializeParams: string = objectToQueryString(changedParamsURL);
+
+    if (hashMapImages.has(serializeParams)) {
+      setImagesTeaser(hashMapImages.get(serializeParams) || []);
+    } else if (!debouncedParams) {
+      Fetching.getFilters(urlFiltersFilms, 'GET', changedParamsURL)
         .then((data: INewMovie[]) => {
-          if (data) {
-            setImagesTeaser(data.slice(0, 15).map(obj => obj.image));
-          }
+          const images: string[] = data.map(obj => obj.image);
+          hashMapImages.set(serializeParams, images);
+          setImagesTeaser(images);
         })
         .catch((error: any) => {
           console.error(error);
         });
     }
-  }
-
-  useEffect(() => {
-    const randomFilms: string = 'http://localhost:5000/films/random';
-
-    fillImagesTeaser(randomFilms);
-  }, []);
+  }, [paramsURL, debouncedParams]);
 
   return (
     <div
@@ -108,7 +114,9 @@ const Format: React.FC<FormatProps> = ({content}) => {
           </div>
 
           <div className={styles['content']}>
-            {getWrapperContentItems(content.years.map(year => `${content.typeFormat} ${year} года`))}
+            {getWrapperContentItems(content.years.map(year => 
+              `${content.typeFormatRu[0].toUpperCase() + content.typeFormatRu.slice(1)} ${year} года`))
+            }
           </div>
         </div>
       </div>
