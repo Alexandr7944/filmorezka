@@ -1,6 +1,4 @@
 import { MyContainer, Navbar } from '@/components';
-// import { useAppSelector } from '@/hooks/hook';
-// import { useRouter } from 'next/router';
 
 const navbar = [
   {title: 'Главная', href: '/'},
@@ -8,11 +6,6 @@ const navbar = [
 ];
 
 const Profile = () => {
-
-  // const user = useAppSelector(state => state.user);
-
-  // const router = useRouter();
-  // !user.isAuth && router.push('/');
 
   return (
     <MyContainer>

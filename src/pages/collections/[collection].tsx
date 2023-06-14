@@ -1,10 +1,10 @@
 import { CollectionMovie, MyContainer, Navbar } from '@/components';
-import { selectMediaFilters } from '@/store/selectors';
+import { selectGenres } from '@/store/selectors';
 import { capitalizeStr } from '@/utils/capitalize';
 import { useRouter } from 'next/router';
 
 const Collection = () => {
-  const { genres } = selectMediaFilters();
+  const { genres } = selectGenres();
 
   const router = useRouter();
   

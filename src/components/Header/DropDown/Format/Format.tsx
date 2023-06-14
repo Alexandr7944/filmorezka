@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {Teaser} from "@/components/UI/Teaser";
 import { SlScreenDesktop } from "@/components/Icons/index";
 import { DropDownProps, IFormat } from "@/interface/Header";
-import { selectMediaFilters } from "@/store/selectors";
+import { selectGenres } from "@/store/selectors";
 import { genre } from "@/types/genre";
 import Fetching from "@/API/Fetching";
 import { INewMovie } from "@/interface/IMovie";
@@ -20,7 +20,7 @@ interface FormatProps extends DropDownProps {
 }
 
 const Format: React.FC<FormatProps> = ({content}) => {
-  const { genres } = selectMediaFilters();
+  const { genres } = selectGenres();
   const [imagesTeaser, setImagesTeaser] = useState<string[]>([]);
   const [paramsURL, setParamsURL] = useState<object>({});
   const debouncedParams:boolean = useDebounce(paramsURL, 300);
@@ -91,7 +91,7 @@ const Format: React.FC<FormatProps> = ({content}) => {
           console.error(error);
         });
     }
-  }, [paramsURL, debouncedParams]);
+  }, [paramsURL, content.typeFormatEn, debouncedParams]);
 
   return (
     <div
