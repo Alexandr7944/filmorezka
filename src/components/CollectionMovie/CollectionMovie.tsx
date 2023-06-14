@@ -13,10 +13,11 @@ import { Rating } from '@/interface/Rating';
 
 type CollectionMovieProps = {
   collection: string,
-  title?: string,
+  title?: string
+  params?: string
 }
 
-const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection, title }) => {
+const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection, title, params }) => {
   const [movies, setMovies] = useState<INewMovie[]>([]);
   const [showMovies, setShowMovies] = useState(20);
   const [showFilter, setShowFilter] = useState<boolean>(false);
@@ -25,18 +26,19 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection, title }) 
     countries: [],
     year: ['Все годы'],
     rating: ['Любой рейтинг']
-  });
-
+  });  
+  
   useEffect(() => {
-    Fetching.getAll(`http://localhost:5000/films/filters?genre=${collection}`)
+    Fetching.getAll(params 
+      ? 'http://localhost:5000/films/filters' + params 
+      : 'http://localhost:5000/films/filters?genge=' + collection)
       .then(movies => setMovies(movies));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [collection, params]);
 
   const getMoviesFilterList = useCallback((): INewMovie[] => {
     const filterRatings = ratingJSON.rating.map((rating: Rating) => {
       if (rating.name === moviesFilter.rating[0]) return rating.value;
-    }).join('')      
+    }).join('');    
 
     const filterYears: number[] = yearsJSON.years.find((year) => 
       year.year === moviesFilter.year[0]
@@ -50,7 +52,7 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection, title }) 
         ? moviesFilter.countries.some(i => item.countries.includes(i))
         : item.countries)
       && (filterRatings
-        ? item.rating > +filterRatings
+        ? item.rating >= +filterRatings
         : item.rating)
       && (!filterYears[0]
         ? item.year
@@ -66,8 +68,8 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection, title }) 
         <h1 className={style.collection__title}>
           {title + ' смотреть онлайн'}
         </h1>
-        {movies.length && 
-          <>
+        {movies.length > 0 
+          ? <>
           <div className={style.collection__filter}>
             <div
               className={style['collection__filter-name']}
@@ -83,12 +85,10 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection, title }) 
             />}
           </div>
           <div className={style.collection__wrapper}>
-            {movies.length && getMoviesFilterList().map((item, index) => 
-              index < showMovies &&
+            {movies.length && getMoviesFilterList().map((item, index, arr) => 
+              arr.length >= showMovies && index < showMovies &&
               <div key={item.id} className={style.collection__item} >
-                <MovieItem
-                  movie={item}
-                />
+                <MovieItem movie={item} />
               </div>
             )}
           </div>
@@ -97,6 +97,7 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection, title }) 
             onClick={() => setShowMovies(Math.min(showMovies + 20, movies.length))}
           >Показать ещё</button>
           </>
+          : <p>Контент не найден</p>
         }
       </div>
     </div>

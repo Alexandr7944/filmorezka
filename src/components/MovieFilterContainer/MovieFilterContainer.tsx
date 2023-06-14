@@ -47,27 +47,20 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
   }
 
   const getPresenceType = (typeFilter: string) => {
-    return typeFilter === 'year' || typeFilter === 'rating'
-      ? getTypeNumber(typeFilter)
-      : getTypeString(typeFilter)
-  }
-
-  const getTypeNumber = (typeFilter: string) => {
-    let arr = movies.map(item => +item[typeFilter as keyof MovieFilterNumber].toFixed(1));
-    arr = [...new Set(arr)]
-    return arr.filter(i => i !== 0).sort((a, b) => b - a);
+    return typeFilter === 'genre' || typeFilter === 'countries'
+      ? getTypeString(typeFilter)
+      : []
   }
 
   const getTypeString = (typeFilter: string) => {
     const arr = movies.map(item => item[typeFilter as keyof MovieFilterString])
       .reduce((acc, item) => item?.length ? acc.concat(item) : acc, []);
-    return [...new Set(arr)].map(i => capitalizeStr(i));
+    return [...new Set(arr)];
   }
 
   return (
     <div className={styles['movie-filter']}>
-      <div className={styles['movie-filter__container']}
-      >
+      <div className={styles['movie-filter__container']}>
         {
           typesFilter.map(type => <MovieFilterItem 
               key={type.type}

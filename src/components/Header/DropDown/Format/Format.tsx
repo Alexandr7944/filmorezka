@@ -10,6 +10,7 @@ import Fetching from "@/API/Fetching";
 import { INewMovie } from "@/interface/IMovie";
 import { objectToQueryString } from "@/utils/serialize";
 import useDebounce from "@/hooks/useDebounce";
+import Link from "next/link";
 
 const urlFiltersFilms: string = 'http://localhost:5000/films/filters';
 const hashMapImages:Map<string, string[]> = new Map();
@@ -18,22 +19,30 @@ interface FormatProps extends DropDownProps {
   content: IFormat;
 }
 
-const getWrapperContentItems = (items: string[] | number[]) => {
-  return items.map((item) => (
-    <div
-      className={styles['content__item']}
-      key={uuidv4()}
-    >
-      <span className={styles['item__text']}>{item}</span>
-    </div>
-  ));
-};
-
 const Format: React.FC<FormatProps> = ({content}) => {
   const { genres } = selectMediaFilters();
   const [imagesTeaser, setImagesTeaser] = useState<string[]>([]);
   const [paramsURL, setParamsURL] = useState<object>({});
   const debouncedParams:boolean = useDebounce(paramsURL, 300);
+  
+  const getWrapperContentItems = (items: string[] | number[]) => {
+    return items.map((item) => (
+      <div
+        className={styles['content__item']}
+        key={uuidv4()}
+      >
+        <span 
+          className={styles['item__text']}
+          // href={{
+          //   pathname: '/collections/',
+          //   query: {
+          //     type: content.typeFormatEn
+          //   },
+          // }}
+        >{item}</span>
+      </div>
+    ));
+  };
 
   const getWrapperGenres = (genres: genre[]) => {
     return genres.map((genre) => (
@@ -41,15 +50,22 @@ const Format: React.FC<FormatProps> = ({content}) => {
         className={styles['content__item']}
         key={uuidv4()}
       >
-        <span 
+        <Link 
           className={styles['item__text']}
           onMouseEnter={() => setParamsURL({genre: genre.nameEn})}
+          href={{
+            pathname: '/collections/' + genre.nameEn,
+            query: {
+              type: content.typeFormatEn,
+              genre: genre.nameEn
+            },
+          }}
         >
           {genre.nameRu.charAt(0).toUpperCase() + genre.nameRu.slice(1)}
-        </span>
+        </Link>
       </div>
     ));
-  };
+  };  
 
   useEffect(() => {
     let changedParamsURL = paramsURL;

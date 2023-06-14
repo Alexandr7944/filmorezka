@@ -19,7 +19,7 @@ export type MovieFilterItemProps = {
   type: string,
   title: string,
   types: string[],
-  presenceTypes: string[] | number [],
+  presenceTypes: string[],
   getTypes: string,
   setGetTypes: (type: string) => void,
   moviesFilter: MovieFilter,

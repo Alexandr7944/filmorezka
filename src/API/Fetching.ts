@@ -60,7 +60,6 @@ class Fetching {
 
       const result = await response.json();
       console.log(url + `?timestamp=${new Date().getTime()}&` + queryParams)
-      console.log(result)
       return result;
     } catch (err) {
       console.log(err);

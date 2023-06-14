@@ -1,13 +1,13 @@
 import { MyContainer, Navbar } from '@/components';
-import Profile from '@/components/Profile/Profile';
 import { useAppSelector } from '@/hooks/hook';
 import { useRouter } from 'next/router';
 
-const ProfilePage = () => {
-  const navbar = [
-    {title: 'Главная', href: '/'},
-    {title: 'Профиль'}
-  ];
+const navbar = [
+  {title: 'Главная', href: '/'},
+  {title: 'Профиль'}
+];
+
+const Profile = () => {
 
   const user = useAppSelector(state => state.user);
 
@@ -18,10 +18,10 @@ const ProfilePage = () => {
     <MyContainer>
       <Navbar link={navbar} />
       <div className="container">
-        <Profile person={user}/>
+        <h3>Страница профиля</h3>
       </div>
     </MyContainer>
   )
 }
 
-export default ProfilePage;
+export default Profile;

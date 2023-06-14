@@ -16,7 +16,7 @@ const Home = () => {
         <MoviesSlider
           title='Современные мультфильмы'
           genre='childlike'
-          url='http://localhost:5000/films/filters?raitinr=9&genre=childlike'
+          url='http://localhost:5000/films/filters?genre=childlike'
         />
         <MoviesSlider
           title='Подборка комедий'

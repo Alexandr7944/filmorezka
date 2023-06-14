@@ -54,12 +54,20 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, genre, url }) => {
 
   return (
     <div className={style.movies}>
-      <Link href={`/collections/${genre}`} className={style.movies__link}>
+      <Link
+        href={{
+          pathname: '/collections/' + genre,
+          query: {
+            genre: genre
+          },
+        }}
+        className={style.movies__link}
+      >
         <h3 className={style.movies__title}>{ title }</h3>
         <Arrow className={style.movies__arrow} width='40px' height='15px'/>
       </Link>
       {
-        movies
+        movies.length
         ? <div className={style.movies__list} ref={list}>
           <button
             className={style.movies__btn}
@@ -73,7 +81,16 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, genre, url }) => {
                 (index < LIMIT_ITEM_PAGE) && <MovieItem key={item.id} movie={item} width={widthItem} />
               )
             }
-            <MovieItemDefault link='/collections/#'  width={widthItem} />
+            <Link
+              href={{
+                pathname: '/collections/' + genre,
+                query: {
+                  genre: genre
+                },
+              }}
+            >
+              <MovieItemDefault width={widthItem} />
+            </Link>
           </div>
           <button
             className={style.movies__btn}

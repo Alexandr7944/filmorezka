@@ -36,7 +36,7 @@ const WatchPage = () => {
         capitalizeStr(movie.genre[0]) || 'Подборка для Вас'}`,
 
       href: movie?.genre && movie?.genre[0] && genres
-        ? `/collections/${nameEn}`
+        ? `/collections/${nameEn}?genre=${nameEn}`
         : '/'
 
     },
