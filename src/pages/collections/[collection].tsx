@@ -1,16 +1,20 @@
 import { CollectionMovie, MyContainer, Navbar } from '@/components';
 import { capitalizeStr } from '@/utils/capitalize';
 import { useRouter } from 'next/router';
+import en from "../../locales/en/pages/watch/watch"
+import ru from "../../locales/ru/pages/watch/watch"
 
 const Collection = () => {
+  const {locale} = useRouter();
+  const t = locale === "en"? en : ru;
   const router = useRouter();
   const collection: string = `${router.query.collection || ''}`;
   const titleCollection = collection && collection !== 'random'
     ? capitalizeStr(collection)
-    : 'Подборки'
+    : `${t.compilations}`
 
   const navbar = [
-    {title: 'Главная', href: '/'},
+    {title: `${t.main}`, href: '/'},
     {title: titleCollection}
   ];
   

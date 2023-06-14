@@ -8,7 +8,7 @@ type ProfileProps = {
 const Profile: React.FC<ProfileProps> = ({ person }) => {
   return (
     <div className={styles.profile}>
-      <h2 className={styles.profile__title}>Стрница профиля</h2>
+      <h2 className={styles.profile__title}>Страница профиля</h2>
     </div>
   )
 }

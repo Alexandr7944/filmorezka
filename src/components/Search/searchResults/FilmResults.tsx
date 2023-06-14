@@ -1,10 +1,10 @@
 import React from "react";
 import style from "../search.module.scss";
 import { BiCameraMovie } from "react-icons/bi";
-import router from "next/router";
+import router, { useRouter } from "next/router";
 
 const FilmResults = ({ ...item }) => {
-  console.log(item)
+  const { locale } = useRouter();
   return (
     <div
       className={style.title}
@@ -15,7 +15,7 @@ const FilmResults = ({ ...item }) => {
       </div>
       <div>
         <div className={style.section__search_result}>
-          {item.name ? item.name : item.nameEn || ""}
+          {locale==="ru" ? item.name : item.nameEn || item.name}
         </div>
         <div>{item.year !== "null" ? item.year : ""}</div>
       </div>

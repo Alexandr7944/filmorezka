@@ -1,9 +1,15 @@
 import React from 'react'
 import style from "./actorpage-style.module.scss";
+import en from "../../locales/en/actorpage/actorpage"
+import ru from "../../locales/ru/actorpage/actorpage"
+import { useRouter } from 'next/router';
 const NoFilms = () => {
+  const {locale, locales} = useRouter();
+  const t:any = locale === "en"? en : ru;
+ 
   return (
     <div className={style.icon_block}>
-        <p>  Нам жаль, но эти данные в базу не добавлены :(</p>
+        <p>  {t.no_films}:(</p>
   
     <div className={style.icon}>
       <svg

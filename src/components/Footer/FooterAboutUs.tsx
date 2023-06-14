@@ -1,14 +1,19 @@
 import React from "react";
 import style from "./footer-style.module.scss";
+import en from "../../locales/en/footer/footer"
+import ru from "../../locales/ru/footer/footer"
+import { useRouter } from "next/router";
 
 const FooterAboutUs: React.FC = () => {
+  const {locale} = useRouter();
+  const t:any = locale === "en"? en : ru;
   return (
     <div>
-      <span className={style.footer__title}>О нас</span>
+      <span className={style.footer__title}>{t.about}</span>
       <ul className={style.footer__linkList}>
         <li className={style.footer__linkItem}>
           <a href="https://corp.ivi.ru/" >
-            О компании
+            {t.about_company}
           </a>
         </li>
         <li className={style.footer__linkItem}>
@@ -16,17 +21,17 @@ const FooterAboutUs: React.FC = () => {
             href="https://corp.ivi.ru/career/#career-vacancy-block"
             
           >
-            Вакансии
+            {t.job}
           </a>
         </li>
         <li className={style.footer__linkItem}>
           <a href="https://www.ivi.tv/pages/beta/" >
-            Программа бета-тестирования
+            {t.b_test}
           </a>
         </li>
         <li className={style.footer__linkItem}>
           <a href="https://www.ivi.tv/info/partners" >
-            Информация для партнёров
+            {t.partners}
           </a>
         </li>
         <li className={style.footer__linkItem}>
@@ -34,17 +39,17 @@ const FooterAboutUs: React.FC = () => {
             href="https://corp.ivi.ru/advertisers/"
             className={style.nbllink + " " + style.nbllink_style}
           >
-            Размещение рекламы
+            {t.promo}
           </a>
         </li>
         <li className={style.footer__linkItem}>
           <a href="https://www.ivi.tv/info/agreement" >
-            Пользовательское соглашение
+            {t.agreement}
           </a>
         </li>
         <li className={style.footer__linkItem}>
           <a href="https://www.ivi.tv/info/confidential" >
-            Политика конфиденциальности
+         {t.privacy}
           </a>
         </li>
         <li className={style.footer__linkItem}>
@@ -52,7 +57,7 @@ const FooterAboutUs: React.FC = () => {
             href="https://www.ivi.tv/info/goryachaya-liniya-komplaens"
             
           >
-            Комплаенс
+            {t.Compliance}
           </a>
         </li>
       </ul>

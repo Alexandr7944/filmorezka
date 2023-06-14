@@ -1,11 +1,14 @@
 import React, {useState} from 'react';
 import styles from './teaser-style.module.scss';
 import { v4 as uuidv4 } from 'uuid';
-
+import en from "../../../locales/en/UI-en/teaser/teaser"
+import ru from "../../../locales/ru/UI-ru/teaser/teaser"
+import { useRouter } from 'next/router';
 interface TeaserProps {
 }
 
 const renderImages = (images: string[]) => {
+  
   return images.map((image) => (
     <div
       className={styles['container-image']}
@@ -39,7 +42,8 @@ const Teaser: React.FC<TeaserProps> = () => {
   const teaserMouseLeaveHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     setIsActiveTeaser(false);
   }
-
+  const {locale} = useRouter();
+  const t:any = locale === "en"? en : ru;
   return (
     <div
       className={styles['teaser']}
@@ -81,21 +85,21 @@ const Teaser: React.FC<TeaserProps> = () => {
 
           <div className={styles['text']}>
             <div className={styles['title']}>
-              Подписка Иви
+             {t.subscription}
             </div>
 
             <div className={styles['price']}>
-              От 199 ₽ за месяц
+              {t.price}
             </div>
           </div>
         </div>
 
         <div className={styles['subscribe-button']}>
-          Подключить
+         {t.plug}
         </div>
 
         <div className={styles['footnote']}>
-          Отключить можно в любой момент
+          {t.deactivate}
         </div>
       </div>
     </div>

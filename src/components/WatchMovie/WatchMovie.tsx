@@ -5,8 +5,13 @@ import { BiBookmark, BsDownload, BsFillPlayFill, BsVolumeDown } from '../Icons';
 import { ActorContainer } from '../UI/ActorContainer';
 import { Button } from '../UI/Button';
 import { WatchMovieProps } from '@/interface/WatchMovieProps';
+import en from "../../locales/en/watchmovie/watchmovie"
+import ru from "../../locales/ru/watchmovie/watchmovie"
+import { useRouter } from 'next/router';
 
 const WatchMovie: React.FC<WatchMovieProps> = ({ movie, video, actors }) => {
+  const {locale} = useRouter();
+  const t:any = locale === "en"? en : ru;
   
   const filmLength = (time: number) => {
     if (!time) return '';
@@ -19,7 +24,7 @@ const WatchMovie: React.FC<WatchMovieProps> = ({ movie, video, actors }) => {
     };
     const hour = Math.floor(time / 60);
     const minut = time % 60 < 10 ? '0' +  time % 60 : time % 60
-    return hour ? `${hour} ч. ${minut} мин.` : `${minut} мин.`;
+    return hour ? `${hour} ${t.h}. ${minut} ${t.min}.` : `${minut} ${t.min}.`;
   }
 
   const videoUrl = video?.items?.find((video) => video.url.includes('youtube'))?.url
@@ -45,14 +50,14 @@ const WatchMovie: React.FC<WatchMovieProps> = ({ movie, video, actors }) => {
           }
         </div>
         <h1 className={style['watchMovie__title']}>
-          {movie.name}
+          {locale==="ru"? movie.name : movie.nameEn || movie.name}
         </h1>
         <div className={style['watchMovie__params']}>
           <div className={style['watchMovie__params-row']}>
             {
               movie.filmLength 
-                ? `${movie.year} год, ${filmLength(Number(movie.filmLength))}, ${movie.rating}`
-                : `${movie.year} год, ${movie.rating}`
+                ? `${movie.year} ${t.year}, ${filmLength(Number(movie.filmLength))}, ${movie.rating}`
+                : `${movie.year} ${t.year}, ${movie.rating}`
             }
           </div>
           <div className={`${style['watchMovie__params-row']} ${style['watchMovie__params-countryGenre']}`}>
@@ -61,7 +66,7 @@ const WatchMovie: React.FC<WatchMovieProps> = ({ movie, video, actors }) => {
           <div className={style['watchMovie__params-row']}>
             <span className={style['watchMovie__params-hd']}>FullHD</span>
             <BsVolumeDown size="25px" className={style['watchMovie__params-volum']} />
-            <span className={style['watchMovie__params-lang']}>Рус</span>
+            <span className={style['watchMovie__params-lang']}>{t.en}</span>
           </div>
         </div>
         <div className={style['watchMovie__watchMedallions']}>
@@ -75,7 +80,7 @@ const WatchMovie: React.FC<WatchMovieProps> = ({ movie, video, actors }) => {
         <div className={style['watchMovie__buttons']}>
           <Button >
             <BsFillPlayFill />
-            Трейлер
+            {t.trailer}
           </Button>
           <Button> <BiBookmark /> </Button>
           <Button> <BsDownload /> </Button>

@@ -5,6 +5,9 @@ import MovieFilterItem from '../MovieFilterItem/MovieFilterItem';
 import { useState } from 'react';
 import typesFilter from '../../data/typesFilter.json';
 import { capitalizeStr } from '@/utils/capitalize';
+import en from "../../locales/en/moviefilter/moviefilter"
+import ru from "../../locales/ru/moviefilter/moviefilter"
+import { useRouter } from 'next/router';
 
 type MovieFilterContainerProps = {
   movies: INewMovie[],
@@ -41,6 +44,8 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
       .reduce((acc, item) => item?.length ? acc.concat(item) : acc, []);
     return [...new Set(arr)].map(item => capitalizeStr(item));
   }
+  const {locale} = useRouter();
+  const t:any = locale === "en"? en : ru;
 
   return (
     <div className={styles['movie-filter']}>
@@ -64,7 +69,7 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
         className={styles['movie-filter__reset']}
         onClick={resetFilter}
       >
-        &#10006; Сбросить фильтры
+        &#10006; {t.reset}
       </div>
     </div>
   )

@@ -1,7 +1,9 @@
 import { MovieFilterItemProps, MovieFilterNumber, MovieFilterString } from '@/interface/MovieFilter';
 import styles from './movieFilterItem.module.scss';
 import MovieFilterRow from '../MovieFilterRow/MovieFilterRow';
-
+import en from "../../locales/en/moviefilter/moviefilter"
+import ru from "../../locales/ru/moviefilter/moviefilter"
+import { useRouter } from 'next/router';
 const MovieFilterItem: React.FC<MovieFilterItemProps> = (
     { type, title, types, getTypes, setGetTypes, moviesFilter, setMoviesFilter }
   ) => {
@@ -25,6 +27,8 @@ const MovieFilterItem: React.FC<MovieFilterItemProps> = (
           [type]: [...moviesFilter[type as keyof MovieFilterNumber], name]
         })
   }
+  const { locale } = useRouter();
+  const t = locale === 'en' ? en : ru;
 
   return (
     <div className={styles['filter-item']}>
@@ -32,7 +36,7 @@ const MovieFilterItem: React.FC<MovieFilterItemProps> = (
         className={styles['filter-item__title']}
         onClick={() => setGetTypes(getTypes === title ? '' : title)}
       >
-        {title}
+        {t[title as keyof typeof t]}
       </h5>
       {
         getTypes === title &&

@@ -12,6 +12,8 @@ services:
       - ./pgdata:/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
+
+
   rabbitmq:
     image: rabbitmq
     restart: always
@@ -21,6 +23,8 @@ services:
       RABBITMQ_HOST: rabbitmq
     ports:
       - "5672:5672"
+
+
 
   app-film:
     container_name: film
@@ -34,6 +38,7 @@ services:
       - .environment.env
     ports:
       - "5000:5000"
+
 
   listener-persons:
     build: ./PersonsMicroService/
@@ -87,3 +92,12 @@ services:
       - "8000:8000"
     depends_on:
       - db1
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=user@domain.com
+      - PGADMIN_DEFAULT_PASSWORD=SuperSecretPassword

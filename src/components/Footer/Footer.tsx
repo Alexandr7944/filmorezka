@@ -7,8 +7,14 @@ import { RiTv2Fill } from "react-icons/ri";
 import FooterMobile from "./FooterMobile";
 import FooterAboutUs from "./FooterAboutUs";
 import FooterNetworks from "./FooterNetworks";
+import { useRouter } from "next/router";
+import en from "../../locales/en/footer/footer"
+import ru from "../../locales/ru/footer/footer"
+
 
 const Footer: React.FC = () => {
+  const {locale} = useRouter();
+  const t:any = locale === "en"? en : ru;
   return (
     <div className={style.footer}>
       <div className={style.mycontainer}>
@@ -19,26 +25,26 @@ const Footer: React.FC = () => {
             </div>
 
             <div className={style.footer__column}>
-              <span className={style.footer__title}>Разделы</span>
+              <span className={style.footer__title}>{t.section}</span>
               <ul className={style.footer__linkList}>
                 <li className={style.footer__linkItem}>
                   <Link href="/" className="nbl-link">
-                    Мой Иви
+                    {t.ivi}
                   </Link>
                 </li>
                 <li className={style.footer__linkItem}>
                   <a href="https://www.ivi.tv/new" className="nbl-link">
-                    Что нового
+                  {t.news}
                   </a>
                 </li>
                 <li className={style.footer__linkItem}>
                   <Link href="/" className="nbl-link">
-                    Фильмы
+                  {t.films}
                   </Link>
                 </li>
                 <li className={style.footer__linkItem}>
                   <Link href="/" className="nbl-link">
-                    Сериалы
+                  {t.serials}
                   </Link>
                 </li>
                 <li className={style.footer__linkItem}>
@@ -46,7 +52,7 @@ const Footer: React.FC = () => {
                     href="/"
                     className={style.nbllink + " " + style.nbllink_style}
                   >
-                    Мультфильмы
+                     {t.cartoons}
                   </Link>
                 </li>
                 <li
@@ -58,20 +64,20 @@ const Footer: React.FC = () => {
                     href="https://www.ivi.tv/info/agreement"
                     className={style.footer__certificate__link}
                   >
-                    Активация сертификата
+                    {t.certificate}
                   </a>
                 </li>
               </ul>
             </div>
             <div className={style.footer__column}>
-              <span className={style.footer__title}>Служба поддержки</span>
+              <span className={style.footer__title}>{t.support}</span>
               <div>
                 <span className={style.footer__linkItem}>
-                  Мы всегда готовы вам помочь.
+                  {t.help}
                 </span>
                 <br />
                 <span className={style.footer__linkItem}>
-                  Наши операторы онлайн 24/7
+                 {t.operators}
                 </span>
               </div>
               <div className={style.footer__support}>
@@ -81,7 +87,7 @@ const Footer: React.FC = () => {
                       style.footer__buttonstyle + " " + style.footer__button
                     }
                   >
-                    Написать в чате
+                    {t.write}
                   </div>
                 </a>
                 <div className={style.footer__flex}>
@@ -110,7 +116,7 @@ const Footer: React.FC = () => {
                 <ul className={style.footer__questions}>
                   <li>
                     <a href="https://ask.ivi.ru/">ask.ivi.ru</a>
-                    <div>Ответы на вопросы</div>
+                    <div>{t.questions}</div>
                   </li>
                 </ul>
               </div>
@@ -126,7 +132,7 @@ const Footer: React.FC = () => {
                   <div className={style.line2}></div>
                 </div>
                 <div className={style.footerWidget__text}>
-                  Смотрите фильмы, сериалы и мультфильмы без рекламы
+                  {t.watch_movie}
                 </div>
               </div>
             </div>
@@ -140,7 +146,7 @@ const Footer: React.FC = () => {
                 >
                   <AiFillApple className={style.footer__stores_icons} />
                   <div className={style.footer__textBlock}>
-                    <div className={style.footer__preamble}>Загрузить в</div>
+                    <div className={style.footer__preamble}>{t.upload}</div>
                     <div className={style.footer__title}>App Store</div>
                   </div>
                 </a>
@@ -150,7 +156,7 @@ const Footer: React.FC = () => {
                 >
                   <BsGooglePlay className={style.footer__stores_icons} />
                   <div className={style.footer__textBlock}>
-                    <div className={style.footer__preamble}>Доступно в</div>
+                    <div className={style.footer__preamble}>{t.available}</div>
                     <div className={style.footer__title}>Google Play</div>
                   </div>
                 </a>
@@ -160,7 +166,7 @@ const Footer: React.FC = () => {
                 >
                   <RiTv2Fill className={style.footer__stores_icons} />
                   <div className={style.footer__textBlock}>
-                    <div className={style.footer__preamble}>Смотрите на</div>
+                    <div className={style.footer__preamble}>{t.lookat}</div>
                     <div className={style.footer__title}>Smart TV</div>
                   </div>
                 </a>
@@ -170,7 +176,7 @@ const Footer: React.FC = () => {
                 >
                   <AiFillApple className={style.footer__stores_icons} />
                   <div className={style.footer__textBlock}>
-                    <div className={style.footer__preamble}>Загрузить в</div>
+                    <div className={style.footer__preamble}>{t.upload}</div>
                     <div className={style.footer__title}>App Store</div>
                   </div>
                 </a>

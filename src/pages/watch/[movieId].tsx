@@ -9,6 +9,8 @@ import { IVideo } from '@/interface/IMoviePage';
 import { capitalizeStr } from '@/utils/capitalize';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import en from "../../locales/en/pages/watch/watch"
+import ru from "../../locales/ru/pages/watch/watch"
 
 const WatchPage = () => {
   const [movie, setMovie] = useState<INewMovie>();
@@ -23,23 +25,25 @@ const WatchPage = () => {
   
   const [actors, setActors] = useState<IActor[]>();
   const router = useRouter();
+  const {locale} = useRouter();
+  const t:any = locale === "en"? en : ru;
   const navbar = [
-    {title: 'Главная', href: '/'},
+    {title: `${t.main}`, href: '/'},
     {
       title: `${movie?.genre?.length &&
         movie?.genre[0] &&
-        capitalizeStr(movie.genre[0]) || 'Подборка для Вас'}`,
+        capitalizeStr(movie.genre[0]) || `${t.selection}`}`,
       href: movie?.genre && movie?.genre[0]
         ? `/collections/${movie?.genre[0]}`
         : '/collections/random'
     },
-    {title: `${movie?.name && capitalizeStr(movie.name) || ''}`}
+    {title: `${locale==="ru"? movie?.name && capitalizeStr(movie.name) || '' : movie?.nameEn && capitalizeStr(movie.nameEn) || movie?.name}`}
   ];  
 
   const movieId = router.query.movieId;
 
   useEffect(() => {
-    Fetching.getNewAll(`http://localhost:5000/films/id/${movieId}`)
+    Fetching.getNewAll(`http://localhost:5005/films/id/${movieId}`)
       .then(movie => setMovie(movie));
   }, [movieId]);
 

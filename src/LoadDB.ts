@@ -5,9 +5,9 @@ class LoadDB {
 
   constructor() {
     this.dataList = [
-      'http://localhost:5000/countries/load',
-      'http://localhost:5000/genres/load',
-      'http://localhost:5000/films/load',
+      'http://localhost:5005/countries/load',
+      'http://localhost:5005/genres/load',
+      'http://localhost:5005/films/load',
       'http://localhost:5100/actors/load'
     ];
     this.cookie = '';

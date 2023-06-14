@@ -3,7 +3,8 @@ import Image from 'next/image';
 import { INewMovie } from '@/interface/IMovie';
 import { AiOutlineStar, BiBookmark, BsMagic, RiDislikeLine } from '../Icons';
 import { useRouter } from 'next/router';
-
+import en from "../../locales/en/moviefilter/moviefilter"
+import ru from "../../locales/ru/moviefilter/moviefilter"
 type MovieItemProps = {
   movie: INewMovie,
   width?: number,
@@ -18,7 +19,8 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie, width }) => {
       item[0].toUpperCase() + item.slice(1).toLowerCase()
     )
   }
-
+  const {locale} = useRouter();
+  const t:any = locale === "en"? en : ru;
   return (
     <div 
       className={`${style.movie}`}
@@ -40,25 +42,25 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie, width }) => {
           <div className={style.movie__poster_wrapper}>
             <BiBookmark className={style.movie__icons} />
             <div className={style.movie__icons_tooltip}>
-              Смотреть позже
+             {t.later}
             </div>
           </div>
           <div className={style.movie__poster_wrapper}>
             <BsMagic className={style.movie__icons}/>
             <div className={style.movie__icons_tooltip}>
-              Похожее
+              {t.similar}
             </div>
           </div>
           <div className={style.movie__poster_wrapper}>
             <AiOutlineStar className={style.movie__icons}/>
             <div className={style.movie__icons_tooltip}>
-              Уже смотрел, оценить
+              {t.rate}
             </div>
           </div>
           <div className={style.movie__poster_wrapper}>
             <RiDislikeLine className={style.movie__icons}/>
             <div className={style.movie__icons_tooltip}>
-              Не нравится такое
+              {t.dontlike}
             </div>
           </div>
           <div className={style.movie__row}>
@@ -74,16 +76,16 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie, width }) => {
           } <br/>
           </div>
           <div className={style.movie__row}>
-            {movie.filmLength && `${movie.filmLength} мин`}
+            {movie.filmLength && `${movie.filmLength} ${t.min}`}
           </div>
         </div>
       </div>
       <div className={style.movie__info}>
         <span className={style.movie__title}>
-          {movie.name}
+          {locale === "ru" ? movie.name : movie.nameEn || movie.name }
         </span>
         <span className={style.movie__subscription}>
-          Бесплатно
+          {t.free}
         </span>
       </div>
     </div>

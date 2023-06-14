@@ -1,18 +1,18 @@
 [
   {
-    "title": "Жанры",
+    "title": "genres",
     "type": "genre"
   },
   {
-    "title": "Страны",
+    "title": "countries",
     "type": "countries"
   },
   {
-    "title": "Годы",
+    "title": "years",
     "type": "year"
   },
   {
-    "title": "Рейтинг",
+    "title": "rating",
     "type": "rating"
   }
 ]

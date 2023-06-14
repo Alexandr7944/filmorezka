@@ -1,17 +1,19 @@
 import React from "react";
 import style from "../search.module.scss";
 import { MdOutlineMovieFilter } from "react-icons/md";
+import { useRouter } from "next/router";
 type genreResults = {
   genreResults: any;
 };
 const GenreResult: React.FC<genreResults> = ({ genreResults }) => {
+  const { locale } = useRouter();
   return (
     <div className={style.title}>
       <div>
         <MdOutlineMovieFilter size={"25px"} color={"#a970ff"} />
       </div>
       <div className={style.section__search_result}>
-        {genreResults.nameRu || genreResults.name}
+        {locale==="ru"? genreResults.nameRu : genreResults.nameEn || genreResults.nameRu}
       </div>
     </div>
   );

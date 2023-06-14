@@ -10,15 +10,22 @@ import ActorsMovieList from "./ActorsMovieList";
 import Fetching from "@/API/Fetching";
 import LoaderUI from "../UI/ActorPage/LoaderUI/LoaderUI";
 import NoFilms from "./NoFilms";
+import { useRouter } from "next/router";
+import en from "../../locales/en/actorpage/actorpage"
+import ru from "../../locales/ru/actorpage/actorpage"
+
 
 interface ActorPageProps {
   actorID: string | string[] | undefined;
 }
 
 const ActorPages: React.FC<ActorPageProps> = ({ actorID }) => {
+  const {locale} = useRouter();
+ 
   const URL_ACTORS = "http://localhost:5100/actors/id/";
-  const URL_FILMS = "http://localhost:5000/films/sp/";
-
+  const URL_FILMS = "http://localhost:5005/films/sp/";
+  const t:any = locale === "en"? en : ru;
+ 
   const [actor, setActor] = useState<IActor>();
   const [film, setFilm] = useState<INewMovie[]>();
   const [yet, setYet] = useState(false);
@@ -74,7 +81,7 @@ const ActorPages: React.FC<ActorPageProps> = ({ actorID }) => {
     }
   };
 
-  let filmsarr: Array<string | number> = ["фильм", "фильмов", "фильма"];
+  let filmsarr: Array<string | number> = [`${t.film1}`, `${t.film2}`, `${t.film3}`];
   const moviesLength = (
     inter: number,
     filmsarr: Array<string | number>
@@ -94,26 +101,26 @@ const ActorPages: React.FC<ActorPageProps> = ({ actorID }) => {
   };
   const arOptionsRus = (text: string) => {
     if (text === "ACTOR") {
-      return "Актёр";
+      return `${t.actor}`;
     }
     if (text === "HIMSELF") {
-      return "Актёр: играет самого себя";
+      return `${t.himself}`;
     }
     if (text === "PRODUCER") {
-      return "Продюссер";
+      return `${t.producer}`;
     }
    
     if (text === "DIRECTOR") {
-      return "Режиссёр";
+      return `${t.director}`;
     }
     if (text === "WRITER") {
-      return "Сценарист";
+      return `${t.writer}`;
     }
     if (text === "COMPOSER") {
-      return "Композитор";
+      return `${t.composer}`;
     }
     if (text === "HRONO_TITR_MALE") {
-      return "В титрах не указан";
+      return `${t.hrono_title_man}`;
     } else null;
   };
 
@@ -160,7 +167,7 @@ const ActorPages: React.FC<ActorPageProps> = ({ actorID }) => {
       ""
     );
   });
-
+console.log(actor)
   return (
     <div className={style.line}>
       <div
@@ -168,7 +175,7 @@ const ActorPages: React.FC<ActorPageProps> = ({ actorID }) => {
         className={style.stores3 + " " + style.title + " " + style.pointer}
       >
         <MdArrowBackIosNew />
-        <div>Назад </div>
+        <div>{t.back} </div>
       </div>
       {actor?.personId ? 
      
@@ -189,28 +196,28 @@ const ActorPages: React.FC<ActorPageProps> = ({ actorID }) => {
                 )}
               </div>
               <div>
-                <h1 className={style.h1}>{actor.name || actor.nameEn}</h1>
+                <h1 className={style.h1}>{locale==="ru" ? actor.name : actor.nameEn}</h1>
                 <div className={style.person_name}>
                   <div> {actor.nameEn} </div>
                   <div>
                     {actor.birthplace
-                      ? `Место рождения: ${actor.birthplace}`
+                      ? `${t.place_of_birth}: ${actor.birthplace}`
                       : ""}
                   </div>
                   <div>
                     {actor.birthday
-                      ? `Дата рождения: ${actor.birthday} • `
+                      ? `${t.date_of_birth}: ${actor.birthday} • `
                       : ""}
-                    {actor.age ? `${actor.age} лет` : ""}
+                    {actor.age ? `${actor.age} ${t.age}` : ""}
                   </div>
                   <div>
-                    {actor.profession ? `Карьера: ${actor.profession}` : ""}
+                    {actor.profession ? `${t.career}: ${actor.profession}` : ""}
                   </div>
                 </div>
               </div>
             </div>
             
-            <div className={style.title3}>Фильмография</div>
+            <div className={style.title3}>{t.filmography}</div>
             <div
               className={style.sort__professions + " " + style.scrollwrapper}
             >
@@ -242,7 +249,7 @@ const ActorPages: React.FC<ActorPageProps> = ({ actorID }) => {
                     onClick={activeYet}
                     className={menu_class + " " + style.pointer}
                   >
-                    {film ? `Еще` : ""}
+                    {film ? `${t.yet}` : ""}
                   </div>
                 ) : (
                   ""
