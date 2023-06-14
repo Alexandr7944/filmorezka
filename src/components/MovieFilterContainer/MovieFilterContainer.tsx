@@ -8,6 +8,10 @@ import { capitalizeStr } from '@/utils/capitalize';
 import en from "../../locales/en/moviefilter/moviefilter"
 import ru from "../../locales/ru/moviefilter/moviefilter"
 import { useRouter } from 'next/router';
+import { selectGenres } from '@/store/selectors';
+import countriesJSON from '../../data/countries.json';
+import yearsJSON from '../../data/years.json';
+import ratingJSON from '../../data/rating.json';
 
 type MovieFilterContainerProps = {
   movies: INewMovie[],
@@ -15,48 +19,60 @@ type MovieFilterContainerProps = {
   setMoviesFilter: (prev: MovieFilter) => void
 }
 
+type TypeOfGetTypes = {
+  genre: string[],
+  countries: string[],
+  year: string[],
+  rating: string[],
+}
+
 const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, moviesFilter, setMoviesFilter }) => {
   const [getTypes, setGetTypes] = useState<string>('');
+
   const resetFilter = () => {
     setMoviesFilter({
       genre: [],
       countries: [],
-      year: [],
-      rating: []
+      year: ['Все годы'],
+      rating: ['Любой рейтинг']
     });
     setGetTypes('');
-  }
+  }  
 
   const getType = (typeFilter: string) => {
-    return typeFilter === 'year' || typeFilter === 'rating'
-      ? getTypeNumber(typeFilter)
-      : getTypeString(typeFilter)
+    const type: TypeOfGetTypes = {
+      genre: selectGenres().genres.map((genre: { nameRu: string | undefined; }) => capitalizeStr(genre.nameRu)),
+      countries: countriesJSON.countries,
+      year: yearsJSON.years.map(year => year.year),
+      rating: ratingJSON.rating.map(rating => rating.name)
+    }
+    return type[typeFilter as keyof TypeOfGetTypes];
   }
 
-  const getTypeNumber = (typeFilter: string) => {
-    let arr = movies.map(item => +item[typeFilter as keyof MovieFilterNumber].toFixed(1));
-    arr = [...new Set(arr)]
-    return arr.filter(i => i !== 0).sort((a, b) => b - a);
+  const getPresenceType = (typeFilter: string) => {
+    return typeFilter === 'genre' || typeFilter === 'countries'
+      ? getTypeString(typeFilter)
+      : []
   }
 
   const getTypeString = (typeFilter: string) => {
     const arr = movies.map(item => item[typeFilter as keyof MovieFilterString])
       .reduce((acc, item) => item?.length ? acc.concat(item) : acc, []);
-    return [...new Set(arr)].map(item => capitalizeStr(item));
+    return [...new Set(arr)];
   }
   const {locale} = useRouter();
   const t:any = locale === "en"? en : ru;
 
   return (
     <div className={styles['movie-filter']}>
-      <div className={styles['movie-filter__container']}
-      >
+      <div className={styles['movie-filter__container']}>
         {
           typesFilter.map(type => <MovieFilterItem 
               key={type.type}
               type={type.type}
               title={type.title}
               types={getType(type.type)}
+              presenceTypes={getPresenceType(type.type)}
               getTypes={getTypes} 
               setGetTypes={setGetTypes}
               moviesFilter={moviesFilter}
@@ -75,4 +91,4 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
   )
 }
 
-export default MovieFilterContainer
+export default MovieFilterContainer;

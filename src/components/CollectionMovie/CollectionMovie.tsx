@@ -4,44 +4,50 @@ import { INewMovie } from '@/interface/IMovie';
 import Fetching from '@/API/Fetching';
 import { MovieItem } from '../MovieItem';
 import { BsCreditCard2Front } from 'react-icons/bs';
-import { capitalizeStr } from '@/utils/capitalize';
 import { MovieFilter } from '@/interface/MovieFilter';
 import MovieFilterContainer from '../MovieFilterContainer/MovieFilterContainer';
+import yearsJSON from '../../data/years.json';
+import ratingJSON from '../../data/rating.json';
+import { Rating } from '@/interface/Rating';
 import en from "../../locales/en/collectionmovie/collectionmovie"
 import ru from "../../locales/ru/collectionmovie/collectionmovie"
 import { useRouter } from 'next/router';
 
+
 type CollectionMovieProps = {
-  collection: string
+  collection: string,
+  title?: string
+  params?: string
 }
 
-const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection }) => {
+const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection, title, params }) => {
   const [movies, setMovies] = useState<INewMovie[]>([]);
+  const [showMovies, setShowMovies] = useState(20);
   const [showFilter, setShowFilter] = useState<boolean>(false);
   const [moviesFilter, setMoviesFilter] = useState<MovieFilter>({
     genre: [],
     countries: [],
-    rating: [],
-    year: []
-  })
+    year: ['Все годы'],
+    rating: ['Любой рейтинг']
+  });  
   const {locale} = useRouter();
   const t:any = locale === "en"? en : ru;
   useEffect(() => {
-    Fetching.getNewAll(`http://localhost:5005/films/random`)
+    Fetching.getAll(params 
+      ? 'http://localhost:5005/films/filters' + params 
+      : 'http://localhost:5005/films/' + collection)
       .then(movies => setMovies(movies));
-  }, []);
-
-  const handlerAddMovies = () => {
-  
-    Fetching.getNewAll(`http://localhost:5005/films/random`)
-      .then(movies => setMovies(prev => [...prev, ...movies]))
-  };
-
-  const titleCollection = collection && collection !== 'random'
-    ? capitalizeStr(collection) + ` ${t.watch_online}`
-    : ` ${t.watch_online_b}`
+  }, [collection, params]);
 
   const getMoviesFilterList = useCallback((): INewMovie[] => {
+    const filterRatings = ratingJSON.rating.map((rating: Rating) => {
+      if (rating.name === moviesFilter.rating[0]) return rating.value;
+    }).join('');    
+
+    const filterYears: number[] = yearsJSON.years.find((year) => 
+      year.year === moviesFilter.year[0]
+    )?.value || [0];
+
     return movies.filter(item => 
       (moviesFilter.genre.length
         ? moviesFilter.genre.some(i => item.genre.includes(i.toLowerCase()))
@@ -49,23 +55,25 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection }) => {
       && (moviesFilter.countries.length
         ? moviesFilter.countries.some(i => item.countries.includes(i))
         : item.countries)
-      && (moviesFilter.rating.length
-        ? moviesFilter.rating.includes(+item.rating.toFixed(1))
+      && (filterRatings
+        ? item.rating >= +filterRatings
         : item.rating)
-      && (moviesFilter.year.length
-        ? moviesFilter.year.includes(+item.year.toFixed(1))
-        : item.year))
-
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+      && (!filterYears[0]
+        ? item.year
+        : filterYears.length > 1
+          ? item.year >= filterYears[0] && item.year <= filterYears[1]
+          : item.year === filterYears[0]
+        ))
   }, [movies, moviesFilter]);
 
   return (
     <div className={style.collection}>
       <div className="container">
         <h1 className={style.collection__title}>
-          {titleCollection}
+          {title ? title + ` ${t.watch_online}` : `${t.watch_online_b}`}
         </h1>
-        {movies && 
+        {movies.length > 0 
+          ? <>
           <div className={style.collection__filter}>
             <div
               className={style['collection__filter-name']}
@@ -80,23 +88,20 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection }) => {
               setMoviesFilter={setMoviesFilter} 
             />}
           </div>
-        }
-        {movies &&
-          <>
           <div className={style.collection__wrapper}>
-            {getMoviesFilterList().map((item) => 
+            {movies.length && getMoviesFilterList().map((item, index, arr) => 
+              arr.length >= showMovies && index < showMovies &&
               <div key={item.id} className={style.collection__item} >
-                <MovieItem
-                  movie={item}
-                />
+                <MovieItem movie={item} />
               </div>
             )}
           </div>
           <button
             className={style['collection__next-btn']}
-            onClick={handlerAddMovies}
+            onClick={() => setShowMovies(Math.min(showMovies + 20, movies.length))}
           >{t.show_more}</button>
           </>
+          : <p>{t.not_found}</p>
         }
       </div>
     </div>

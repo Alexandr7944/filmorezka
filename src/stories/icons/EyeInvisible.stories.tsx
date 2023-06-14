@@ -18,6 +18,6 @@ const args: EyeInvisibleProps = {
   size: '25px'
 }
 
-export const Default: Story = {
+export const EyeInvisible: Story = {
   args: args
 }

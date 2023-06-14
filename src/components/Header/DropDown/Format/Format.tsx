@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from './format-style.module.scss';
 import { v4 as uuidv4 } from 'uuid';
 import {Teaser} from "@/components/UI/Teaser";
 import { SlScreenDesktop } from "@/components/Icons/index";
 import { DropDownProps, IFormat } from "@/interface/Header";
-import { useAppDispatch } from "@/hooks/hook";
-import { selectMediaFilters } from "@/store/selectors";
+import { selectGenres } from "@/store/selectors";
 import { genre } from "@/types/genre";
+import Fetching from "@/API/Fetching";
+import { INewMovie } from "@/interface/IMovie";
+import { objectToQueryString } from "@/utils/serialize";
+import useDebounce from "@/hooks/useDebounce";
+import Link from "next/link";
+
+const urlFiltersFilms: string = 'http://localhost:5000/films/filters';
+const hashMapImages:Map<string, string[]> = new Map();
 import { useRouter } from "next/router";
 import en from "../../../../locales/en/header/header"
 import ru from "../../../../locales/ru/header/header"
@@ -15,40 +22,86 @@ interface FormatProps extends DropDownProps {
   content: IFormat;
 }
 
-const getWrapperContentItems = (items: string[] | number[]) => {
-  return items.map((item) => (
-    <div
-      className={styles['content__item']}
-      key={uuidv4()}
-    >
-        <span className={styles['item__text']}> {item}</span>
-    </div>
-  ));
-};
-
-const getWrapperGenres = (genres: genre[], locale:string | undefined) => {
-  
-  return genres.map((genre) => (
-    <div
-      className={styles['content__item']}
-      key={uuidv4()}
-    >
-      <span className={styles['item__text']}>
-        {locale=== "ru" ? genre.nameRu.charAt(0).toUpperCase() + genre.nameRu.slice(1).replace("_", " ") : genre.nameEn.charAt(0).toUpperCase() + genre.nameEn.slice(1).replace("_", " ") }
-      </span>
-    </div>
-  )); 
-};
-
 const Format: React.FC<FormatProps> = ({content}) => {
+  const { genres } = selectGenres();
+  const [imagesTeaser, setImagesTeaser] = useState<string[]>([]);
+  const [paramsURL, setParamsURL] = useState<object>({});
+  const debouncedParams:boolean = useDebounce(paramsURL, 300);
+  
+  const getWrapperContentItems = (items: string[] | number[]) => {
+    return items.map((item) => (
+      <div
+        className={styles['content__item']}
+        key={uuidv4()}
+      >
+        <span 
+          className={styles['item__text']}
+          // href={{
+          //   pathname: '/collections/',
+          //   query: {
+          //     type: content.typeFormatEn
+          //   },
+          // }}
+        > {item}</span>
+      </div>
+    ));
+  };
+
+  const getWrapperGenres = (genres: genre[], locale:string | undefined) => {
+    
+  return genres.map((genre) => (
+      <div
+        className={styles['content__item']}
+        key={uuidv4()}
+      >
+        <Link 
+          className={styles['item__text']}
+          onMouseEnter={() => setParamsURL({genre: genre.nameEn})}
+          href={{
+            pathname: '/collections/' + genre.nameEn,
+            query: {
+              type: content.typeFormatEn,
+              genre: genre.nameEn
+            },
+          }}
+        >
+          {locale=== "ru" ? genre.nameRu.charAt(0).toUpperCase() + genre.nameRu.slice(1).replace("_", " ") : genre.nameEn.charAt(0).toUpperCase() + genre.nameEn.slice(1).replace("_", " ") }
+        </Link>
+      </div>
+    )); 
+  };  
+
+  useEffect(() => {
+    let changedParamsURL = paramsURL;
+  
+    if (content.typeFormatEn === 'cartoon') {
+      changedParamsURL = { ...paramsURL, genre: content.typeFormatEn };
+    } else {
+      changedParamsURL = { ...paramsURL, type: content.typeFormatEn };
+    }
+
+   
+  const serializeParams: string = objectToQueryString(changedParamsURL);
+
+    if (hashMapImages.has(serializeParams)) {
+      setImagesTeaser(hashMapImages.get(serializeParams) || []);
+    } else if (!debouncedParams) {
+      Fetching.getFilters(urlFiltersFilms, 'GET', changedParamsURL)
+        .then((data: INewMovie[]) => {
+          const images: string[] = data.map(obj => obj.image);
+          hashMapImages.set(serializeParams, images);
+          setImagesTeaser(images);
+        })
+        .catch((error: any) => {
+          console.error(error);
+        });
+    }
+  }, [paramsURL, content.typeFormatEn, debouncedParams]);
   const { locale } = useRouter();
   const t = locale === 'en' ? en : ru;
-  const dispatch = useAppDispatch();
-  const { genres } = selectMediaFilters();
-
   return (
     <div
-      className={styles['wrapper']}
+      className={`${styles['wrapper']} container`}
     >
       <div className={styles['genres']}>
         <div className={styles['title']}>
@@ -83,7 +136,9 @@ const Format: React.FC<FormatProps> = ({content}) => {
           </div>
 
           <div className={styles['content']}>
-            {getWrapperContentItems(content.years.map(year => `${t[content.typeFormat as keyof typeof t]} ${year} ${t.year}`))}
+            {getWrapperContentItems(content.years.map(year => 
+              `${t[content.typeFormatRu[0].toUpperCase() + content.typeFormatRu.slice(1) as keyof typeof t]} ${year} ${t.year}`))
+            }
           </div>
         </div>
       </div>
@@ -95,7 +150,7 @@ const Format: React.FC<FormatProps> = ({content}) => {
 
       <div className={styles['activities']}>
         <div className={styles['teaser']}>
-          <Teaser/>
+          <Teaser images={imagesTeaser}/>
         </div>
 
         <div className={styles['button-watch']}>

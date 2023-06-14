@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './header-style.module.scss';
 import { v4 as uuidv4 } from 'uuid';
-import { IoMdNotificationsOutline, BiSearch, BiUser } from '../Icons';
+import { IoMdNotificationsOutline, BiUser } from '../Icons';
 import { navigationsItems, notifications, user } from './DropDown/data';
 import { Content, TypeContent, IFormat, INotification, IUser } from '@/interface/Header';
 import { Format, User, Notification } from './DropDown';
@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 import { IUserState } from '@/store/reducers/userSlice';
 import { selectUser } from '@/store/selectors';
 import Search from '../Search/Search';
+import Image from 'next/image';
 
 import en from "../../locales/en/header/header"
 import ru from "../../locales/ru/header/header"
@@ -32,8 +33,26 @@ const getDropDown = (content: Content, typeContent: TypeContent): React.ReactNod
 const Header: React.FC = () => {
   const [contentDropDown, setContentDropDown] = useState<Content | null>();
   const [typeComponentDropDown, setTypeComponentDropDown] = useState<TypeContent | null>();
+  const [isShowDropDown, setShowDropDown] = useState<boolean>(true);
   const router = useRouter();
   const userAccount: IUserState = selectUser();
+
+  useEffect(() => {
+    const handleResize = () => {
+      const minWidthShowDropDown: number = 1150;
+      if (window.innerWidth > minWidthShowDropDown) {
+        setShowDropDown(true);
+      } else {
+        setShowDropDown(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   const resetContent = () => {
     setContentDropDown(null);
@@ -49,15 +68,17 @@ const Header: React.FC = () => {
   const t = locale === 'en' ? en : ru;
   return (
     <div
-      className={`${styles['header']} ${contentDropDown ? styles['header-active'] : ''} container`}
+      className={`${styles['header']} ${isShowDropDown && contentDropDown ? styles['header-active'] : ''} container`}
       onMouseLeave={(e) => resetContent()}
     >
       <div className={styles['links']}>
-        <img 
+        <Image 
           className={styles['picture-site']} 
           src={pictureSite} 
           alt="ivi" 
           onClick={() => router.push(`/`)}
+          height={48}
+          width={66}
         />
 
         <div className={styles['navigation']}>
@@ -107,11 +128,12 @@ const Header: React.FC = () => {
             </div>
            <Switcher />
           </div>
-        </div>
+        
+      </div>
 
-        {contentDropDown && getDropDown(contentDropDown, typeComponentDropDown!)}
-    </div>
+      {isShowDropDown && contentDropDown && getDropDown(contentDropDown, typeComponentDropDown!)}
+  </div>
   )
 }
 
-export default Header
+export default Header;

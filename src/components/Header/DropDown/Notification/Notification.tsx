@@ -14,7 +14,7 @@ const Notification: React.FC<NotificationProps> = ({content}) => {
   const t = locale === 'en' ? en : ru;
   return (
     <div
-      className={styles['wrapper']}
+    className={`${styles['wrapper']} container`}
     >
       <div className={styles['content']}>
         <MdOutlineNotificationsActive

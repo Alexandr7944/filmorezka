@@ -21,7 +21,7 @@ interface UserProps extends DropDownProps {
 interface IOption {
   title: string,
   isAuthorization: boolean,
-  onClick?: () => void
+  onClick?: () => void,
 };
 
 const sizeIcon: string = '22.5px';
@@ -31,6 +31,7 @@ const User: React.FC<UserProps> = ({content}) => {
   const t:any = locale === "en"? en : ru;
   const userAccount: IUserState = selectUser();
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const createLoginModal = () => {
     document.documentElement.style.overflow = 'hidden';
@@ -52,6 +53,7 @@ const User: React.FC<UserProps> = ({content}) => {
   const logOutProfileClickHandler = async () => {
     dispatch(clearUser());
     await Autorization.logOut();
+    router.push('/');
   }
 
   const options: IOption[] = [
@@ -70,13 +72,12 @@ const User: React.FC<UserProps> = ({content}) => {
     {
       title: 'get_out',
       isAuthorization: true,
-      onClick: logOutProfileClickHandler
+      onClick: logOutProfileClickHandler,
     }
   ]
-
   return (
     <div
-      className={styles['wrapper']}
+      className={`${styles['wrapper']} container`}
     >
       <div className={styles['links']}>
         {content.links.map((link) => (
@@ -117,6 +118,16 @@ const User: React.FC<UserProps> = ({content}) => {
         }
 
         <div className={styles['additional-links']}>
+          {userAccount.isAuth && userAccount.roles?.find(role => role === 'admin') &&
+            <div
+              className={styles['additional-links__item']}
+              key={uuidv4()}
+              onClick={() => router.push('/admin')}
+            >
+              <span className={styles['item__text']}>Админка</span>
+            </div>
+          }
+
           {options.map(({title, isAuthorization, onClick}) => (
             (!isAuthorization || isAuthorization === userAccount.isAuth) &&
               <div

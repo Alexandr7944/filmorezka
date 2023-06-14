@@ -1,55 +1,68 @@
-import { MovieFilterItemProps, MovieFilterNumber, MovieFilterString } from '@/interface/MovieFilter';
+import { MovieFilter, MovieFilterItemProps } from '@/interface/MovieFilter';
 import styles from './movieFilterItem.module.scss';
 import MovieFilterRow from '../MovieFilterRow/MovieFilterRow';
 import en from "../../locales/en/moviefilter/moviefilter"
 import ru from "../../locales/ru/moviefilter/moviefilter"
 import { useRouter } from 'next/router';
 const MovieFilterItem: React.FC<MovieFilterItemProps> = (
-    { type, title, types, getTypes, setGetTypes, moviesFilter, setMoviesFilter }
+    { type, title, types, presenceTypes, getTypes, setGetTypes, moviesFilter, setMoviesFilter }
   ) => {
     
-  const handlerClickItem = (type: string, name: string | number): void => {
-    typeof name === 'string'
-      ? moviesFilter[type as keyof MovieFilterString].includes(name)
+  const handlerClickItem = (type: string, name: string): void => {
+    type === 'genre' || type === 'countries'
+      ? moviesFilter[type as keyof MovieFilter].includes(name)
         ? setMoviesFilter({
           ...moviesFilter,
-          [type]: moviesFilter[type as keyof MovieFilterString].filter(i => i !== name)})
+          [type]: moviesFilter[type as keyof MovieFilter].filter(i => i !== name)})
         : setMoviesFilter({
           ...moviesFilter,
-          [type]: [...moviesFilter[type as keyof MovieFilterString], name]
+          [type]: [...moviesFilter[type as keyof MovieFilter], name]
         })
-      : moviesFilter[type as keyof MovieFilterNumber].includes(name)
+      : moviesFilter[type as keyof MovieFilter].includes(name)
         ? setMoviesFilter({
           ...moviesFilter,
-          [type]: moviesFilter[type as keyof MovieFilterNumber].filter(i => i !== name)})
+          [type]: ['Все годы', 'Любой рейтинг']})
         : setMoviesFilter({
           ...moviesFilter,
-          [type]: [...moviesFilter[type as keyof MovieFilterNumber], name]
+          [type]: [name]
         })
   }
+  
+  const moviesFilterType = moviesFilter[type as keyof MovieFilter];
   const { locale } = useRouter();
   const t = locale === 'en' ? en : ru;
-
   return (
     <div className={styles['filter-item']}>
-      <h5
-        className={styles['filter-item__title']}
-        onClick={() => setGetTypes(getTypes === title ? '' : title)}
-      >
-        {t[title as keyof typeof t]}
-      </h5>
+      <div className={styles['filter-item__wrapper']}
+        onClick={() => setGetTypes(getTypes === title ? '' : title)}>
+        <h5
+          className={styles['filter-item__title']}
+        >
+         {t[title as keyof typeof t]}
+        </h5>
+        <div className={styles['filter-item__presence']}>
+          {
+            !moviesFilterType.includes('Все годы') 
+            && !moviesFilterType.includes('Любой рейтинг')
+            && moviesFilterType.join(', ')
+          }
+        </div>
+      </div>
       {
         getTypes === title &&
         <ul className={styles['filter-item__body']}>
-          {types.map(item => <MovieFilterRow
+          {types.map((item: string) => <MovieFilterRow
             key={item}
             type={type}
             name={item} 
             active={
-              typeof item === 'string'
-                ? moviesFilter[type as keyof MovieFilterString].includes(item)
-                : moviesFilter[type as keyof MovieFilterNumber].includes(item)
+              moviesFilterType.includes(item)
               }
+            presence={
+              type === 'genre' || type === 'countries'
+                ? presenceTypes.some(i => i.toLowerCase() === item.toLowerCase())
+                : true
+            }
             handlerClickItem={handlerClickItem}
           />
           )}

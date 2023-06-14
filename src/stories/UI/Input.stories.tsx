@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { BiUser } from '../../components/Icons';
 import { Input } from '../../components/UI/Input';
 import { InputProps } from '../../components/UI/Input/Input';

@@ -17,8 +17,9 @@ import {
 } from "../../Icons";
 
 const films: IFormat = {
-  typeFormat: "films",
-  countries: ["films_russian", "foreign", "soviet_cinema"],
+  typeFormatRu: 'films',
+  typeFormatEn: 'movie',
+  countries: ['Русские', 'Зарубежные', 'Советское кино'],
   years: [2023, 2022, 2021, 2020],
   filters: [
     "novelties",
@@ -32,14 +33,16 @@ const films: IFormat = {
 };
 
 const shows: IFormat = {
-  typeFormat: "serials",
+  typeFormatRu: "serials",
+  typeFormatEn: 'serial',
   countries: ["films_russian", "foreign", "american", "ukrainian", "turkish"],
   years: [2023, 2022, 2021, 2020],
   filters: ["novelties", "ivi_rating", "tv_hd"],
 };
 
 const cartoons: IFormat = {
-  typeFormat: "cartoons",
+  typeFormatRu: "cartoons",
+  typeFormatEn: 'cartoon',
   countries: ["soviet_cinema", "films_russian", "american", "foreign"],
   years: [2023, 2022, 2021, 2020],
   filters: ["novelties", "cartoons_hd"],

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import style from "./search.module.scss";
 import { AiOutlineClose } from "react-icons/ai";
-import Fetching from "@/API/Fetching";
+import Fetching from "../../API/Fetching";
 import FilmResults from "./searchResults/FilmResults";
 import ActorResults from "./searchResults/ActorResults";
 import GenreResult from "./searchResults/GenreResult";

@@ -10,7 +10,7 @@ import { Loader } from '../UI/Loader';
 const WIDTH_ITEM = 180;
 const LIMIT_ITEM_PAGE = 15;
 
-const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
+const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, genre, url }) => {
   const [movies, setMovies] = useState<INewMovie[]>([]);
   const [widthItem, setWidthItem] = useState<number>(WIDTH_ITEM);
   const [positionWrapper, setPositionWrapper] = useState(0);
@@ -54,12 +54,23 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
 
   return (
     <div className={style.movies}>
-      <Link href={`/collections/${title}`} className={style.movies__link}>
+      <Link
+        href={genre !== 'random'
+          ? {
+            pathname: '/collections/' + genre,
+            query: {
+              genre
+            },
+          }
+          : '/collections/random'
+        }
+        className={style.movies__link}
+      >
         <h3 className={style.movies__title}>{ title }</h3>
         <Arrow className={style.movies__arrow} width='40px' height='15px'/>
       </Link>
       {
-        movies
+        movies.length
         ? <div className={style.movies__list} ref={list}>
           <button
             className={style.movies__btn}
@@ -73,7 +84,19 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
                 (index < LIMIT_ITEM_PAGE) && <MovieItem key={item.id} movie={item} width={widthItem} />
               )
             }
-            <MovieItemDefault link='/collections/#'  width={widthItem} />
+            <Link
+              href={genre !== 'random'
+                ? {
+                  pathname: '/collections/' + genre,
+                  query: {
+                    genre
+                  },
+                }
+                : '/collections/random'
+              }
+            >
+              <MovieItemDefault width={widthItem} />
+            </Link>
           </div>
           <button
             className={style.movies__btn}
@@ -91,6 +114,7 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, url }) => {
 export default MoviesSlider
 
 interface IMoviesSliderProps {
-  title: string;
-  url: string;
+  title: string,
+  genre: string,
+  url: string
 }

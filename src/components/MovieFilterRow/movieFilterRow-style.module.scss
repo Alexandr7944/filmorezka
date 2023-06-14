@@ -1,10 +1,15 @@
 .filter-row {
+  width: 45%;
   display: flex;
   justify-content: space-between;
   line-height: 1.5;
   user-select: none;
-}
+  
+  &_presence {
+    color: #a7a5a5;
+  }
 
-.filter-row_active {
-  color: #fff;
+  &_active {
+    color: #fff;
+  }
 }

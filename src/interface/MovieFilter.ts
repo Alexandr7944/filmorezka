@@ -1,10 +1,8 @@
-import { Ref } from "react";
-
 export interface MovieFilter {
   genre: string[],
   countries: string[],
-  rating: number[],
-  year: number[]
+  rating: string[],
+  year: string[]
 }
 
 export interface MovieFilterString {
@@ -13,14 +11,15 @@ export interface MovieFilterString {
 }
 
 export interface MovieFilterNumber {
-  rating: number[],
-  year: number[]
+  rating: string[],
+  year: string[]
 }
 
 export type MovieFilterItemProps = {
   type: string,
   title: string,
-  types: string[] | number [],
+  types: string[],
+  presenceTypes: string[],
   getTypes: string,
   setGetTypes: (type: string) => void,
   moviesFilter: MovieFilter,
