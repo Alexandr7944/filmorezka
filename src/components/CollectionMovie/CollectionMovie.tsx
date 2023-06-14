@@ -31,7 +31,7 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection, title, pa
   useEffect(() => {
     Fetching.getAll(params 
       ? 'http://localhost:5000/films/filters' + params 
-      : 'http://localhost:5000/films/filters?genge=' + collection)
+      : 'http://localhost:5000/films/' + collection)
       .then(movies => setMovies(movies));
   }, [collection, params]);
 
@@ -66,7 +66,7 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection, title, pa
     <div className={style.collection}>
       <div className="container">
         <h1 className={style.collection__title}>
-          {title + ' смотреть онлайн'}
+          {title ? title + ' смотреть онлайн' : 'Cмотреть онлайн'}
         </h1>
         {movies.length > 0 
           ? <>

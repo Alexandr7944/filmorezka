@@ -55,12 +55,15 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, genre, url }) => {
   return (
     <div className={style.movies}>
       <Link
-        href={{
-          pathname: '/collections/' + genre,
-          query: {
-            genre: genre
-          },
-        }}
+        href={genre !== 'random'
+          ? {
+            pathname: '/collections/' + genre,
+            query: {
+              genre
+            },
+          }
+          : '/collections/random'
+        }
         className={style.movies__link}
       >
         <h3 className={style.movies__title}>{ title }</h3>
@@ -82,12 +85,15 @@ const MoviesSlider: React.FC<IMoviesSliderProps> = ({ title, genre, url }) => {
               )
             }
             <Link
-              href={{
-                pathname: '/collections/' + genre,
-                query: {
-                  genre: genre
-                },
-              }}
+              href={genre !== 'random'
+                ? {
+                  pathname: '/collections/' + genre,
+                  query: {
+                    genre
+                  },
+                }
+                : '/collections/random'
+              }
             >
               <MovieItemDefault width={widthItem} />
             </Link>

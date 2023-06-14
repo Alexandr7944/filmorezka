@@ -5,6 +5,7 @@ import movies, { movie } from './data';
 import { v4 as uuidv4 } from 'uuid';
 import { useInterval } from '@/hooks/useInterval';
 import { NextRouter, useRouter } from 'next/router';
+import Image from 'next/image';
 
 const getMovieComponent = (movie: movie, styleComponent: CSSProperties, router: NextRouter): JSX.Element => {
   return (
@@ -14,21 +15,21 @@ const getMovieComponent = (movie: movie, styleComponent: CSSProperties, router: 
       key={uuidv4()}
       onClick={() => router.push('/')}
     > 
-      <img
+      <Image
         src={movie.imageURL}
         className={style.movie__image}
         alt="image"
+        width={100}
+        height={100}
       />
-
-      <img
+      <Image
         src={movie.logoURL}
         className={style.movie__logo}
         alt="image"
+        width={100}
+        height={100}
       />
-
-      <span
-        className={style.movie__description}
-      >
+      <span className={style.movie__description} >
         {movie.description}
       </span>
     </div>
@@ -113,6 +114,7 @@ const BigCarousel: React.FC = () => {
       transform: translateX(${positionXWrapperMovies}px);
       left: ${tempLeft}px;
     `);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [positionXWrapperMovies])
 
   
@@ -124,6 +126,7 @@ const BigCarousel: React.FC = () => {
     <div className={style.carousel} style={stylesCarousel}>
       <div 
         className={style.movies}
+        onClick={() => router.push('collections/random')}
         ref={wrapperMovies}
       >
         {getMovieComponent(movies[movies.length - 1], stylesMovie, router)}

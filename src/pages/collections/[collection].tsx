@@ -20,6 +20,9 @@ const Collection = () => {
     {title: 'Главная', href: '/'},
     {title: titleCollection}
   ];
+
+  console.log('params: ' + params);
+  
   
   return (
     <MyContainer>
