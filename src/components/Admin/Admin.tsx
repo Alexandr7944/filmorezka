@@ -17,12 +17,6 @@ const regExpEn: RegExp = /^[a-zA-Z\s\?\'\"]*$/;
 
 const Admin: React.FC = () => {
   const user = useAppSelector(state => state.user);
-
-  const router = useRouter();
-  if (!user.isAuth || !user.roles || !user.roles.includes('admin') ) {
-    router.push('/');
-  }
-
   const [selectedObject, setSelectedObject] = useState<INewMovie | genre>();
   const [foudFilms, setFoundFilms] = useState<INewMovie[]>([]);
   const [foudGenres, setFoundGenres] = useState<genre[]>([]);
@@ -81,6 +75,8 @@ const Admin: React.FC = () => {
   }, [selectedObject]);
 
   return (
+    user.roles && user.roles.includes('admin') 
+    ?
     <div className={styles.admin}>
       <h2 className={styles.admin__title}>Управление фильмами и жанрами</h2>
 
@@ -141,6 +137,8 @@ const Admin: React.FC = () => {
         </div>
       </div>
     </div>
+    :
+    <div>Доступ запрещен!</div>
   )
 }
 
