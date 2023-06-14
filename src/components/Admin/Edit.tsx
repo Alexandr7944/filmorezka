@@ -16,7 +16,7 @@ export interface EditProps {
 
 const Edit: React.FC<EditProps> = ({ selectedObject, setSelectedObject }) => {
   const [nameRu, setNameRu] = useState<string>('');
-  const [nameEn, setNameEn] = useState<string>(selectedObject.nameEn);
+  const [nameEn, setNameEn] = useState<string>('');
   const [isLoad, setIsLoad] = useState<boolean>();
 
   useEffect(() => {

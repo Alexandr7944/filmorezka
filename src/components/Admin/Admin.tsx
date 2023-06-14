@@ -126,9 +126,8 @@ const Admin: React.FC = () => {
         </div>
 
         <div className={styles.wrapper__right}>
-          {selectedObject 
-            ? <Edit selectedObject={selectedObject} setSelectedObject={setSelectedObject}/>
-            : <div></div>
+          {selectedObject && 
+            <Edit selectedObject={selectedObject} setSelectedObject={setSelectedObject}/>
           }
         </div>
       </div>
