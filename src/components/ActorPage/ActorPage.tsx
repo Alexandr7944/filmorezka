@@ -23,7 +23,7 @@ const ActorPages: React.FC<ActorPageProps> = ({ actorID }) => {
   const {locale} = useRouter();
  
   const URL_ACTORS = "http://localhost:5100/actors/id/";
-  const URL_FILMS = "http://localhost:5005/films/sp/";
+  const URL_FILMS = "http://localhost:5000/films/sp/";
   const t:any = locale === "en"? en : ru;
  
   const [actor, setActor] = useState<IActor>();

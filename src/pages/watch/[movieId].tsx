@@ -37,20 +37,20 @@ const WatchPage = () => {
     {
       title: `${movie?.genre?.length &&
         movie?.genre[0] &&
-        capitalizeStr(movie.genre[0]) || 'Подборка для Вас'}`,
+        capitalizeStr(movie.genre[0]) || `${t.selection}`}`,
 
       href: movie?.genre && movie?.genre[0] && genres
         ? `/collections/${nameEn}?genre=${nameEn}`
         : '/'
 
     },
-    {title: `${locale==="ru"? movie?.name && capitalizeStr(movie.name) || '' : movie?.nameEn && capitalizeStr(movie.nameEn) || movie?.name}`}
+    {title: `${locale==="ru" ? movie?.name && capitalizeStr(movie.name) || '' : movie?.nameEn && capitalizeStr(movie.nameEn) || movie?.name}`}
   ];  
 
   const movieId = router.query.movieId;
 
   useEffect(() => {
-    Fetching.getNewAll(`http://localhost:5005/films/id/${movieId}`)
+    Fetching.getNewAll(`http://localhost:5000/films/id/${movieId}`)
       .then(movie => setMovie(movie));
   }, [movieId]);
 

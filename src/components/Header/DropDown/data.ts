@@ -19,7 +19,7 @@ import {
 const films: IFormat = {
   typeFormatRu: 'films',
   typeFormatEn: 'movie',
-  countries: ['Русские', 'Зарубежные', 'Советское кино'],
+  countries: ["films_russian", "foreign", "soviet_cinema"],
   years: [2023, 2022, 2021, 2020],
   filters: [
     "novelties",

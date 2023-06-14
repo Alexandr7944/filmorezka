@@ -48,13 +48,13 @@ console.log(resultString)
   };
 
   useEffect(() => {
-    Fetching.getNewAll(`http://localhost:5005/films/name?${resultString}`).then(
+    Fetching.getNewAll(`http://localhost:5000/films/name?${resultString}`).then(
       (film) => film && setFilmResult(film)
     );
     Fetching.getNewAll(`http://localhost:5100/actors/name?${resultString}`).then(
       (actor) => actor && setActorResult(actor)
     );
-    Fetching.getNewAll(`http://localhost:5005/genres`).then((genre) =>
+    Fetching.getNewAll(`http://localhost:5000/genres`).then((genre) =>
       genreRes(genre)
     );
   }, [searchValue]);

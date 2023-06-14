@@ -54,8 +54,7 @@ const Teaser: React.FC<TeaserProps> = ({ images }) => {
     ? images.slice(-images.length / countWrapperMovies) 
     : [];
     const {locale} = useRouter();
-  const t:any = locale === "en"? en : ru;
-
+    const t:any = locale === "en"? en : ru;
   return (
     <div
       className={styles['teaser']}

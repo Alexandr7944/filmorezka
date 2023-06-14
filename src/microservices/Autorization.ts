@@ -12,7 +12,7 @@ class Autorization {
 
 			try {
 				const response = await fetch(this._url + 'email', {
-					mode: 'no-cors',
+					mode: 'cors',
 					method: 'POST',
 					headers: {
 						'Content-type': 'application/json',
@@ -35,7 +35,7 @@ class Autorization {
 
 			try {
 				const response = await fetch(this._url + 'name', {
-					mode: 'no-cors',
+					mode: 'cors',
 					method: 'POST',
 					headers: {
 						'Content-type': 'application/json',
@@ -60,7 +60,7 @@ class Autorization {
 
 			try {
 				const response = await fetch(this._url + 'registration', {
-					mode: 'no-cors',
+					mode: 'cors',
 					method: 'POST',
 					headers: {
 						'Content-type': 'application/json',
@@ -85,7 +85,7 @@ class Autorization {
 
 			try {
 				const response = await fetch(this._url + 'login', {
-					mode: 'no-cors',
+					mode: 'cors',
 					method: 'POST',
 					headers: {
 						'Content-type': 'application/json',
@@ -105,7 +105,7 @@ class Autorization {
 		static async loginGmail(accsessToken: string): Promise<boolean> {
 			try {
 				const responseGoogle = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${accsessToken}`, {
-					mode: 'no-cors',
+					mode: 'cors',
 					method: 'GET',
 					headers: {
 						'Content-type': 'application/json',
@@ -119,7 +119,7 @@ class Autorization {
 				};
 
 				const responseAuth = await fetch(this._url + 'google/login', {
-					mode: 'no-cors',
+					mode: 'cors',
 					method: 'POST',
 					headers: {
 						'Content-type': 'application/json',
@@ -139,7 +139,7 @@ class Autorization {
 		static async getUser(): Promise<IUserAccount | undefined> {
 			try {
 				const response = await fetch(this._url + 'user/info', {
-					mode: 'no-cors',
+					mode: 'cors',
 					method: 'GET',
 					headers: {
 						'Content-type': 'application/json',
@@ -162,7 +162,7 @@ class Autorization {
 		static async logOut(): Promise<boolean> {
 			try {
 				await fetch(this._url + 'logout', {
-					mode: 'no-cors',
+					mode: 'cors',
 					method: 'POST',
 					headers: {
 						'Content-type': 'application/json',

@@ -11,11 +11,16 @@ import { MdOutlineMovieFilter } from 'react-icons/md';
 import useDebounce from '@/hooks/useDebounce';
 import Edit from './Edit';
 import { useAppSelector } from '@/hooks/hook';
+import en from "@/locales/en/admin"
+import ru from "@/locales/ru/admin"
 import { useRouter } from 'next/router';
+
 
 const regExpEn: RegExp = /^[a-zA-Z\s\?\'\"]*$/;
 
 const Admin: React.FC = () => {
+  const {locale} = useRouter();
+  const t:any = locale === "en"? en : ru;
   const user = useAppSelector(state => state.user);
   const [selectedObject, setSelectedObject] = useState<INewMovie | genre>();
   const [foudFilms, setFoundFilms] = useState<INewMovie[]>([]);
@@ -78,14 +83,14 @@ const Admin: React.FC = () => {
     user.roles && user.roles.includes('admin') 
     ?
     <div className={styles.admin}>
-      <h2 className={styles.admin__title}>Управление фильмами и жанрами</h2>
+      <h2 className={styles.admin__title}>{t.Managing}</h2>
 
       <div className={styles.wrapper}>
         <div className={styles.wrapper__left}>
           <div className={styles.search}>
             <Input 
               icon={BiSearch}
-              placeholder='Поиск'
+              placeholder={t.search}
               onChange={(e) => setEnteredString(e.target.value)}
               style={{width: '410px'}}
               onFocus={() => setIsVisibleList(true)}
@@ -138,7 +143,7 @@ const Admin: React.FC = () => {
       </div>
     </div>
     :
-    <div>Доступ запрещен!</div>
+    <div>{t.access}</div>
   )
 }
 

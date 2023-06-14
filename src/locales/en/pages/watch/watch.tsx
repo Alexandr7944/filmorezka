@@ -1,5 +1,5 @@
 const watchLocale = {
-   main: "Main",
+   main: "Home",
    selection:"Сollection for you",
    compilations:"Compilations"
    };

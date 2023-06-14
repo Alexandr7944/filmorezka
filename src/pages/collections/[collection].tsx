@@ -2,8 +2,8 @@ import { CollectionMovie, MyContainer, Navbar } from '@/components';
 import { selectGenres } from '@/store/selectors';
 import { capitalizeStr } from '@/utils/capitalize';
 import { useRouter } from 'next/router';
-import en from "../../locales/en/pages/watch/watch"
-import ru from "../../locales/ru/pages/watch/watch"
+import en from "@/locales/en/pages/watch/watch"
+import ru from "@/locales/ru/pages/watch/watch"
 
 const Collection = () => {
   const {locale} = useRouter();

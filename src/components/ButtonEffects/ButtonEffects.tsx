@@ -2,8 +2,12 @@ import React from 'react';
 import styles from './buttonEffects-style.module.scss';
 import { Button } from '../UI/Button';
 import Image from 'next/image';
-
+import { useRouter } from 'next/router';
+import en from "../../locales/en/buttoneffect/buttoneffect"
+import ru from "../../locales/ru/buttoneffect/buttoneffect"
 const ButtonEffects: React.FC = () => {
+  const {locale} = useRouter();
+  const t = locale === "en"? en : ru;
   return (
     <Button 
       style={{
@@ -24,7 +28,7 @@ const ButtonEffects: React.FC = () => {
         >
         </Image>
 
-        <span className={styles.description}>30 дней подписки бесплатно</span>
+        <span className={styles.description}>{t.freedays}</span>
       </div>
     </Button>
   )

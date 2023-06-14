@@ -41,7 +41,7 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
 
   const getType = (typeFilter: string) => {
     const type: TypeOfGetTypes = {
-      genre: selectGenres().genres.map((genre: { nameRu: string | undefined; }) => capitalizeStr(genre.nameRu)),
+      genre: selectGenres().genres.map((genre) => locale==="ru"? capitalizeStr(genre.nameRu).replace("_", " "): capitalizeStr(genre.nameEn).replace("_", " ")),
       countries: countriesJSON.countries,
       year: yearsJSON.years.map(year => year.year),
       rating: ratingJSON.rating.map(rating => rating.name)

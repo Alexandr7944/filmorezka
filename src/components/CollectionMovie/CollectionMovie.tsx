@@ -34,8 +34,8 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection, title, pa
   const t:any = locale === "en"? en : ru;
   useEffect(() => {
     Fetching.getAll(params 
-      ? 'http://localhost:5005/films/filters' + params 
-      : 'http://localhost:5005/films/' + collection)
+      ? 'http://localhost:5000/films/filters' + params 
+      : 'http://localhost:5000/films/' + collection)
       .then(movies => setMovies(movies));
   }, [collection, params]);
 

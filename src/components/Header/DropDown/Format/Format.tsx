@@ -15,8 +15,8 @@ import Link from "next/link";
 const urlFiltersFilms: string = 'http://localhost:5000/films/filters';
 const hashMapImages:Map<string, string[]> = new Map();
 import { useRouter } from "next/router";
-import en from "../../../../locales/en/header/header"
-import ru from "../../../../locales/ru/header/header"
+import en from "@/locales/en/header/header"
+import ru from "@/locales/ru/header/header"
 
 interface FormatProps extends DropDownProps {
   content: IFormat;
@@ -24,6 +24,7 @@ interface FormatProps extends DropDownProps {
 
 const Format: React.FC<FormatProps> = ({content}) => {
   const { genres } = selectGenres();
+  console.log(genres)
   const [imagesTeaser, setImagesTeaser] = useState<string[]>([]);
   const [paramsURL, setParamsURL] = useState<object>({});
   const debouncedParams:boolean = useDebounce(paramsURL, 300);
@@ -137,7 +138,7 @@ const Format: React.FC<FormatProps> = ({content}) => {
 
           <div className={styles['content']}>
             {getWrapperContentItems(content.years.map(year => 
-              `${t[content.typeFormatRu[0].toUpperCase() + content.typeFormatRu.slice(1) as keyof typeof t]} ${year} ${t.year}`))
+              `${t[content.typeFormatRu as keyof typeof t]} ${year} ${t.year}`))
             }
           </div>
         </div>
