@@ -79,7 +79,7 @@ class Fetching {
           'X-Requested-With': 'XMLHttpRequest',
           'Expires': '0',
         },
-        cache: 'no-store'
+        cache: 'reload'
       });
 
       const result = await response.json();

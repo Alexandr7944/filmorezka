@@ -157,7 +157,7 @@ const ChatLogin: React.FC<ChatLoginProps> = ({ dispatch }) => {
   const authorizationGmail = useGoogleLogin({
     onSuccess: async (codeResponse: TokenResponse) => {
       await Autorization.loginGmail(codeResponse.access_token);
-      // location.reload();
+      setTimeout(() => location.reload(), 1000);
     },
     onError: (error) => console.log('Login Failed:', error)
   });
