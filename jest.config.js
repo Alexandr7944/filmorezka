@@ -8,7 +8,7 @@ const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {
     '^@/components/(.*)$': '<rootDir>/components/$1',
-    '^@/API/Fetching$': path.resolve(__dirname, 'src/API/Fetching.ts'), 
+    '^@/API/Fetching$': '<rootDir>/API', 
   },
   testEnvironment: 'jest-environment-jsdom',
 };
