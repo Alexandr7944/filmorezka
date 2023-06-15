@@ -11,6 +11,10 @@ import { selectUser } from '@/store/selectors';
 import Search from '../Search/Search';
 import Image from 'next/image';
 
+import en from "../../locales/en/header/header"
+import ru from "../../locales/ru/header/header"
+import Switcher from '../UI/LanguageSwitcher/Switcher';
+
 const pictureSite: string = 'https://solea-parent.dfs.ivi.ru/picture/ea003d,ffffff/reposition_iviLogoPlateRounded.svg';
 
 const getDropDown = (content: Content, typeContent: TypeContent): React.ReactNode => {
@@ -59,7 +63,9 @@ const Header: React.FC = () => {
     setContentDropDown(content);
     setTypeComponentDropDown(type);
   }
-
+ 
+  const { locale } = useRouter();
+  const t = locale === 'en' ? en : ru;
   return (
     <div
       className={`${styles['header']} ${isShowDropDown && contentDropDown ? styles['header-active'] : ''} container`}
@@ -86,41 +92,43 @@ const Header: React.FC = () => {
                       : () => resetContent()
               }
             >
-              {item.title}
+             {t[item.title  as keyof typeof t]}
             </div>
           ))}
-        </div>
+          </div>
 
-        <div className={styles['activities']}>
-          <div className={styles['subscription-payment']}>Оплатить подписку</div>
+          <div className={styles['activities']}>
+            <div className={styles['subscription-payment']}>{t.subscription}</div>
 
-          <div className={styles['search']}><Search /></div> 
+            <div className={styles['search']}><Search /></div> 
 
 
-          <div className={styles['notifications']}>
-            <IoMdNotificationsOutline
-              size="25px"
-              className={styles['notification-icon']}
-              onMouseEnter={() =>
-                  setContentHeaderMouseEnterHandler(
-                      notifications,
-                      TypeContent.Notification
-                  )
+            <div className={styles['notifications']}>
+              <IoMdNotificationsOutline
+                size="25px"
+                className={styles['notification-icon']}
+                onMouseEnter={() =>
+                    setContentHeaderMouseEnterHandler(
+                        notifications,
+                        TypeContent.Notification
+                    )
+                }
+              />
+            </div>
+
+            <div
+                className={`${styles['avatar']} ${userAccount.isAuth ? styles['avatar-name'] : ''}`}
+                onMouseEnter={() => setContentHeaderMouseEnterHandler(user, TypeContent.User)}
+                onClick={() => router.push(`/profile`)}
+            >
+              {userAccount.isAuth 
+                ? userAccount.displayName![0]
+                : <BiUser size="25px" />
               }
-            />
+            </div>
+           <Switcher />
           </div>
-
-          <div
-              className={`${styles['avatar']} ${userAccount.isAuth ? styles['avatar-name'] : ''}`}
-              onMouseEnter={() => setContentHeaderMouseEnterHandler(user, TypeContent.User)}
-              onClick={() => router.push(`/profile`)}
-          >
-            {userAccount.isAuth 
-              ? userAccount.displayName![0]
-              : <BiUser size="25px" />
-            }
-          </div>
-        </div>
+        
       </div>
 
       {isShowDropDown && contentDropDown && getDropDown(contentDropDown, typeComponentDropDown!)}

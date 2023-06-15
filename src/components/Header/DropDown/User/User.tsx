@@ -11,8 +11,9 @@ import { useAppDispatch } from "@/hooks/hook";
 import Autorization from "@/microservices/Autorization";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import process from 'process';
-import { useRouter } from "next/router";
-
+import { useRouter } from 'next/router';
+import en from "../../../../locales/en/header/header"
+import ru from "../../../../locales/ru/header/header"
 interface UserProps extends DropDownProps {
   content: IUser;
 }
@@ -26,6 +27,8 @@ interface IOption {
 const sizeIcon: string = '22.5px';
 
 const User: React.FC<UserProps> = ({content}) => {
+  const {locale} = useRouter();
+  const t:any = locale === "en"? en : ru;
   const userAccount: IUserState = selectUser();
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -55,19 +58,19 @@ const User: React.FC<UserProps> = ({content}) => {
 
   const options: IOption[] = [
     {
-      title: 'Редактировать профиль',
+      title: 'edit_profile',
       isAuthorization: true,
     },
     {
-      title: 'Настройки',
+      title: 'settings',
       isAuthorization: false,
     },
     {
-      title: 'Помощь',
+      title: 'help',
       isAuthorization: false,
     },
     {
-      title: 'Выйти из Иви',
+      title: 'get_out',
       isAuthorization: true,
       onClick: logOutProfileClickHandler,
     }
@@ -87,12 +90,12 @@ const User: React.FC<UserProps> = ({content}) => {
             </div>
 
             <div className={styles['item__title']}>
-              {link.title}
+              {t[link.title]}
             </div>
 
             {link.description &&
               <div className={styles['item__description']}>
-                {link.description}
+                {t[link.description]}
               </div>
             }
 
@@ -109,7 +112,7 @@ const User: React.FC<UserProps> = ({content}) => {
             <Button 
               onClick={createLoginModal}
             >
-              Войти или зарегистрироваться
+             {t.login_or_register}
             </Button>
           </div>
         }
@@ -132,7 +135,7 @@ const User: React.FC<UserProps> = ({content}) => {
                 key={uuidv4()}
                 onClick={onClick}
               >
-                <span className={styles['item__text']}>{title}</span>
+                <span className={styles['item__text']}>{t[title]}</span>
               </div>
           ))}
         </div>

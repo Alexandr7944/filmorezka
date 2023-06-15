@@ -1,7 +1,9 @@
 import { MovieFilter, MovieFilterItemProps } from '@/interface/MovieFilter';
 import styles from './movieFilterItem.module.scss';
 import MovieFilterRow from '../MovieFilterRow/MovieFilterRow';
-
+import en from "../../locales/en/moviefilter/moviefilter"
+import ru from "../../locales/ru/moviefilter/moviefilter"
+import { useRouter } from 'next/router';
 const MovieFilterItem: React.FC<MovieFilterItemProps> = (
     { type, title, types, presenceTypes, getTypes, setGetTypes, moviesFilter, setMoviesFilter }
   ) => {
@@ -27,7 +29,8 @@ const MovieFilterItem: React.FC<MovieFilterItemProps> = (
   }
   
   const moviesFilterType = moviesFilter[type as keyof MovieFilter];
-
+  const { locale } = useRouter();
+  const t = locale === 'en' ? en : ru;
   return (
     <div className={styles['filter-item']}>
       <div className={styles['filter-item__wrapper']}
@@ -35,7 +38,7 @@ const MovieFilterItem: React.FC<MovieFilterItemProps> = (
         <h5
           className={styles['filter-item__title']}
         >
-          {title}
+         {t[title as keyof typeof t]}
         </h5>
         <div className={styles['filter-item__presence']}>
           {

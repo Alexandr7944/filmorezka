@@ -5,6 +5,9 @@ import MovieFilterItem from '../MovieFilterItem/MovieFilterItem';
 import { useState } from 'react';
 import typesFilter from '../../data/typesFilter.json';
 import { capitalizeStr } from '@/utils/capitalize';
+import en from "../../locales/en/moviefilter/moviefilter"
+import ru from "../../locales/ru/moviefilter/moviefilter"
+import { useRouter } from 'next/router';
 import { selectGenres } from '@/store/selectors';
 import countriesJSON from '../../data/countries.json';
 import yearsJSON from '../../data/years.json';
@@ -38,7 +41,7 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
 
   const getType = (typeFilter: string) => {
     const type: TypeOfGetTypes = {
-      genre: selectGenres().genres.map(genre => capitalizeStr(genre.nameRu)),
+      genre: selectGenres().genres.map((genre) => locale==="ru"? capitalizeStr(genre.nameRu).replace("_", " "): capitalizeStr(genre.nameEn).replace("_", " ")),
       countries: countriesJSON.countries,
       year: yearsJSON.years.map(year => year.year),
       rating: ratingJSON.rating.map(rating => rating.name)
@@ -57,6 +60,8 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
       .reduce((acc, item) => item?.length ? acc.concat(item) : acc, []);
     return [...new Set(arr)];
   }
+  const {locale} = useRouter();
+  const t:any = locale === "en"? en : ru;
 
   return (
     <div className={styles['movie-filter']}>
@@ -80,7 +85,7 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
         className={styles['movie-filter__reset']}
         onClick={resetFilter}
       >
-        &#10006; Сбросить фильтры
+        &#10006; {t.reset}
       </div>
     </div>
   )

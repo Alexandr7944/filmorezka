@@ -1,9 +1,11 @@
 import React from "react";
 import style from "../search.module.scss";
-import router from "next/router";
+import router, { useRouter } from "next/router";
 import { TbMasksTheater } from "react-icons/tb";
 
 const ActorResults = ({ ...item }) => {
+  const { locale } = useRouter();
+ 
   return (
     <div
       className={style.title}
@@ -14,7 +16,7 @@ const ActorResults = ({ ...item }) => {
       </div>
       <div>
         <div className={style.section__search_result}>
-          {item.name ? item.name : item.nameEn || ""}
+          {locale==="ru" ? item.name : item.nameEn || item.name}
         </div>
         <div>{item.year !== "null" ? item.year : ""}</div>
       </div>

@@ -4,14 +4,16 @@ import Image from "next/image";
 import Button from "../../UI/FooterUI/Button/Button";
 import { useRouter } from "next/router";
 import {INewMovie } from "@/interface/IMovie";
+import en from "../../../locales/en/actorpage/actorpage"
+import ru from "../../../locales/ru/actorpage/actorpage"
 interface ModalProps {
   active: boolean;
   movieItem: INewMovie;
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const ActorModal: React.FC<ModalProps> = ({ active, setActive, movieItem }) => {
-
-  console.log(movieItem);
+  const {locale, locales} = useRouter();
+  const t:any = locale === "en"? en : ru;
   const router = useRouter();
   return (
     <div
@@ -33,7 +35,7 @@ const ActorModal: React.FC<ModalProps> = ({ active, setActive, movieItem }) => {
           </div>
           <div className={style.modal__box}>
             <div className={style.title}>
-              {movieItem.name || movieItem.nameEn}
+              {locale==="ru"? movieItem.name : movieItem.nameEn}
             </div>
             <div className={style.person_name}>
               {movieItem.nameEn || ""}
@@ -42,7 +44,7 @@ const ActorModal: React.FC<ModalProps> = ({ active, setActive, movieItem }) => {
             <div className={style.title2}>
               {movieItem.actors ? (
                 <div>
-                  <p className={style.title3}>В главных ролях:</p>
+                  <p className={style.title3}>{t.starring}:</p>
                   <p>{movieItem.actors.slice(0, 5).join()}</p>
                 </div>
               ) : (
@@ -52,7 +54,7 @@ const ActorModal: React.FC<ModalProps> = ({ active, setActive, movieItem }) => {
             <div className={style.title2}>
               {movieItem.director ? (
                 <div>
-                  <p className={style.title3}>Режиссёр:</p>
+                  <p className={style.title3}>{t.director}:</p>
                   <p>{movieItem.director}</p>
                 </div>
               ) : (
@@ -60,7 +62,7 @@ const ActorModal: React.FC<ModalProps> = ({ active, setActive, movieItem }) => {
               )}
             </div>
             <Button
-              title={"Подробнее"}
+              title={t.more_detailed}
               variant={style.watchBtn + " " + style.title}
             />
           </div>

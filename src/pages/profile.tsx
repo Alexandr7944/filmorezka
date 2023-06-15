@@ -1,11 +1,18 @@
 import { MyContainer, Navbar } from '@/components';
+import { useRouter } from 'next/router';
+import en from "../locales/en/pages/profile/profile"
+import ru from "../locales/ru/pages/profile/profile"
 
-const navbar = [
-  {title: 'Главная', href: '/'},
-  {title: 'Профиль'}
-];
 
 const Profile = () => {
+
+
+  const { locale } = useRouter();
+  const t = locale === 'en' ? en : ru;
+  const navbar = [
+    {title: `${t.main}`, href: '/'},
+    {title: `${t.profile}`}
+  ];
 
   return (
     <MyContainer>

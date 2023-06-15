@@ -10,8 +10,12 @@ import { selectGenres } from '@/store/selectors';
 import { capitalizeStr } from '@/utils/capitalize';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import en from "../../locales/en/pages/watch/watch"
+import ru from "../../locales/ru/pages/watch/watch"
 
 const WatchPage = () => {
+  const {locale} = useRouter();
+  const t = locale === "en"? en : ru;
   const [movie, setMovie] = useState<INewMovie>();
   const [video, setVideo] = useState<IVideo>({
     total: 0, 
@@ -24,23 +28,23 @@ const WatchPage = () => {
   const [actors, setActors] = useState<IActor[]>();
   const router = useRouter();
   const { genres } = selectGenres();
-  const nameEn: string | undefined = genres?.map(genre => {
-    if (genre.nameRu === (movie?.genre && movie?.genre[0])) return genre.nameEn;
+  const nameEn: string | undefined = genres?.map((genre: { nameRu: string | undefined; nameEn: any; }) => {
+    if (genre.nameRu === movie?.genre[0]) return genre.nameEn;
   }).join('');
   
   const navbar = [
-    {title: 'Главная', href: '/'},
+    {title: `${t.main}`, href: '/'},
     {
       title: `${movie?.genre?.length &&
         movie?.genre[0] &&
-        capitalizeStr(movie.genre[0]) || 'Подборка для Вас'}`,
+        capitalizeStr(movie.genre[0]) || `${t.selection}`}`,
 
       href: movie?.genre && movie?.genre[0] && genres
         ? `/collections/${nameEn}?genre=${nameEn}`
         : '/'
 
     },
-    {title: `${movie?.name && capitalizeStr(movie.name) || ''}`}
+    {title: `${locale==="ru" ? movie?.name && capitalizeStr(movie.name) || '' : movie?.nameEn && capitalizeStr(movie.nameEn) || movie?.name}`}
   ];  
 
   const movieId = typeof router.query.movieId === 'string' 

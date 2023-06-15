@@ -5,6 +5,8 @@ import Button from "../UI/FooterUI/Button/Button";
 import { useRouter } from "next/router";
 import ActorModal from "./Modal/ActorModal";
 import { IMovie, INewMovie } from "@/interface/IMovie";
+import en from "../../locales/en/actorpage/actorpage"
+import ru from "../../locales/ru/actorpage/actorpage"
 interface ActorsMovieListProps {
   movieItem: INewMovie;
 }
@@ -19,6 +21,8 @@ const ActorsMovieList: React.FC<ActorsMovieListProps> = (movieItem) => {
   const handleMouseLeave = () => {
     setModalActive(false);
   };
+  const {locale, locales} = useRouter();
+  const t:any = locale === "en"? en : ru;
   return (
     <div
       className={style.movieBorder}
@@ -41,7 +45,7 @@ const ActorsMovieList: React.FC<ActorsMovieListProps> = (movieItem) => {
               onMouseLeave={handleMouseLeave}
             >
               <div className={style.title2}>
-                {movie.name || movie.nameEn}
+                {locale==="ru" ? movie.name :movie.nameEn}
                 <div className={style.modal}>
                   <ActorModal
                     active={modalActive}
@@ -60,14 +64,14 @@ const ActorsMovieList: React.FC<ActorsMovieListProps> = (movieItem) => {
             <div className={style.person_name}>
               <span>
                 {movie.rating
-                  ? `Рейтинг: ${movie.rating.toFixed(1)}`
-                  : `Рейтинг: —`}
+                  ? `${t.rating}: ${movie.rating.toFixed(1)}`
+                  : `${t.rating}: —`}
               </span>
             </div>
             <div>
               {" "}
               <Button
-                title={"Подробнее"}
+                title={t.more_detailed}
                 variant={style.watchBtn + " " + style.title2}
               />
             </div>

@@ -8,6 +8,10 @@ import { MdOutlineEdit } from '../Icons';
 import { Button } from '../UI/Button';
 import { Loader } from '../UI/Loader';
 import Fetching from '@/API/Fetching';
+import en from "@/locales/en/admin"
+import ru from "@/locales/ru/admin"
+import { useRouter } from 'next/router';
+
 
 export interface EditProps {
   selectedObject: INewMovie | genre;
@@ -18,6 +22,8 @@ const Edit: React.FC<EditProps> = ({ selectedObject, setSelectedObject }) => {
   const [nameRu, setNameRu] = useState<string>('');
   const [nameEn, setNameEn] = useState<string>('');
   const [isLoad, setIsLoad] = useState<boolean>();
+  const {locale} = useRouter();
+  const t:any = locale === "en"? en : ru;
 
   useEffect(() => {
     setNameRu('name' in selectedObject ? selectedObject.name : selectedObject.nameRu || '');
@@ -58,7 +64,7 @@ const Edit: React.FC<EditProps> = ({ selectedObject, setSelectedObject }) => {
       ?
         <div className={styles['selected-item']}>
           <div className={styles['selected-item__title']}>
-            Фильм
+            {t.film}
           </div>
 
           <div className={styles['selected-item__input']}>
@@ -66,7 +72,7 @@ const Edit: React.FC<EditProps> = ({ selectedObject, setSelectedObject }) => {
               onChange={(e) => setNameRu(e.target.value)}
               icon={MdOutlineEdit}
               value={nameRu}
-              placeholder='Русское название'
+              placeholder={t.r_name}
             />
           </div>
 
@@ -75,14 +81,14 @@ const Edit: React.FC<EditProps> = ({ selectedObject, setSelectedObject }) => {
               onChange={(e) => setNameEn(e.target.value)}
               icon={MdOutlineEdit}
               value={nameEn}
-              placeholder='Английское название'
+              placeholder={t.e_name}
             />
           </div>
 
           <Button
             onClick={() => saveFilm()}
           >
-            {isLoad ? <Loader /> : 'Сохранить'}
+            {isLoad ? <Loader /> : `${t.save}`}
           </Button>
 
           <Image 
@@ -95,7 +101,7 @@ const Edit: React.FC<EditProps> = ({ selectedObject, setSelectedObject }) => {
       :
         <div className={styles['selected-item']}>
           <div className={styles['selected-item__title']}>
-            Жанр
+            {t.genre}
           </div>
 
           <div className={styles['selected-item__input']}>
@@ -103,7 +109,7 @@ const Edit: React.FC<EditProps> = ({ selectedObject, setSelectedObject }) => {
               onChange={(e) => setNameRu(e.target.value)}
               icon={MdOutlineEdit}
               value={nameRu}
-              placeholder='Русское название'
+              placeholder={t.r_name}
             />
           </div>
 
@@ -112,14 +118,14 @@ const Edit: React.FC<EditProps> = ({ selectedObject, setSelectedObject }) => {
               onChange={(e) => setNameEn(e.target.value)}
               icon={MdOutlineEdit}
               value={nameEn}
-              placeholder='Английское название'
+              placeholder={t.e_name}
             />
           </div>
 
           <Button
             onClick={() => saveGenre()}
           >
-            {isLoad ? <Loader /> : 'Сохранить'}
+            {isLoad ? <Loader /> : `${t.save}`}
           </Button>
         </div>
   )

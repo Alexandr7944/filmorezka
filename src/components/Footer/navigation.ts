@@ -2,27 +2,27 @@ import {cartoons, films, icons, shows} from "./models";
 
 const navigationsItems = [
   {
-    title: 'Мой Иви',
+    title: 'ivi',
     
   },
   {
-    title: 'Что нового',
+    title: 'news',
    
   },
   {
-    title: 'Фильмы',
+    title: 'films',
     content: films,
     icon: icons.BiCameraMovie,
    
   },
   {
-    title: 'Сериалы',
+    title: 'serials',
     content: shows,
     icon: icons.RiMovieLine,
    
   },
   {
-    title: 'Мультфильмы',
+    title: 'cartoons',
     content: cartoons,
     icon: icons.TbHorseToy,
    

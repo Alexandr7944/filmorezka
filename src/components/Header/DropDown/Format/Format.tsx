@@ -14,6 +14,9 @@ import Link from "next/link";
 
 const urlFiltersFilms: string = 'http://localhost:5000/films/filters';
 const hashMapImages:Map<string, string[]> = new Map();
+import { useRouter } from "next/router";
+import en from "@/locales/en/header/header"
+import ru from "@/locales/ru/header/header"
 
 interface FormatProps extends DropDownProps {
   content: IFormat;
@@ -21,6 +24,7 @@ interface FormatProps extends DropDownProps {
 
 const Format: React.FC<FormatProps> = ({content}) => {
   const { genres } = selectGenres();
+  console.log(genres)
   const [imagesTeaser, setImagesTeaser] = useState<string[]>([]);
   const [paramsURL, setParamsURL] = useState<object>({});
   const debouncedParams:boolean = useDebounce(paramsURL, 300);
@@ -39,13 +43,14 @@ const Format: React.FC<FormatProps> = ({content}) => {
           //     type: content.typeFormatEn
           //   },
           // }}
-        >{item}</span>
+        > {item}</span>
       </div>
     ));
   };
 
-  const getWrapperGenres = (genres: genre[]) => {
-    return genres.map((genre) => (
+  const getWrapperGenres = (genres: genre[], locale:string | undefined) => {
+    
+  return genres.map((genre) => (
       <div
         className={styles['content__item']}
         key={uuidv4()}
@@ -61,10 +66,10 @@ const Format: React.FC<FormatProps> = ({content}) => {
             },
           }}
         >
-          {genre.nameRu.charAt(0).toUpperCase() + genre.nameRu.slice(1)}
+          {locale=== "ru" ? genre.nameRu.charAt(0).toUpperCase() + genre.nameRu.slice(1).replace("_", " ") : genre.nameEn.charAt(0).toUpperCase() + genre.nameEn.slice(1).replace("_", " ") }
         </Link>
       </div>
-    ));
+    )); 
   };  
 
   useEffect(() => {
@@ -76,7 +81,8 @@ const Format: React.FC<FormatProps> = ({content}) => {
       changedParamsURL = { ...paramsURL, type: content.typeFormatEn };
     }
 
-    const serializeParams: string = objectToQueryString(changedParamsURL);
+   
+  const serializeParams: string = objectToQueryString(changedParamsURL);
 
     if (hashMapImages.has(serializeParams)) {
       setImagesTeaser(hashMapImages.get(serializeParams) || []);
@@ -92,23 +98,24 @@ const Format: React.FC<FormatProps> = ({content}) => {
         });
     }
   }, [paramsURL, content.typeFormatEn, debouncedParams]);
-
+  const { locale } = useRouter();
+  const t = locale === 'en' ? en : ru;
   return (
     <div
       className={`${styles['wrapper']} container`}
     >
       <div className={styles['genres']}>
         <div className={styles['title']}>
-          Жанры
+         {t.genres}
         </div>
 
         <div className={styles['content']}>
           <div className={styles['content__left-part']}>
-            {getWrapperGenres(genres.slice(0, genres.length / 2))}
+            {getWrapperGenres(genres.slice(0, genres.length / 2), locale)}
           </div>
 
           <div className={styles['content__right-part']}>
-            {getWrapperGenres(genres.slice(genres.length / 2 + 1, genres.length))}
+            {getWrapperGenres(genres.slice(genres.length / 2 + 1, genres.length), locale)}
           </div>
         </div>
       </div>
@@ -116,30 +123,29 @@ const Format: React.FC<FormatProps> = ({content}) => {
       <div className={styles['content-link__wrapper']}>
         <div className={styles['countries']}>
           <div className={styles['title']}>
-            Страны
+            {t.countries}
           </div>
 
           <div className={styles['content']}>
-            {getWrapperContentItems(content.countries)}
+            {getWrapperContentItems(content.countries.map(country => `${t[country as keyof typeof t]}`))}
           </div>
         </div>
 
         <div className={styles['years']}>
           <div className={styles['title']}>
-            Годы
+          {t.years}
           </div>
 
           <div className={styles['content']}>
             {getWrapperContentItems(content.years.map(year => 
-              `${content.typeFormatRu[0].toUpperCase() + content.typeFormatRu.slice(1)} ${year} года`))
+              `${t[content.typeFormatRu as keyof typeof t]} ${year} ${t.year}`))
             }
           </div>
         </div>
       </div>
-
       <div className={styles['filters']}>
         <div className={styles['content']}>
-          {getWrapperContentItems(content.filters)}
+          {getWrapperContentItems(content.filters.map(filter =>`${t[filter as keyof typeof t]}` ))}
         </div>
       </div>
 

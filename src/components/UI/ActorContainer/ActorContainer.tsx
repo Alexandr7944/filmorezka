@@ -3,8 +3,7 @@ import React from 'react';
 import style from './actorContainer-style.module.scss';
 import { BsFillPersonFill } from 'react-icons/bs';
 import Image from 'next/image';
-import router from 'next/router';
-
+import router, { useRouter } from 'next/router';
 interface ActorContainerProps {
   actor?: IActor,
   key?: number,
@@ -12,6 +11,8 @@ interface ActorContainerProps {
 }
 
 const ActorContainer: React.FC<ActorContainerProps> = ({ actor, rating }) => {
+  const {locale} = useRouter();
+  console.log(actor)
   return (
     <div className={style.actor} onClick={() => router.push(`/actorpage/${actor?.staffId}`)}>
       <div className={style.actor__photo}>
@@ -29,7 +30,7 @@ const ActorContainer: React.FC<ActorContainerProps> = ({ actor, rating }) => {
         }
       </div>
       <span className={style.actor__name}>
-        {actor?.nameRu}
+        {locale==="ru" ? actor?.nameRu : actor?.nameEn || actor?.nameRu}
       </span>
     </div>
   )

@@ -2,27 +2,33 @@ import React, { useEffect, useState } from "react";
 import style from "./search.module.scss";
 import { AiOutlineClose } from "react-icons/ai";
 import Fetching from "../../API/Fetching";
-import FilmResults from "./searchReaults/FilmResults";
-import ActorResults from "./searchReaults/ActorResults";
-import GenreResult from "./searchReaults/GenreResult";
-import router from "next/router";
+import FilmResults from "./searchResults/FilmResults";
+import ActorResults from "./searchResults/ActorResults";
+import GenreResult from "./searchResults/GenreResult";
+import en from "../../locales/en/search/search"
+import ru from "../../locales/ru/search/search"
+import { useRouter } from "next/router";
+
 interface SearchProps {
   active: boolean;
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const SearchModal: React.FC<SearchProps> = ({ active, setActive }) => {
+  const { locale } = useRouter();
+  const t = locale === 'en' ? en : ru;
   const [searchValue, setSearchValue] = useState("");
   const [filmResult, setFilmResult] = useState([]);
   const [actorResult, setActorResult] = useState([]);
   const [genreResult, setGenreResult] = useState("");
-  const regExpEn = "^[a-zA-Z]+$";
-  const searchTextRu = searchValue ? `name=${encodeURI(searchValue.toLocaleLowerCase())}` : "";
-  const searchTextEn =searchValue ? `nameEn=${searchValue.toLocaleLowerCase()}` : "";
+  const regExpEn = `[a-zA-Z\s\?\''"]`;
+  const encode = `${encodeURI(searchValue.toLocaleLowerCase())}`
+  const searchTextRu = searchValue ? `name=${encode}` : "";
+  const searchTextEn =searchValue ? `nameEn=${encode}` : "";
   const resultString =
-    searchValue.toLocaleLowerCase().search(regExpEn) === 0
+    searchValue.toLocaleLowerCase().trim().search(regExpEn) === 0
       ? searchTextEn
       : searchTextRu;
-
+console.log(resultString)
   const genreRes = (genres: any) => {
     if (searchValue.length > 0) {
       for (let i = 0; i < genres.length; i++) {
@@ -65,7 +71,7 @@ const SearchModal: React.FC<SearchProps> = ({ active, setActive }) => {
     >
       <div className={style.modal_block} onClick={(e) => e.stopPropagation()}>
         <div className={style.search_title}>
-          <h1 className={style.search__text}>Поиск</h1>
+          <h1 className={style.search__text}>{t.title}</h1>
           <div onClick={() => closeInput()} className={style.close}>
             <AiOutlineClose size={"30px"} />
           </div>
@@ -75,7 +81,7 @@ const SearchModal: React.FC<SearchProps> = ({ active, setActive }) => {
             type="text"
             name="text"
             className={style.input}
-            placeholder="Фильмы, персоны, жанры"
+            placeholder={t.placeholder}
             value={searchValue}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               setSearchValue(event.target.value)

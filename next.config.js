@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 // const withVideos = require('next-videos')
-
+const {i18n} = require("./next-i18next.config.js")
 const nextConfig = {
   reactStrictMode: true,
   images: {
@@ -10,6 +10,18 @@ const nextConfig = {
     GOOGLE_CLIENT_ID: '517175235469-bvohfp6e8oruftjtfoiblipr59o2luc2.apps.googleusercontent.com',
     VK_AUTH_URL: 'https://oauth.vk.com/authorize?client_id=51666090&display=popup&redirect_uri=http://localhost:5010/auth/vkontakte/login&display=popup&response_type=code&revoke=1&scope=phone_number,email'
   },
+  i18n,
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+        // don't resolve 'fs' module on the client to prevent this error on build --> Error: Can't resolve 'fs'
+        config.resolve.fallback = {
+            fs: false,
+            path: false
+        }
+    }
+
+    return config;
+}
 }
 
 module.exports = nextConfig

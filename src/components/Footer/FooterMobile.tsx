@@ -1,34 +1,37 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import style from "./footer-style.module.scss";
-import { BiHomeAlt, BiSearch, BiDotsHorizontalRounded } from "react-icons/bi";
+import { BiHomeAlt, BiDotsHorizontalRounded } from "react-icons/bi";
 import { MdOutlineFolderSpecial, MdOutlineClose } from "react-icons/md";
 import { AiOutlineUser } from "react-icons/ai";
 import { SlDiamond } from "react-icons/sl";
 import { TbCertificate2 } from "react-icons/tb";
-import { v4 as uuidv4 } from "uuid";
 import RenderContentItems from "./RenderContentItems";
 import { navigationsItems } from "./navigation";
 import FooterAboutUs from "./FooterAboutUs";
-import { IoMdInformationCircleOutline } from "react-icons/io";
 import { RiTv2Fill } from "react-icons/ri";
 import FooterNetworks from "./FooterNetworks";
 import Search from "../Search/Search";
+import { useRouter } from "next/router";
+import en from "../../locales/en/footer/footer"
+import ru from "../../locales/ru/footer/footer"
 
 const FooterMobile: React.FC = () => {
   const textYet = <BiDotsHorizontalRounded size="20px" />;
   const textClose = <MdOutlineClose size="20px" />;
+  const {locale} = useRouter();
+  const t:any = locale === "en"? en : ru;
 
-  const arrText = ["Еще", "Закрыть"];
+
   const [drawerOpen, setDrawerOpen] = useState(style.drawer);
-  const [textContent, setTextContent] = useState(arrText[0]);
+  const [textContent, setTextContent] = useState(`${t.yet}`);
   const [textContentSvg, setTextContentSvg] = useState(textYet);
 
   const [value, setValue] = useState("");
   const updateMenu = (key: string) => {
     setValue(key);
     document.body.classList.remove(style.modal);
-    setTextContent(arrText[0]);
+    setTextContent(`${t.yet}`);
     setDrawerOpen(style.drawer);
     setTextContentSvg(textYet);
   };
@@ -39,11 +42,11 @@ const FooterMobile: React.FC = () => {
       document.body.classList.add(style.modal);
       setDrawerOpen(style.drawer__isOpen);
       setTextContentSvg(textClose);
-      setTextContent(arrText[1]);
+      setTextContent(`${t.close}`);
     } else {
       setDrawerOpen(style.drawer);
       setTextContentSvg(textYet);
-      setTextContent(arrText[0]);
+      setTextContent(`${t.yet}`);
       document.body.classList.remove(style.modal);
     }
   };
@@ -174,7 +177,7 @@ const FooterMobile: React.FC = () => {
             <div className="nbl-tabBar__itemIcon">
               <BiHomeAlt size="20px" />
             </div>
-            <div className={style.tabBar__itemCaption}>Мой Иви</div>
+            <div className={style.tabBar__itemCaption}>{t.ivi}</div>
           </Link>
           <Link
             onClick={() => updateMenu("catalog")}
@@ -298,7 +301,7 @@ const FooterMobile: React.FC = () => {
             <div className="nbl-tabBar__itemIcon">
               <MdOutlineFolderSpecial size="20px" />
             </div>
-            <div className={style.tabBar__itemCaption}>Каталог</div>
+            <div className={style.tabBar__itemCaption}>{t.catalog}</div>
           </Link>
 
           <a
@@ -546,7 +549,7 @@ const FooterMobile: React.FC = () => {
             <div className="nbl-tabBar__itemIcon">
               <AiOutlineUser size="20px" />
             </div>
-            <div className={style.tabBar__itemCaption}>Профиль</div>
+            <div className={style.tabBar__itemCaption}>{t.profile}</div>
           </Link>
           <a
             onClick={() => updateYet("yet")}
@@ -684,7 +687,7 @@ const FooterMobile: React.FC = () => {
               >
                 <SlDiamond className={style.footer__stores_icons} />
                 <div className={style.footer__textBlock}>
-                  <div className={style.footer__title}>Подключить подписку</div>
+                  <div className={style.footer__title}>{t.subscription}</div>
                 </div>
               </a>
               <a
@@ -696,7 +699,7 @@ const FooterMobile: React.FC = () => {
                 <TbCertificate2 className={style.footer__stores_icons} />
                 <div className={style.footer__textBlock}>
                   <div className={style.footer__title}>
-                    Активация сертификата
+                    {t.certificate}
                   </div>
                 </div>
               </a>
@@ -715,12 +718,12 @@ const FooterMobile: React.FC = () => {
               <ul className={style.footer__title + " " + style.links}>
                 <li>
                   <a href="https://www.ivi.tv/movies/all?ivi_rating_10_gte=7&amp;sort=ivi&amp;rating_part=main&amp;rating_model=ready">
-                    Иви.Рейтинг фильмы
+                    {t.ivi_rating_movies}
                   </a>
                 </li>
                 <li>
                   <a href="https://www.ivi.tv/series/all?ivi_rating_10_gte=7&amp;sort=ivi&amp;rating_part=main&amp;rating_model=ready">
-                    Иви.Рейтинг сериалы
+                  {t.ivi_rating_serials}
                   </a>
                 </li>
               </ul>
@@ -729,7 +732,7 @@ const FooterMobile: React.FC = () => {
           <div className={style.line + " " + style.padding}>
             <div className={style.links}>
               <FooterAboutUs />
-              <span className={style.footer__title}>Вход по коду</span>
+              <span className={style.footer__title}>{t.code_login}</span>
               <div className={style.footer__container2}>
                 <a
                   href="https://www.ivi.tv/subscribe?redirect_url=%2F"
@@ -739,7 +742,7 @@ const FooterMobile: React.FC = () => {
                 >
                   <RiTv2Fill className={style.footer__stores_icons} />
                   <div className={style.footer__textBlock}>
-                    <div className={style.footer__preamble}>Смотрите на</div>
+                    <div className={style.footer__preamble}>{t.lookat}</div>
                     <div className={style.footer__title}>Smart TV</div>
                   </div>
                 </a>{" "}
@@ -751,7 +754,7 @@ const FooterMobile: React.FC = () => {
                 >
                   <RiTv2Fill className={style.footer__stores_icons} />
                   <div className={style.footer__textBlock}>
-                    <div className={style.footer__title}>Все устройства</div>
+                    <div className={style.footer__title}>{t.all_devices}</div>
                   </div>
                 </a>
               </div>

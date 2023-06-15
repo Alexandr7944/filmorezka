@@ -1,11 +1,17 @@
 import React from 'react';
 import style from './movieItem-style.module.scss';
+import { useRouter } from 'next/router';
+import en from "../../locales/en/moviefilter/moviefilter"
+import ru from "../../locales/ru/moviefilter/moviefilter"
 
 interface MovieItemDefaultProps {
   width: number,
 }
 
-const MovieItemDefault: React.FC<MovieItemDefaultProps> = ({ width }) => {
+const MovieItemDefault: React.FC<MovieItemDefaultProps> = ({ link, width }) => {
+  const navigation = useRouter();
+  const {locale} = useRouter();
+  const t:any = locale === "en"? en : ru;
 
   return (
     <div
@@ -13,7 +19,7 @@ const MovieItemDefault: React.FC<MovieItemDefaultProps> = ({ width }) => {
       style={{minWidth: width + 'px'}}
     >
       <div className={style.movie__poster}>
-        Посмотреть все
+       {t.lookall}
       </div>
     </div>
   )

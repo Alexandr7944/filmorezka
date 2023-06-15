@@ -9,6 +9,9 @@ import MovieFilterContainer from '../MovieFilterContainer/MovieFilterContainer';
 import yearsJSON from '../../data/years.json';
 import ratingJSON from '../../data/rating.json';
 import { Rating } from '@/interface/Rating';
+import en from "../../locales/en/collectionmovie/collectionmovie"
+import ru from "../../locales/ru/collectionmovie/collectionmovie"
+import { useRouter } from 'next/router';
 
 
 type CollectionMovieProps = {
@@ -27,7 +30,8 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection, title, pa
     year: ['Все годы'],
     rating: ['Любой рейтинг']
   });  
-  
+  const {locale} = useRouter();
+  const t:any = locale === "en"? en : ru;
   useEffect(() => {
     Fetching.getAll(params 
       ? 'http://localhost:5000/films/filters' + params 
@@ -66,7 +70,7 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection, title, pa
     <div className={style.collection}>
       <div className="container">
         <h1 className={style.collection__title}>
-          {title ? title + ' смотреть онлайн' : 'Cмотреть онлайн'}
+          {title ? title + ` ${t.watch_online}` : `${t.watch_online_b}`}
         </h1>
         {movies.length > 0 
           ? <>
@@ -76,7 +80,7 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection, title, pa
               onClick={() => setShowFilter(prev => !prev)}
             >
               <BsCreditCard2Front />
-              {showFilter ? 'Свернуть': 'Фильтры'}
+              {showFilter ? `${t.collapse}`:  `${t.filters}`}
             </div>
             {showFilter && <MovieFilterContainer 
               movies={movies}
@@ -95,9 +99,9 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection, title, pa
           <button
             className={style['collection__next-btn']}
             onClick={() => setShowMovies(Math.min(showMovies + 20, movies.length))}
-          >Показать ещё</button>
+          >{t.show_more}</button>
           </>
-          : <p>Контент не найден</p>
+          : <p>{t.not_found}</p>
         }
       </div>
     </div>
