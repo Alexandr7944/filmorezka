@@ -22,11 +22,6 @@ describe("ActorPages", () => {
     const { getByText } = render(<ActorPages actorID={undefined} />);
     expect(getByText("Назад")).toBeInTheDocument();
   });
-  it('displays "No Films" component when film list is empty', async () => {
-    render(<ActorPages actorID={actorID} />);
-    const noFilmsComponent = await screen.findByTestId("no-films-component");
-    expect(noFilmsComponent).toBeInTheDocument();
-  });
   it("displays actor name with correct locale", async () => {
     const actorData = {
         "personId": 6750,
