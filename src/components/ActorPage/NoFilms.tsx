@@ -9,7 +9,7 @@ const NoFilms = () => {
  
   return (
     <div className={style.icon_block}>
-        <p>  {t.no_films}:(</p>
+        <p>{t.no_films}</p>
   
     <div className={style.icon}>
       <svg
