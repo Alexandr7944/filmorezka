@@ -1,9 +1,14 @@
+@import '../../styles/options';
+
 .comment {
-  flex: 1 1 auto;
+  width: 100%;
+  max-width: 400px;
+  min-width: 300px;
   margin: 15px;
   padding: 15px;
-  border: 1px solid #000;
   border-radius: 15px;
+  background-color: $colorElementHeader;
+  color: #fff;
 
   display: flex;
   justify-content: space-between;
@@ -17,5 +22,29 @@
   &__body {
     flex: 1 1 100%;
     line-height: 1.5;
+    margin: 15px 0;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: $colorElementHeaderHover;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__edit,
+  &__delete {
+    border: none;
+    background-color: transparent;
+    border-radius: 50%;
+    padding: 5px;
+    color: inherit;
+    font-size: 18px;
+    transition: .3s;
+    &:hover {
+      box-shadow: 0 0 5px rgba($color: #fff, $alpha: 0.5);
+    }
+  }
+
+  &__edit {
+    margin-right: 10px;
   }
 }

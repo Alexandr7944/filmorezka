@@ -1,0 +1,19 @@
+@import '../../../styles/options';
+
+.comment-input {
+  width: 100%;
+  margin: 15px auto;
+  padding: 15px;
+  border-radius: 15px;
+  background-color: $colorElementHeader;
+  color: #fff;
+
+  input {
+    width: 100%;
+    margin: 15px 0;
+    padding: 15px;
+    border-radius: 15px;
+    background-color: $colorElementHeaderHover;
+    color: inherit;
+  }
+}

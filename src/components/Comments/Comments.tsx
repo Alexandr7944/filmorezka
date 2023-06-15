@@ -1,80 +1,86 @@
 import { useAppSelector } from '@/hooks/hook';
 import styles from './comments-style.module.scss';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Comment } from '@/interface/Comment';
 import CommentItem from '../CommentItem/CommentItem';
+import { Button } from '../UI/Button';
+import CommentFetch from '@/API/CommentFetch';
+import CommentInput from '../UI/CommentInput/CommentInput';
 
 type CommentsProps = {
-  movieId: string | string[] | undefined,
+  movieId: number,
   movieName: string
 }
 
 const Comments: React.FC<CommentsProps> = ({ movieId, movieName }) => {
   const user = useAppSelector(state => state.user);
-  const [commentsList, setCommentsList] = useState<Comment[]>([])
+  const [commentsList, setCommentsList] = useState<Comment[]>([]);
+  const [getNewComment, setGetNewComment] = useState(false);
+  const [commentInput, setCommentInput] = useState('');
   
-  useEffect(() => {
-    // fetch('http://localhost:8000/comments/filmId/' + movieId, {
-    fetch('http://localhost:8000/comments/filmId/' + 38, {
-      method: 'GET',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      credentials: "include"
-    })
-    .then(response => response.json())
-    .then(result => result && setCommentsList(result))
-    .catch(error => console.error('Error: ', error));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  
-  const addComment = (text: string, parentCommentId: number | null = null) => {
-    fetch('http://localhost:8000/comments', {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        displayName: user.displayName,
-        comment: text,
-        filmId: movieId,
-        parentCommentId
-      }),
-      credentials: "include"
-    })
-    .then(response => response)
-    .then(result => console.log('Success: ', result))
-    .catch(error => console.error('Error: ', error));
+  const getComment = () => {
+    CommentFetch.getComment(movieId, setCommentsList);
+  };
+
+  useEffect(getComment, []);
+
+  const addComment = () => {
+    if (!commentInput || !user.displayName) return;
+    
+    CommentFetch.addComment(
+      commentInput,
+      user.displayName || '',
+      movieId,
+      null
+    );
+
+    setCommentInput('');
+    setTimeout(getComment);
   }
 
-  const deleteComment = (comId: number) => {
-    fetch('http://localhost:8000/comments/comId/' + comId, {
-      method: 'DELETE',
-      headers: {
-        "Content-Type": "application/json"
-      },
-      credentials: "include"
-    })
-    .then(response => response)
-    .then(result => console.log('Success: ', result))
-    .catch(error => console.error('Error: ', error));
+  const deleteComment = (id: number) => {
+    CommentFetch.deleteComment(id);
+    setCommentsList(commentsList.filter(item => item.id !== id));
+  }
+
+  const changeComment = (id: number, text: string) => {    
+    CommentFetch.changeComment(id, text);
+    setCommentsList(commentsList.map(item => item.id === id
+      ? {...item, comment: text}
+      : item));
+
+      console.log(id);
+      
   }
 
   return (
     <div className={styles.comments}>
-      <h2 className={styles.comments__title}>Комментарии к фильму {}</h2>
-      <span className={styles.comments__subtitle}>{movieName}</span>
+      <h2 className={styles.comments__title}>Комментарии к фильму {movieName}</h2>
+      {user.isAuth &&
+        <Button onClick={() => setGetNewComment(prev => !prev)}>
+          Добавить комментарий
+        </Button>
+      }
+      {
+        getNewComment && <CommentInput
+          value={commentInput}
+          change={setCommentInput}
+          submit={addComment}
+        />
+      }
       <div className={styles.comments__list}>
         {
-          commentsList.length && commentsList.map((comment: Comment) => 
+          commentsList.length > 0
+          ? commentsList.map((comment: Comment) => 
             <CommentItem 
               key={comment.id}
               user={user}
               comment={comment}
-              addComment={addComment}
+              changeComment={changeComment}
               deleteComment={deleteComment}
             />
           )
+          : <div className={styles.comments__default}>Комментариев нет, вы можете стать первым</div>
         }
       </div>
     </div>

@@ -25,7 +25,7 @@ const WatchPage = () => {
   const router = useRouter();
   const { genres } = selectMediaFilters();
   const nameEn: string | undefined = genres?.map(genre => {
-    if (genre.nameRu === movie?.genre[0]) return genre.nameEn;
+    if (genre.nameRu === (movie?.genre && movie?.genre[0])) return genre.nameEn;
   }).join('');
   
   const navbar = [
@@ -43,7 +43,9 @@ const WatchPage = () => {
     {title: `${movie?.name && capitalizeStr(movie.name) || ''}`}
   ];  
 
-  const movieId = router.query.movieId;
+  const movieId = typeof router.query.movieId === 'string' 
+    ? +router.query.movieId
+    : 0
 
   useEffect(() => {
     Fetching.getNewAll(`http://localhost:5000/films/id/${movieId}`)
