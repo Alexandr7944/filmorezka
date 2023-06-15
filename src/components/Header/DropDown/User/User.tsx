@@ -11,6 +11,7 @@ import { useAppDispatch } from "@/hooks/hook";
 import Autorization from "@/microservices/Autorization";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import process from 'process';
+import { useRouter } from "next/router";
 
 interface UserProps extends DropDownProps {
   content: IUser;
@@ -19,7 +20,7 @@ interface UserProps extends DropDownProps {
 interface IOption {
   title: string,
   isAuthorization: boolean,
-  onClick?: () => void
+  onClick?: () => void,
 };
 
 const sizeIcon: string = '22.5px';
@@ -27,6 +28,7 @@ const sizeIcon: string = '22.5px';
 const User: React.FC<UserProps> = ({content}) => {
   const userAccount: IUserState = selectUser();
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   const createLoginModal = () => {
     document.documentElement.style.overflow = 'hidden';
@@ -48,6 +50,7 @@ const User: React.FC<UserProps> = ({content}) => {
   const logOutProfileClickHandler = async () => {
     dispatch(clearUser());
     await Autorization.logOut();
+    router.push('/');
   }
 
   const options: IOption[] = [
@@ -66,10 +69,9 @@ const User: React.FC<UserProps> = ({content}) => {
     {
       title: 'Выйти из Иви',
       isAuthorization: true,
-      onClick: logOutProfileClickHandler
+      onClick: logOutProfileClickHandler,
     }
   ]
-
   return (
     <div
       className={`${styles['wrapper']} container`}
@@ -113,6 +115,16 @@ const User: React.FC<UserProps> = ({content}) => {
         }
 
         <div className={styles['additional-links']}>
+          {userAccount.isAuth && userAccount.roles?.find(role => role === 'admin') &&
+            <div
+              className={styles['additional-links__item']}
+              key={uuidv4()}
+              onClick={() => router.push('/admin')}
+            >
+              <span className={styles['item__text']}>Админка</span>
+            </div>
+          }
+
           {options.map(({title, isAuthorization, onClick}) => (
             (!isAuthorization || isAuthorization === userAccount.isAuth) &&
               <div

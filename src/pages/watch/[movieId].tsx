@@ -6,7 +6,7 @@ import WatchMovie from '@/components/WatchMovie';
 import { IActor } from '@/interface/IActor';
 import { INewMovie } from '@/interface/IMovie';
 import { IVideo } from '@/interface/IMoviePage';
-import { selectMediaFilters } from '@/store/selectors';
+import { selectGenres } from '@/store/selectors';
 import { capitalizeStr } from '@/utils/capitalize';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -23,7 +23,7 @@ const WatchPage = () => {
   ]});
   const [actors, setActors] = useState<IActor[]>();
   const router = useRouter();
-  const { genres } = selectMediaFilters();
+  const { genres } = selectGenres();
   const nameEn: string | undefined = genres?.map(genre => {
     if (genre.nameRu === (movie?.genre && movie?.genre[0])) return genre.nameEn;
   }).join('');

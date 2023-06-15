@@ -5,7 +5,7 @@ import genresReducer from './reducers/genresSlice';
 const store = configureStore({
   reducer: {
     user: userReducer,
-    mediaFilters: genresReducer
+    genres: genresReducer
   }
 })
 

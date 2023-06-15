@@ -125,6 +125,7 @@ class Autorization {
 						'Content-type': 'application/json',
 					},
 					body: JSON.stringify(user),
+					credentials: 'include'
 				});
 
 				const result: string = await responseAuth.text();
