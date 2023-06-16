@@ -18,6 +18,7 @@ it("clicks on Catalog link", () => {
   render(<FooterMobile />);
   const catalogLink = screen.getByText("Catalog");
   fireEvent.click(catalogLink);
+  expect(catalogLink).toHaveClass("tabBar__itemCaption");
 });
 
   it("displays correct number of navigation items", () => {
