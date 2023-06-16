@@ -192,7 +192,7 @@ const ChatLogin: React.FC<ChatLoginProps> = ({ dispatch }) => {
   };
 
   return (
-    <div className={style['dialog-login']}>
+    <div className={style['dialog-login']} data-testid='chatLogin'>
       <div className={style['header']}>
         <div className={style['title']}>
           <div className={style['title__description']}>
@@ -240,6 +240,7 @@ const ChatLogin: React.FC<ChatLoginProps> = ({ dispatch }) => {
             <Error 
               title='Ошибка'
               description={messageError}
+              testId='error'
             />
           </div>
         } 

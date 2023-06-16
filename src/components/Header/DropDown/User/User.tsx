@@ -111,6 +111,7 @@ const User: React.FC<UserProps> = ({content}) => {
           <div className={styles['actions']}>
             <Button 
               onClick={createLoginModal}
+              testId='authorization'
             >
              {t.login_or_register}
             </Button>
@@ -134,6 +135,7 @@ const User: React.FC<UserProps> = ({content}) => {
                 className={styles['additional-links__item']}
                 key={uuidv4()}
                 onClick={onClick}
+                data-testid={title}
               >
                 <span className={styles['item__text']}>{t[title]}</span>
               </div>

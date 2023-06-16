@@ -38,11 +38,13 @@ const Email: React.FC<EmailProps> = ({...props}) => {
             isError={props.messageError.length > 0}
             value={props.state}
             onChange={e => props.stateChangeHandler(e, props.setterState)}
+            testId='emailInput'
           />
 
           <Button 
             disabled={props.isDisabledButton}
             onClick={props.sendState}
+            testId='sendEmail'
           >
             {props.isLoading ? <Loader /> : 'Продолжить'}
           </Button>

@@ -5,12 +5,14 @@ import { BiErrorCircle } from '../../Icons';
 export interface ErrorProps {
   title: string ;
   description: string;
+  testId?: string;
 }
 
-const Error: React.FC<ErrorProps> = ({ title, description }) => {
+const Error: React.FC<ErrorProps> = ({ title, description, testId }) => {
   return (
     <div 
       className={styles['error']}
+      data-testid={testId}
     >
       <div className={styles['error__icon']}>
         <div className={styles['icon']}>

@@ -5,10 +5,11 @@ import { IconType } from 'react-icons';
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   icon: IconType
   isError?: boolean,
-  changeType?: () => void
+  changeType?: () => void,
+  testId?: string
 }
 
-const Input: React.FC<InputProps> = ({ placeholder, type, icon, isError, style, changeType,...props }) => {
+const Input: React.FC<InputProps> = ({ placeholder, type, icon, isError, style, changeType, testId,...props }) => {
   const [isMouseEnter, setIsMouseEnter] = useState<boolean>(false);
 
   return (
@@ -36,6 +37,7 @@ const Input: React.FC<InputProps> = ({ placeholder, type, icon, isError, style, 
         type={type} 
         name={type}
         placeholder={placeholder}
+        data-testid={testId}
       />
 
       <label 

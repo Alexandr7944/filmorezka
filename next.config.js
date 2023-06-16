@@ -12,7 +12,6 @@ const nextConfig = {
   i18n: {
 		locales: ["en", "ru"],   
 		defaultLocale: "ru",
-		
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {

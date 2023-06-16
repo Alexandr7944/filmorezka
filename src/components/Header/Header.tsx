@@ -100,8 +100,7 @@ const Header: React.FC = () => {
           <div className={styles['activities']}>
             <div className={styles['subscription-payment']}>{t.subscription}</div>
 
-            <div className={styles['search']}><Search /></div> 
-
+            <div className={styles['search']} data-testid='searchModal'><Search /></div> 
 
             <div className={styles['notifications']}>
               <IoMdNotificationsOutline
