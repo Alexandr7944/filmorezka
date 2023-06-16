@@ -37,4 +37,3 @@ it("search modal is active when 'active' prop is true", () => {
   expect(setActive).toHaveBeenCalledWith(false);
   
   });
-  
