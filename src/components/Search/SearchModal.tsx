@@ -28,7 +28,6 @@ const SearchModal: React.FC<SearchProps> = ({ active, setActive }) => {
     searchValue.toLocaleLowerCase().trim().search(regExpEn) === 0
       ? searchTextEn
       : searchTextRu;
-console.log(resultString)
   const genreRes = (genres: any) => {
     if (searchValue.length > 0) {
       for (let i = 0; i < genres.length; i++) {
@@ -65,14 +64,14 @@ console.log(resultString)
 
 
   return (
-    <div
+    <div data-testid="search-modal"
       className={active ? style.modal + " " + style.active : style.modal}
       onClick={() => closeInput()}
     >
-      <div className={style.modal_block} onClick={(e) => e.stopPropagation()}>
+      <div data-testid="modal-block" className={style.modal_block} onClick={(e) => e.stopPropagation()}>
         <div className={style.search_title}>
           <h1 className={style.search__text}>{t.title}</h1>
-          <div onClick={() => closeInput()} className={style.close}>
+          <div data-testid="close-button" onClick={() => closeInput()} className={style.close}>
             <AiOutlineClose size={"30px"} />
           </div>
         </div>

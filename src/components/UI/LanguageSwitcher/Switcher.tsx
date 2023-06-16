@@ -22,14 +22,15 @@ const Switcher: React.FC<SwitcherProps> = () => {
     <div>
       {" "}
       <select
+data-testid="language-select"
         onChange={changeLanguage}
         defaultValue={locale}
         className={style.text_shadow + " " + style.select}
       >
-        <option  className={style.en} value="en">
+        <option  className={style.en} value="en" label="en">
           EN
         </option>
-        <option  className={style.ru} value="ru">
+        <option    className={style.ru} value="ru" label="ru">
           RU
         </option>
       </select>

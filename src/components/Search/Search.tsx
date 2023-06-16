@@ -11,7 +11,7 @@ const Search = () => {
   const { locale } = useRouter();
   const t = locale === 'en' ? en : ru;
   return (
-    <div onClick={() => setModalActive(true)}>
+    <div data-testid="search" onClick={() => setModalActive(true)}>
      
         <div className={style.search_desktop + " " + style.search}>
           <BiSearch size="20px" />

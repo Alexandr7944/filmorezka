@@ -99,7 +99,7 @@ const Footer: React.FC = () => {
                         style.footer__button_support
                       }
                     >
-                      <BsEnvelope size={"16px"} color={"white"} />
+                      <BsEnvelope data-testid="envelope-icon" size={"16px"} color={"white"} />
                     </div>
                   </a>
                   <div
@@ -108,7 +108,7 @@ const Footer: React.FC = () => {
                     }
                   >
                     <a>
-                      <FiPhone size={"16px"} color={"white"} />
+                      <FiPhone data-testid="phone-icon" size={"16px"} color={"white"} />
                     </a>
                   </div>
                 </div>

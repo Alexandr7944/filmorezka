@@ -54,8 +54,8 @@ const FooterMobile: React.FC = () => {
   return (
     <div className={style.tabBar}>
       <div className="mycontainer">
-        <div className={style.tabBar__content}>
-          <Link
+        <div className={style.tabBar__content} >
+          <Link data-testid="catalog-navigation-item"
             key="home"
             onClick={() => updateMenu("home")}
             href="/"
@@ -180,6 +180,7 @@ const FooterMobile: React.FC = () => {
             <div className={style.tabBar__itemCaption}>{t.ivi}</div>
           </Link>
           <Link
+          data-testid="catalog-navigation-item"
             onClick={() => updateMenu("catalog")}
             data-test="my_ivi"
             href="/collection"
@@ -305,6 +306,7 @@ const FooterMobile: React.FC = () => {
           </Link>
 
           <a
+          data-testid="catalog-navigation-item"
             onClick={() => updateMenu("search")}
             className={
               value === "search"
@@ -428,6 +430,7 @@ const FooterMobile: React.FC = () => {
             <Search />
           </a>
           <Link
+          data-testid="catalog-navigation-item"
             onClick={() => updateMenu("user")}
             data-test="my_ivi"
             href="/profile"
@@ -552,6 +555,7 @@ const FooterMobile: React.FC = () => {
             <div className={style.tabBar__itemCaption}>{t.profile}</div>
           </Link>
           <a
+          data-testid="catalog-navigation-item"
             onClick={() => updateYet("yet")}
             className={
               value === "yet"
