@@ -11,9 +11,11 @@ const nextConfig = {
   },
   i18n: {
 		locales: ["en", "ru"],   
-		defaultLocale: "ru"
-		
-	  }
+		defaultLocale: "ru",
+    localeDetection: false
+
+	  },
+    output: 'static'
 }
 
 module.exports = nextConfig
