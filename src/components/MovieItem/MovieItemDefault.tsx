@@ -8,7 +8,7 @@ interface MovieItemDefaultProps {
   width: number,
 }
 
-const MovieItemDefault: React.FC<MovieItemDefaultProps> = ({ link, width }) => {
+const MovieItemDefault: React.FC<MovieItemDefaultProps> = ({ width }) => {
   const navigation = useRouter();
   const {locale} = useRouter();
   const t:any = locale === "en"? en : ru;

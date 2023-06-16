@@ -10,8 +10,6 @@ import { IconType } from "react-icons";
 import { useRouter } from "next/router";
 import en from "../../locales/en/footer/footer"
 import ru from "../../locales/ru/footer/footer"
-import { selectMediaFilters } from "@/store/selectors";
-import { genre } from "@/types/genre";
 type RenderProps = {
   title: string;
   content: IFormat;
