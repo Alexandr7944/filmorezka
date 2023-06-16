@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import style from './chatLogin-style.module.scss';
 import { CgClose } from '../Icons';
 import { Error } from '../UI/Error';
-import Autorization from '@/microservices/Autorization';
+import AutorizationFetch from '@/API/AutorizationFetch';
 import { DisplayName, Email, EmailProps, Password, PasswordProps } from './Messages';
 import { MessagesProps, steps } from '@/interface/ChatLogin';
 import { useAppDispatch } from '@/hooks/hook';
@@ -64,7 +64,7 @@ const ChatLogin: React.FC<ChatLoginProps> = ({ dispatch }) => {
 
     if (isCorrect) {
       setIsLoading(true);
-      const isHaveEmail: boolean = await Autorization.checkEmail(email);
+      const isHaveEmail: boolean = await AutorizationFetch.checkEmail(email);
       setIsLoading(false);
 
       setIsDisabledButton(true);
@@ -86,7 +86,7 @@ const ChatLogin: React.FC<ChatLoginProps> = ({ dispatch }) => {
 
     if (isCorrect) {
       setIsLoading(true);
-      const isHaveName: boolean = await Autorization.checkDisplayName(displayName);
+      const isHaveName: boolean = await AutorizationFetch.checkDisplayName(displayName);
       setIsLoading(false);
 
       if (isHaveName) {
@@ -118,7 +118,7 @@ const ChatLogin: React.FC<ChatLoginProps> = ({ dispatch }) => {
   }
 
   const saveToStore = async () => {
-    const user: IUserAccount | undefined = await Autorization.getUser();
+    const user: IUserAccount | undefined = await AutorizationFetch.getUser();
 
     if (user) {
       dispatch(setUser(user));
@@ -132,7 +132,7 @@ const ChatLogin: React.FC<ChatLoginProps> = ({ dispatch }) => {
       setIsLoading(true);
 
       if (isRegistered) {
-        const isSuccessful: boolean = await Autorization.registration(email, displayName, password);
+        const isSuccessful: boolean = await AutorizationFetch.registration(email, displayName, password);
 
         if (!isSuccessful) {
           setMessageError('Сервер не отвечает :(');
@@ -140,7 +140,7 @@ const ChatLogin: React.FC<ChatLoginProps> = ({ dispatch }) => {
           return;
         } 
       } else {
-        const isSuccessful: boolean = await Autorization.login(email, password);
+        const isSuccessful: boolean = await AutorizationFetch.login(email, password);
 
         if (!isSuccessful) {
           setMessageError('Неверный пароль');
@@ -156,7 +156,7 @@ const ChatLogin: React.FC<ChatLoginProps> = ({ dispatch }) => {
 
   const authorizationGmail = useGoogleLogin({
     onSuccess: async (codeResponse: TokenResponse) => {
-      await Autorization.loginGmail(codeResponse.access_token);
+      await AutorizationFetch.loginGmail(codeResponse.access_token);
       setTimeout(() => location.reload(), 1000);
     },
     onError: (error) => console.log('Login Failed:', error)

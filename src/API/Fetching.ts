@@ -30,7 +30,6 @@ class Fetching {
     try {
       const queryParams: string = params ? "?" + objectToQueryString(params) : "";
 
-      console.log(url + queryParams)
       const response = await fetch(url + queryParams, {
         method,
         headers: {
@@ -46,8 +45,6 @@ class Fetching {
 
   static async putEditObject(url: string, body: object) {
     try {
-      console.log(body)
-
       const response = await fetch(url, {
         mode: 'cors',
         method: 'PUT',
@@ -69,21 +66,14 @@ class Fetching {
     try {
       const queryParams: string = params ? objectToQueryString(params) : "";
 
-      const response = await fetch(url + `?timestamp=${new Date().getTime()}&` + queryParams, {
-        mode: 'cors',
+      const response = await fetch(url + queryParams, {
         method,
         headers: {
           'Content-Type': 'application/json',
-          'Pragma': 'no-cache',
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'X-Requested-With': 'XMLHttpRequest',
-          'Expires': '0',
         },
-        cache: 'reload'
       });
 
       const result = await response.json();
-      console.log(url + `?timestamp=${new Date().getTime()}&` + queryParams)
       return result;
     } catch (err) {
       console.log(err);

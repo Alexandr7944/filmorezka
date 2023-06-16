@@ -1,6 +1,6 @@
 import { IUserAccount } from "@/interface/IUserAccount";
 
-class Autorization {
+class AutorizationFetch {
     private static _url: string = 'http://localhost:5010/auth/';
 
     static readonly badRequest: number = 500;
@@ -8,7 +8,7 @@ class Autorization {
     static async checkEmail(email: string): Promise<boolean> {
       const data = {
         email
-      }
+      };
 
 			try {
 				const response = await fetch(this._url + 'email', {
@@ -31,7 +31,7 @@ class Autorization {
     static async checkDisplayName(displayName: string): Promise<boolean> {
       const data = {
         displayName
-      }
+      };
 
 			try {
 				const response = await fetch(this._url + 'name', {
@@ -110,7 +110,7 @@ class Autorization {
 					headers: {
 						'Content-type': 'application/json',
 					},
-				})
+				});
 
 				const { email, name } = await responseGoogle.json();
 				const user: IUserAccount = {
@@ -177,4 +177,4 @@ class Autorization {
 		}
 }
   
-  export default Autorization;
+  export default AutorizationFetch;

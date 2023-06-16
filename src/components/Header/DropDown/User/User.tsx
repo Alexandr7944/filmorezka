@@ -8,7 +8,7 @@ import ReactDOM from "react-dom";
 import { IUserState, clearUser } from "@/store/reducers/userSlice";
 import { selectUser } from "@/store/selectors";
 import { useAppDispatch } from "@/hooks/hook";
-import Autorization from "@/microservices/Autorization";
+import AutorizationFetch from "@/API/AutorizationFetch";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import process from 'process';
 import { useRouter } from 'next/router';
@@ -52,7 +52,7 @@ const User: React.FC<UserProps> = ({content}) => {
 
   const logOutProfileClickHandler = async () => {
     dispatch(clearUser());
-    await Autorization.logOut();
+    await AutorizationFetch.logOut();
     router.push('/');
   }
 
