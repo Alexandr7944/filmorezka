@@ -10,7 +10,11 @@ const nextConfig = {
     GOOGLE_CLIENT_ID: '517175235469-bvohfp6e8oruftjtfoiblipr59o2luc2.apps.googleusercontent.com',
     VK_AUTH_URL: 'https://oauth.vk.com/authorize?client_id=51666090&display=popup&redirect_uri=http://localhost:5010/auth/vkontakte/login&display=popup&response_type=code&revoke=1&scope=phone_number,email'
   },
-  i18n,
+  i18n: {
+		locales: ["en", "ru"],   
+		defaultLocale: "ru",
+		
+  },
   webpack: (config, { isServer }) => {
     if (!isServer) {
         // don't resolve 'fs' module on the client to prevent this error on build --> Error: Can't resolve 'fs'
@@ -21,7 +25,7 @@ const nextConfig = {
     }
 
     return config;
-}
+  }
 }
 
 module.exports = nextConfig
