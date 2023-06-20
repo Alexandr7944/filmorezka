@@ -3,6 +3,7 @@ import style from './movieItem-style.module.scss';
 import { useRouter } from 'next/router';
 import en from "../../locales/en/moviefilter/moviefilter"
 import ru from "../../locales/ru/moviefilter/moviefilter"
+import { selectLangs } from '@/store/selectors';
 
 interface MovieItemDefaultProps {
   width: number,
@@ -10,7 +11,8 @@ interface MovieItemDefaultProps {
 
 const MovieItemDefault: React.FC<MovieItemDefaultProps> = ({ width }) => {
   const navigation = useRouter();
-  const {locale} = useRouter();
+  // const {locale} = useRouter();
+  const locale = selectLangs();
   const t:any = locale === "en"? en : ru;
 
   return (

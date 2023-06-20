@@ -5,8 +5,10 @@ import Image from 'next/image';
 import { useRouter } from 'next/router';
 import en from "../../locales/en/buttoneffect/buttoneffect"
 import ru from "../../locales/ru/buttoneffect/buttoneffect"
+import { selectLangs } from '@/store/selectors';
 const ButtonEffects: React.FC = () => {
-  const {locale} = useRouter();
+  // const {locale} = useRouter();
+  const locale = selectLangs();
   const t = locale === "en"? en : ru;
   return (
     <Button 

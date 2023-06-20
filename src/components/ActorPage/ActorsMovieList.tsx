@@ -7,6 +7,7 @@ import ActorModal from "./Modal/ActorModal";
 import { IMovie, INewMovie } from "@/interface/IMovie";
 import en from "../../locales/en/actorpage/actorpage"
 import ru from "../../locales/ru/actorpage/actorpage"
+import { selectLangs } from "@/store/selectors";
 interface ActorsMovieListProps {
   movieItem: INewMovie;
 }
@@ -21,7 +22,8 @@ const ActorsMovieList: React.FC<ActorsMovieListProps> = (movieItem) => {
   const handleMouseLeave = () => {
     setModalActive(false);
   };
-  const {locale, locales} = useRouter();
+  // const {locale, locales} = useRouter();
+  const locale = selectLangs();
   const t:any = locale === "en"? en : ru;
   return (
     <div

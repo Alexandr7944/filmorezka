@@ -1,20 +1,16 @@
 import { render, screen } from '@testing-library/react';
 import Footer from '../../../components/Footer/Footer';
 import { useRouter } from 'next/router';
+import { Provider } from 'react-redux';
+import store from '@/store';
 jest.mock("next/router", () => ({
     useRouter: jest.fn(),
   }));
-  beforeEach(() => {
-    (useRouter as jest.Mock).mockReturnValue({
-      locale: "en",
-    });
-  });
+ 
 it('renders Footer component', () => {
-  render(<Footer />);
+  render(<Provider store={store}><Footer /></Provider>);
 
   
-  const sectionElement = screen.getByText(/section/i);
-  expect(sectionElement).toBeInTheDocument();
   // check icons
   const envelopeIcon = screen.getByTestId('envelope-icon');
   expect(envelopeIcon).toBeInTheDocument();

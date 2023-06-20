@@ -6,6 +6,7 @@ import defaultImage from '@/image/pngjoy.com_movie-clapper-clap-board-png-hd-tra
 import { useRouter } from 'next/router';
 import en from "../../locales/en/moviefilter/moviefilter"
 import ru from "../../locales/ru/moviefilter/moviefilter"
+import { selectLangs } from '@/store/selectors';
 type MovieItemProps = {
   movie: INewMovie,
   width?: number,
@@ -20,7 +21,8 @@ const MovieItem: React.FC<MovieItemProps> = ({ movie, width }) => {
       item[0].toUpperCase() + item.slice(1).toLowerCase()
     )
   }
-  const {locale} = useRouter();
+  // const {locale} = useRouter();
+  const locale = selectLangs();
   const t:any = locale === "en"? en : ru;
   return (
     <div 

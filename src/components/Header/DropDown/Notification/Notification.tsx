@@ -5,12 +5,14 @@ import { DropDownProps, INotification } from "@/interface/Header";
 import en from "../../../../locales/en/header/header"
 import ru from "../../../../locales/ru/header/header"
 import { useRouter } from "next/router";
+import { selectLangs } from "@/store/selectors";
 interface NotificationProps extends DropDownProps {
   content: INotification;
 }
 
 const Notification: React.FC<NotificationProps> = ({content}) => {
-  const { locale } = useRouter();
+  // const { locale } = useRouter();
+  const locale = selectLangs();
   const t = locale === 'en' ? en : ru;
   return (
     <div

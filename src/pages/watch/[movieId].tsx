@@ -6,7 +6,7 @@ import WatchMovie from '@/components/WatchMovie';
 import { IActor } from '@/interface/IActor';
 import { INewMovie } from '@/interface/IMovie';
 import { IVideo } from '@/interface/IMoviePage';
-import { selectGenres } from '@/store/selectors';
+import { selectGenres, selectLangs } from '@/store/selectors';
 import { capitalizeStr } from '@/utils/capitalize';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -14,7 +14,8 @@ import en from "../../locales/en/pages/watch/watch"
 import ru from "../../locales/ru/pages/watch/watch"
 
 const WatchPage = () => {
-  const {locale} = useRouter();
+  // const {locale} = useRouter();
+  const locale = selectLangs();
   const t = locale === "en"? en : ru;
   const [movie, setMovie] = useState<INewMovie>();
   const [video, setVideo] = useState<IVideo>({

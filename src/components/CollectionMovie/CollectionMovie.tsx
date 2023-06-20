@@ -12,6 +12,7 @@ import { Rating } from '@/interface/Rating';
 import en from "../../locales/en/collectionmovie/collectionmovie"
 import ru from "../../locales/ru/collectionmovie/collectionmovie"
 import { useRouter } from 'next/router';
+import { selectLangs } from '@/store/selectors';
 
 
 type CollectionMovieProps = {
@@ -30,7 +31,8 @@ const CollectionMovie: React.FC<CollectionMovieProps> = ({ collection, title, pa
     year: ['Все годы'],
     rating: ['Любой рейтинг']
   });  
-  const {locale} = useRouter();
+  // const {locale} = useRouter();
+  const locale = selectLangs();
   const t:any = locale === "en"? en : ru;
   useEffect(() => {
     Fetching.getAll(params 

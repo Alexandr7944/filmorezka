@@ -11,6 +11,7 @@ import Fetching from '@/API/Fetching';
 import en from "@/locales/en/admin"
 import ru from "@/locales/ru/admin"
 import { useRouter } from 'next/router';
+import { selectLangs } from '@/store/selectors';
 
 
 export interface EditProps {
@@ -22,7 +23,8 @@ const Edit: React.FC<EditProps> = ({ selectedObject, setSelectedObject }) => {
   const [nameRu, setNameRu] = useState<string>('');
   const [nameEn, setNameEn] = useState<string>('');
   const [isLoad, setIsLoad] = useState<boolean>();
-  const {locale} = useRouter();
+  // const {locale} = useRouter();
+  const locale = selectLangs();
   const t:any = locale === "en"? en : ru;
 
   useEffect(() => {

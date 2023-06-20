@@ -4,7 +4,7 @@ import styles from './admin-style.module.scss';
 import { useEffect, useState } from 'react';
 import Fetching from '@/API/Fetching';
 import { INewMovie } from '@/interface/IMovie';
-import { selectGenres } from '@/store/selectors';
+import { selectGenres, selectLangs } from '@/store/selectors';
 import { genre } from '@/types/genre';
 import {v4 as uuidv4} from 'uuid';
 import { MdOutlineMovieFilter } from 'react-icons/md';
@@ -19,7 +19,8 @@ import { useRouter } from 'next/router';
 const regExpEn: RegExp = /^[a-zA-Z\s\?\'\"]*$/;
 
 const Admin: React.FC = () => {
-  const {locale} = useRouter();
+  // const {locale} = useRouter();
+  const locale = selectLangs();
   const t:any = locale === "en"? en : ru;
   const user = useAppSelector(state => state.user);
   const [selectedObject, setSelectedObject] = useState<INewMovie | genre>();

@@ -3,8 +3,10 @@ import style from "./actorpage-style.module.scss";
 import en from "../../locales/en/actorpage/actorpage"
 import ru from "../../locales/ru/actorpage/actorpage"
 import { useRouter } from 'next/router';
+import { selectLangs } from '@/store/selectors';
 const NoFilms = () => {
-  const {locale, locales} = useRouter();
+  // const {locale, locales} = useRouter();
+  const locale = selectLangs();
   const t:any = locale === "en"? en : ru;
  
   return (

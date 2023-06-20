@@ -3,9 +3,11 @@ import style from "./footer-style.module.scss";
 import en from "../../locales/en/footer/footer"
 import ru from "../../locales/ru/footer/footer"
 import { useRouter } from "next/router";
+import { selectLangs } from "@/store/selectors";
 
 const FooterAboutUs: React.FC = () => {
-  const {locale} = useRouter();
+  // const {locale} = useRouter();
+  const locale = selectLangs();
   const t:any = locale === "en"? en : ru;
   return (
     <div>

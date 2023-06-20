@@ -2,9 +2,11 @@ import React from "react";
 import style from "../search.module.scss";
 import router, { useRouter } from "next/router";
 import { TbMasksTheater } from "react-icons/tb";
+import { selectLangs } from "@/store/selectors";
 
 const ActorResults = ({ ...item }) => {
-  const { locale } = useRouter();
+  // const { locale } = useRouter();
+  const locale = selectLangs();
  
   return (
     <div

@@ -7,7 +7,7 @@ import { Content, TypeContent, IFormat, INotification, IUser } from '@/interface
 import { Format, User, Notification } from './DropDown';
 import { useRouter } from 'next/router';
 import { IUserState } from '@/store/reducers/userSlice';
-import { selectUser } from '@/store/selectors';
+import { selectLangs, selectUser } from '@/store/selectors';
 import Search from '../Search/Search';
 import Image from 'next/image';
 
@@ -64,7 +64,9 @@ const Header: React.FC = () => {
     setTypeComponentDropDown(type);
   }
  
-  const { locale } = useRouter();
+  // const { locale } = useRouter();
+  // const t = locale === 'en' ? en : ru;
+  const locale = selectLangs();
   const t = locale === 'en' ? en : ru;
   return (
     <div

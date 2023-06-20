@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LanguageState } from '../../types/lang';
 
 const initialState: LanguageState = {
-  language: 'en', // язык по умолчанию
+  language: 'ru',
+  langs: undefined
 };
 
 const languageSlice = createSlice({

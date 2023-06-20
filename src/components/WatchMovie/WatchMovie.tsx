@@ -8,9 +8,11 @@ import { WatchMovieProps } from '@/interface/WatchMovieProps';
 import en from "../../locales/en/watchmovie/watchmovie"
 import ru from "../../locales/ru/watchmovie/watchmovie"
 import { useRouter } from 'next/router';
+import { selectLangs } from '@/store/selectors';
 
 const WatchMovie: React.FC<WatchMovieProps> = ({ movie, video, actors }) => {
-  const {locale} = useRouter();
+  // const {locale} = useRouter();
+  const locale = selectLangs();
   const t:any = locale === "en"? en : ru;
   
   const filmLength = (time: number) => {

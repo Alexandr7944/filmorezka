@@ -10,10 +10,12 @@ import FooterNetworks from "./FooterNetworks";
 import { useRouter } from "next/router";
 import en from "../../locales/en/footer/footer"
 import ru from "../../locales/ru/footer/footer"
+import { selectLangs } from "@/store/selectors";
 
 
 const Footer: React.FC = () => {
-  const {locale} = useRouter();
+  // const {locale} = useRouter();
+  const locale = selectLangs();
   const t:any = locale === "en"? en : ru;
   return (
     <div className={style.footer}>

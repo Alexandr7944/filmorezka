@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {Teaser} from "@/components/UI/Teaser";
 import { SlScreenDesktop } from "@/components/Icons/index";
 import { DropDownProps, IFormat } from "@/interface/Header";
-import { selectGenres } from "@/store/selectors";
+import { selectGenres, selectLangs } from "@/store/selectors";
 import { genre } from "@/types/genre";
 import Fetching from "@/API/Fetching";
 import { INewMovie } from "@/interface/IMovie";
@@ -98,8 +98,10 @@ const Format: React.FC<FormatProps> = ({content}) => {
         });
     }
   }, [paramsURL, content.typeFormatEn, debouncedParams]);
-  const { locale } = useRouter();
+  // const { locale } = useRouter();
+  const locale = selectLangs();
   const t = locale === 'en' ? en : ru;
+ 
   return (
     <div
       className={`${styles['wrapper']} container`}

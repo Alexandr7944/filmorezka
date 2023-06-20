@@ -5,10 +5,12 @@ import { BiSearch } from "react-icons/bi";
 import en from "../../locales/en/search/search"
 import ru from "../../locales/ru/search/search"
 import { useRouter } from "next/router";
+import { selectLangs } from "@/store/selectors";
 
 const Search = () => {
   const [modalActive, setModalActive] = useState(false);
-  const { locale } = useRouter();
+  // const { locale } = useRouter();
+  const locale = selectLangs();
   const t = locale === 'en' ? en : ru;
   return (
     <div data-testid="search" onClick={() => setModalActive(true)}>

@@ -3,6 +3,8 @@ import { render, screen } from "@testing-library/react";
 import { useRouter } from "next/router";
 import ActorPages from "../../../components/ActorPage/ActorPage";
 import Fetching from "../../../API/Fetching";
+import { Provider } from 'react-redux';
+import store from '@/store';
 jest.mock("next/router", () => ({
   useRouter: jest.fn(),
 }));
@@ -10,16 +12,11 @@ jest.mock("next/router", () => ({
 
 describe("ActorPages", () => {
   const actorID = "123";
-  beforeEach(() => {
-    (useRouter as jest.Mock).mockReturnValue({
-      locale: "ru",
-    });
-  });
   it("renders without errors", () => {
-    render(<ActorPages actorID="1245312" />);
+    render(<Provider store={store}><ActorPages actorID="1245312" /></Provider>);
   });
   it("displays the correct text", () => {
-    const { getByText } = render(<ActorPages actorID={undefined} />);
+    const { getByText } = render(<Provider store={store}><ActorPages actorID="1245312" /></Provider>);
     expect(getByText("Назад")).toBeInTheDocument();
   });
   it("displays actor name with correct locale", async () => {
@@ -92,7 +89,7 @@ describe("ActorPages", () => {
     const getNewAllMock = jest.fn().mockResolvedValue(actorData);
     Fetching.getNewAll = getNewAllMock;
 
-    render(<ActorPages actorID={actorID} />);
+    render(<Provider store={store}><ActorPages actorID={actorID} /></Provider>);
 
     const localizedActorName = await screen.findByText("Морган Фриман"); 
 

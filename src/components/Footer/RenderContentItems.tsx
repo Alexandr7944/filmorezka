@@ -10,6 +10,7 @@ import { IconType } from "react-icons";
 import { useRouter } from "next/router";
 import en from "../../locales/en/footer/footer"
 import ru from "../../locales/ru/footer/footer"
+import { selectLangs } from "@/store/selectors";
 type RenderProps = {
   title: string;
   content: IFormat;
@@ -72,7 +73,8 @@ const RenderContentItems: React.FC<RenderProps> = ({ ...item },) => {
       setArrowSvg(arrowDown);
     }
   };
-  const {locale} = useRouter();
+  // const {locale} = useRouter();
+  const locale = selectLangs();
   const t:any = locale === "en"? en : ru;
 
   return (

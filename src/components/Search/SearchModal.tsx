@@ -8,13 +8,15 @@ import GenreResult from "./searchResults/GenreResult";
 import en from "../../locales/en/search/search"
 import ru from "../../locales/ru/search/search"
 import { useRouter } from "next/router";
+import { selectLangs } from "@/store/selectors";
 
 interface SearchProps {
   active: boolean;
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const SearchModal: React.FC<SearchProps> = ({ active, setActive }) => {
-  const { locale } = useRouter();
+  // const { locale } = useRouter();
+  const locale = selectLangs();
   const t = locale === 'en' ? en : ru;
   const [searchValue, setSearchValue] = useState("");
   const [filmResult, setFilmResult] = useState([]);

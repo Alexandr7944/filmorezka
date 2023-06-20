@@ -6,13 +6,15 @@ import { useRouter } from "next/router";
 import {INewMovie } from "@/interface/IMovie";
 import en from "../../../locales/en/actorpage/actorpage"
 import ru from "../../../locales/ru/actorpage/actorpage"
+import { selectLangs } from "@/store/selectors";
 interface ModalProps {
   active: boolean;
   movieItem: INewMovie;
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 const ActorModal: React.FC<ModalProps> = ({ active, setActive, movieItem }) => {
-  const {locale, locales} = useRouter();
+  // const {locale, locales} = useRouter();
+  const locale = selectLangs();
   const t:any = locale === "en"? en : ru;
   const router = useRouter();
   return (

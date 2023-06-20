@@ -2,7 +2,8 @@ import React from "react";
 import { render } from "@testing-library/react";
 import ActorsMovieList from "../../../components/ActorPage/ActorsMovieList";
 import { useRouter } from "next/router";
-
+import { Provider } from 'react-redux';
+import store from '@/store';
 const movieItem = {
   movieItem: {
     id: 1,
@@ -30,14 +31,10 @@ jest.mock("next/router", () => ({
   useRouter: jest.fn(),
 }));
 describe("ActorsMovieList", () => {
-  beforeEach(() => {
-    (useRouter as jest.Mock).mockReturnValue({
-      locale: "ru",
-    });
-  });
+
   it("renders movie details correctly", () => {
     const { getByText} = render(
-      <ActorsMovieList {...movieItem} />
+      <Provider store={store}> <ActorsMovieList {...movieItem} /> </Provider>
     );
 
     expect(getByText("Попкульт", { selector: ".title2" })).toBeInTheDocument();

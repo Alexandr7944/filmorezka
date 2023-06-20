@@ -13,19 +13,24 @@ import NoFilms from "./NoFilms";
 import { useRouter } from "next/router";
 import en from "../../locales/en/actorpage/actorpage"
 import ru from "../../locales/ru/actorpage/actorpage"
-
+import { selectLangs } from "@/store/selectors";
 
 interface ActorPageProps {
   actorID: string | string[] | undefined;
 }
 
 const ActorPages: React.FC<ActorPageProps> = ({ actorID }) => {
-  const {locale} = useRouter();
+  // const {locale} = useRouter();
  
   const URL_ACTORS = "http://localhost:5100/actors/id/";
   const URL_FILMS = "http://localhost:5000/films/sp/";
-  const t:any = locale === "en"? en : ru;
- 
+  // const t:any = locale === "en"? en : ru;
+  // const { t, lang } = useTranslation("actorpage")
+  const locale = selectLangs();
+  const t = locale === 'en' ? en : ru;
+
+
+
   const [actor, setActor] = useState<IActor>();
   const [film, setFilm] = useState<INewMovie[]>();
   const [yet, setYet] = useState(false);

@@ -6,7 +6,7 @@ import { Button } from "@/components/UI/Button";
 import ChatLogin from "@/components/ChatLogin/ChatLogin";
 import ReactDOM from "react-dom";
 import { IUserState, clearUser } from "@/store/reducers/userSlice";
-import { selectUser } from "@/store/selectors";
+import { selectLangs, selectUser } from "@/store/selectors";
 import { useAppDispatch } from "@/hooks/hook";
 import AutorizationFetch from "@/API/AutorizationFetch";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -27,7 +27,8 @@ interface IOption {
 const sizeIcon: string = '22.5px';
 
 const User: React.FC<UserProps> = ({content}) => {
-  const {locale} = useRouter();
+  // const {locale} = useRouter();
+  const locale = selectLangs();
   const t:any = locale === "en"? en : ru;
   const userAccount: IUserState = selectUser();
   const dispatch = useAppDispatch();

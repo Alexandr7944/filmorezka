@@ -8,7 +8,7 @@ import { capitalizeStr } from '@/utils/capitalize';
 import en from "../../locales/en/moviefilter/moviefilter"
 import ru from "../../locales/ru/moviefilter/moviefilter"
 import { useRouter } from 'next/router';
-import { selectGenres } from '@/store/selectors';
+import { selectGenres, selectLangs } from '@/store/selectors';
 import countriesJSON from '../../data/countries.json';
 import yearsJSON from '../../data/years.json';
 import ratingJSON from '../../data/rating.json';
@@ -60,7 +60,8 @@ const MovieFilterContainer: React.FC<MovieFilterContainerProps> = ({ movies, mov
       .reduce((acc, item) => item?.length ? acc.concat(item) : acc, []);
     return [...new Set(arr)];
   }
-  const {locale} = useRouter();
+  // const {locale} = useRouter();
+  const locale = selectLangs();
   const t:any = locale === "en"? en : ru;
 
   return (

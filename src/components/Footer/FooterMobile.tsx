@@ -15,11 +15,13 @@ import Search from "../Search/Search";
 import { useRouter } from "next/router";
 import en from "../../locales/en/footer/footer"
 import ru from "../../locales/ru/footer/footer"
+import { selectLangs } from "@/store/selectors";
 
 const FooterMobile: React.FC = () => {
   const textYet = <BiDotsHorizontalRounded size="20px" />;
   const textClose = <MdOutlineClose size="20px" />;
-  const {locale} = useRouter();
+  // const {locale} = useRouter();
+  const locale = selectLangs();
   const t:any = locale === "en"? en : ru;
 
 

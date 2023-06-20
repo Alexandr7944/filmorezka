@@ -2,9 +2,11 @@ import React from "react";
 import style from "../search.module.scss";
 import { BiCameraMovie } from "react-icons/bi";
 import router, { useRouter } from "next/router";
+import { selectLangs } from "@/store/selectors";
 
 const FilmResults = ({ ...item }) => {
-  const { locale } = useRouter();
+  // const { locale } = useRouter();
+  const locale = selectLangs();
   return (
     <div
       className={style.title}

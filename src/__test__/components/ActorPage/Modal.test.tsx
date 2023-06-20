@@ -2,15 +2,12 @@ import React from "react";
 import { render, fireEvent } from "@testing-library/react";
 import { useRouter } from "next/router";
 import ActorModal from "../../../components/ActorPage/Modal/ActorModal";
-
+import { Provider } from 'react-redux';
+import store from '@/store';
 jest.mock("next/router", () => ({
   useRouter: jest.fn(),
 }));
-beforeEach(() => {
-    (useRouter as jest.Mock).mockReturnValue({
-      locale: "ru",
-    });
-  });
+
 const movieItem = {
     id: 1,
     image: "https://st.kp.yandex.net/images/film_iphone/iphone360_420923.jpg",
@@ -28,7 +25,7 @@ describe("ActorModal", () => {
     useRouter.mockReturnValue({ push: pushMock });
     const { container } = render(
          //@ts-ignore
-      <ActorModal active={true} setActive={setActive} movieItem={movieItem} />
+         <Provider store={store}> <ActorModal active={true} setActive={setActive} movieItem={movieItem} /> </Provider>
     );
     const modalContent = container.querySelector(".modal__content");
      //@ts-ignore
@@ -39,7 +36,7 @@ describe("ActorModal", () => {
     const setActive = jest.fn();
     const { getByText } = render(
          //@ts-ignore
-      <ActorModal active={true} setActive={setActive} movieItem={movieItem} />
+         <Provider store={store}> <ActorModal active={true} setActive={setActive} movieItem={movieItem} /> </Provider>
     );
     const button = getByText("Подробнее");
     expect(button).toBeInTheDocument();
@@ -48,7 +45,7 @@ describe("ActorModal", () => {
     const setActive = jest.fn();
     const { getByText } = render(
         //@ts-ignore
-      <ActorModal active={true} setActive={setActive} movieItem={movieItem} />
+        <Provider store={store}> <ActorModal active={true} setActive={setActive} movieItem={movieItem} /> </Provider>
     );
     const movieName = getByText("Шерлок Холмс");
     const director = getByText("Гай Ричи");

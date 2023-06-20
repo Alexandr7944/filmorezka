@@ -6,6 +6,9 @@ import CommentItem from '../CommentItem/CommentItem';
 import { Button } from '../UI/Button';
 import CommentFetch from '@/API/CommentFetch';
 import CommentInput from '../UI/CommentInput/CommentInput';
+import { selectLangs } from '@/store/selectors';
+import en from "../../locales/en/comments/comments"
+import ru from "../../locales/ru/comments/comments"
 
 type CommentsProps = {
   movieId: number,
@@ -18,6 +21,8 @@ const Comments: React.FC<CommentsProps> = ({ movieId, movieName }) => {
   const [getNewComment, setGetNewComment] = useState(false);
   const [commentInput, setCommentInput] = useState('');
   
+  const locale = selectLangs();
+  const t:any = locale === "en"? en : ru;
   const getComment = () => {
     CommentFetch.getComment(movieId, setCommentsList);
   };
@@ -55,10 +60,10 @@ const Comments: React.FC<CommentsProps> = ({ movieId, movieName }) => {
 
   return (
     <div className={styles.comments}>
-      <h2 className={styles.comments__title}>Комментарии к фильму {movieName}</h2>
+      <h2 className={styles.comments__title}>{t.comments} {movieName}</h2>
       {user.isAuth &&
         <Button onClick={() => setGetNewComment(prev => !prev)}>
-          Добавить комментарий
+          {t.add_comment}
         </Button>
       }
       {
@@ -80,7 +85,7 @@ const Comments: React.FC<CommentsProps> = ({ movieId, movieName }) => {
               deleteComment={deleteComment}
             />
           )
-          : <div className={styles.comments__default}>Комментариев нет, вы можете стать первым</div>
+          : <div className={styles.comments__default}>{t.comments__default}</div>
         }
       </div>
     </div>
